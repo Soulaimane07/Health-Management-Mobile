@@ -2,3 +2,4 @@ react native navigation stack
 react native progress
 
 react native navigation tab
+react-native-bouncy-checkbox
