@@ -1,14 +1,13 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Birth from '../screens/Auth/Signup/Birth';
-import Finish from '../screens/Auth/Signup/Finish';
-import Goal from '../screens/Auth/Signup/Goal';
-import Height from '../screens/Auth/Signup/Height';
-import Sex from '../screens/Auth/Signup/Sex';
-import Signup from '../screens/Auth/Signup/Signup';
 
 import Start from '../screens/Auth/Signup/Start';
+import Signup from '../screens/Auth/Signup/Signup';
+import Goal from '../screens/Auth/Signup/Goal';
+import Sex from '../screens/Auth/Signup/Sex';
+import Birth from '../screens/Auth/Signup/Birth';
+import Height from '../screens/Auth/Signup/Height';
 import Weight from '../screens/Auth/Signup/Weight';
-
+import Finish from '../screens/Auth/Signup/Finish';
 
 export default function SignStack() {
     const Stack = createNativeStackNavigator();

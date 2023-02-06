@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
-import Home from '../Screens/Logged/Home';
+import Home from '../screens/Logged/Home';
 
 export default function HomeStack() {
     const Tab = createBottomTabNavigator();
