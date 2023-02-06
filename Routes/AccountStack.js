@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import { Account } from '../screens/Logged/Account/Account';
 import Dietary from '../screens/Logged/Account/Dietary';
 import { Personal } from '../screens/Logged/Account/Personal';
