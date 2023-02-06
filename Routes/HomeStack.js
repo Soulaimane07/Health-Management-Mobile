@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Home from '../screens/Logged/Home';
 
-export default function HomeStack() {
+export default function HomeStack({route}) {
     const Tab = createBottomTabNavigator();
 
   return (
@@ -17,6 +17,7 @@ export default function HomeStack() {
       <Tab.Screen 
         name="home" 
         component={Home} 
+        initialParams={{user: route.params.user}}
         options={{
           headerShown: false,
           tabBarLabel: 'Home',

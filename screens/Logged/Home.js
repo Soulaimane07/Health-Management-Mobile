@@ -80,7 +80,7 @@ const target = [
   }
 ]
 
-export default function Home({navigation}) {
+export default function Home({route, navigation}) {
 
   const header = () => {
     const date = new Date().getHours()
@@ -151,7 +151,7 @@ export default function Home({navigation}) {
                 style={styles.logo}
                 source={require('../../assets/logo.jpg')}
             />
-            <Text style={styles.text}>Good {header()} Said </Text>
+            <Text style={styles.text}>Good {header()} {route.params.user.fname} </Text>
         </View>
         <TouchableOpacity style={styles.profile} onPress={()=> navigation.navigate("account")}>
             <Icon style={styles.icon} name="user" size={26} color="black" />

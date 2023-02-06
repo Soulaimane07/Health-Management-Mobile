@@ -5,15 +5,19 @@ import FaIcon from 'react-native-vector-icons/FontAwesome'
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
 import IosIcon from 'react-native-vector-icons/Ionicons'
 
-export function Account({navigation}) {
+export function Account({route, navigation}) {
   const profile = [
     {
-      "label":"Current Weight",
-      "value":`80 kg`,
+      "label":"Goal",
+      "value":`${route.params.user.goal}`,
     },
     {
-      "label":"Goal",
-      "value": `60kg`,
+      "label":"Current Weight",
+      "value":`${route.params.user.weight} kg`,
+    },
+    {
+      "label":"Goal Weight",
+      "value": `${route.params.user.goalweight} kg`,
     },
     {
       "label":"Active Diet",
@@ -46,7 +50,7 @@ export function Account({navigation}) {
           <View style={styles.icon}>
             <Icon name="user" size={26} color="white" />
           </View>
-          <Text style={styles.name}> Said </Text>
+          <Text style={styles.name}> {route.params.user.fname} {route.params.user.lname} </Text>
         </TouchableOpacity>
 
         <View style={styles.hr}></View>

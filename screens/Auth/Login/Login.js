@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
 
-export default function Login({navigation}) {
+export default function Login({route, navigation}) {
     const [email, setEmail] = useState("null")
     const [pass, setPass] = useState("null")
 
@@ -15,6 +15,8 @@ export default function Login({navigation}) {
         <View style={styles.info}>
             <Text style={styles.label}> Email Adress </Text>
             <TextInput 
+                email
+                autoComplete='email'
                 style={styles.textInput} 
                 placeholderTextColor='white'
                 onChangeText={e => setEmail(e)}
@@ -23,6 +25,7 @@ export default function Login({navigation}) {
         <View style={styles.info}>
             <Text style={styles.label}> Password </Text>
             <TextInput 
+                autoComplete='password'
                 secureTextEntry={true}
                 style={styles.textInput} 
                 placeholderTextColor='white'
@@ -42,7 +45,7 @@ export default function Login({navigation}) {
             </TouchableOpacity>
         </View>
 
-        {/* <Text> {email} {pass} </Text> */}
+        <Text> {email} {pass} </Text>
     </View>
   )
 }
@@ -74,6 +77,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         borderRadius: 16,
         padding: 10,
+        paddingHorizontal: 20,
     },
     button: {
         borderRadius: 16,

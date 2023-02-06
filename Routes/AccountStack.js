@@ -5,12 +5,12 @@ import Dietary from '../screens/Logged/Account/Dietary';
 import { Personal } from '../screens/Logged/Account/Personal';
 import Profile from '../screens/Logged/Account/Profile';
 
-export default function AccountStack() {
+export default function AccountStack({route}) {
     const Stack = createNativeStackNavigator();
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="account" component={Account} />
+      <Stack.Screen name="account" initialParams={{user: route.params.user}} component={Account} />
       <Stack.Screen 
         name="personal" 
         options={{
@@ -31,6 +31,7 @@ export default function AccountStack() {
       />
       <Stack.Screen 
         name="profile" 
+        initialParams={{user: route.params.user}}
         component={Profile} 
         options={{
           headerShown: true, 

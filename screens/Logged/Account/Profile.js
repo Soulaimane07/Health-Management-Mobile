@@ -1,20 +1,20 @@
 import React from 'react'
 import {StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-export default function Profile() {
+export default function Profile({route}) {
 
   const profile = [
     {
       "label":"First name",
-      "value":"Said"
+      "value": route.params.user.fname
     },
     {
       "label":"Last name",
-      "value":""
+      "value": route.params.user.lname
     },
     {
       "label":"Password",
-      "value":"******"
+      "value": route.params.user.pass
     },
   ]
   const condittion = false
