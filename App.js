@@ -6,6 +6,7 @@ import Login from './screens/Auth/Login/Login';
 
 import SignStack from './Routes/SignStack';
 import HomeStack from './Routes/HomeStack';
+import AccountStack from './Routes/AccountStack';
 
 const Stack = createNativeStackNavigator();
 

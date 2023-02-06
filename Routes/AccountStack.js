@@ -1,16 +1,17 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Personal } from '../Screens/Logged/Account/Personal';
-import { Account } from '../Screens/Logged/Account/Account';
-import Dietary from '../Screens/Logged/Account/Dietary';
-import Profile from '../Screens/Logged/Account/Profile';
+
+// import { Account } from '../Screens/Logged/Account/Account';
+// import { Personal } from '../Screens/Logged/Account/Personal';
+// import Dietary from '../Screens/Logged/Account/Dietary';
+// import Profile from '../Screens/Logged/Account/Profile';
 
 export default function AccountStack() {
     const Stack = createNativeStackNavigator();
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="account" component={Account} />
-        <Stack.Screen 
+        {/* <Stack.Screen name="account" component={Account} /> */}
+        {/* <Stack.Screen 
           name="personal" 
           options={{
             headerShown: true, 
@@ -36,7 +37,7 @@ export default function AccountStack() {
             headerStyle: {backgroundColor: '#3FC495'}, 
             headerTintColor:"white", title:"ACCOUNT"
           }} 
-        />
+        /> */}
     </Stack.Navigator>
   )
 }
