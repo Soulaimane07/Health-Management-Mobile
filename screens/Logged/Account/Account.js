@@ -1,4 +1,5 @@
-import React from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
@@ -6,18 +7,32 @@ import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
 import IosIcon from 'react-native-vector-icons/Ionicons'
 
 export function Account({route, navigation}) {
+  const [user, setUser] = useState("null")
+
+  useEffect(() => {
+    async function getUser(){
+      const value = await AsyncStorage.getItem('user')
+      const val = JSON.parse(value)
+      if(value !== null) {
+          console.log(value);
+          setUser(val)
+      }
+    }
+    getUser();
+  }, []) 
+
   const profile = [
     {
       "label":"Goal",
-      "value":`${route.params.user.goal}`,
+      "value": user.goal,
     },
     {
       "label":"Current Weight",
-      "value":`${route.params.user.weight} kg`,
+      "value": user.weight,
     },
     {
       "label":"Goal Weight",
-      "value": `${route.params.user.goalweight} kg`,
+      "value": user.Gweight,
     },
     {
       "label":"Active Diet",
@@ -50,7 +65,7 @@ export function Account({route, navigation}) {
           <View style={styles.icon}>
             <Icon name="user" size={26} color="white" />
           </View>
-          <Text style={styles.name}> {route.params.user.fname} {route.params.user.lname} </Text>
+          <Text style={styles.name}> {user.fname} {user.lname} </Text>
         </TouchableOpacity>
 
         <View style={styles.hr}></View>
@@ -119,7 +134,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   name: {
-    fontSize: 26,
+    fontSize: 20,
   },
 
   hr: {

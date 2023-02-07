@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
 
@@ -14,12 +15,23 @@ export default function Signup({navigation}) {
         pass: pass,
     }
 
+    const Submit = async () => {
+        try {
+            await AsyncStorage.setItem('user', JSON.stringify(user))
+            console.log("stored");
+            navigation.navigate('goal')
+        } catch (e) {
+            console.log("not stored");
+        }
+    }
+
   return (
     <View style={styles.container}>
         <Text style={styles.welcome}> Create your Account </Text>
         <View style={styles.info}>
             <Text style={styles.label}> Email Adress </Text>
             <TextInput 
+                autoComplete='email'
                 style={styles.textInput} 
                 placeholderTextColor='white'
                 onChangeText={e => setEmail(e)}
@@ -28,6 +40,7 @@ export default function Signup({navigation}) {
         <View style={styles.info}>
             <Text style={styles.label}> First Name </Text>
             <TextInput 
+                autoComplete='name'
                 style={styles.textInput} 
                 placeholderTextColor='white'
                 onChangeText={e => setFname(e)}
@@ -36,6 +49,7 @@ export default function Signup({navigation}) {
         <View style={styles.info}>
             <Text style={styles.label}> Last Name </Text>
             <TextInput 
+                autoComplete='name-family'
                 style={styles.textInput} 
                 placeholderTextColor='white'
                 onChangeText={e => setLname(e)}
@@ -44,6 +58,7 @@ export default function Signup({navigation}) {
         <View style={styles.info}>
             <Text style={styles.label}> Password </Text>
             <TextInput 
+                autoComplete='password'
                 secureTextEntry={true}
                 style={styles.textInput} 
                 placeholderTextColor='white'
@@ -54,7 +69,7 @@ export default function Signup({navigation}) {
         <View style={styles.info}>
             <TouchableOpacity 
                 style={styles.button} 
-                onPress={()=> navigation.navigate('goal')}>
+                onPress={()=> Submit()}>
                 <Text style={styles.buttonText}> Create </Text>
             </TouchableOpacity>
         </View>

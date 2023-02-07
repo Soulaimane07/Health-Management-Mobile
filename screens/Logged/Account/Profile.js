@@ -1,20 +1,38 @@
-import React from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import React, { useEffect, useState } from 'react'
 import {StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-export default function Profile({route}) {
+export default function Profile() {
+  const [user, setUser] = useState("null")
+
+  useEffect(() => {
+    async function getUser(){
+      const value = await AsyncStorage.getItem('user')
+      const val = JSON.parse(value)
+      if(value !== null) {
+          console.log(value);
+          setUser(val)
+      }
+    }
+    getUser();
+  }, [user]) 
 
   const profile = [
     {
       "label":"First name",
-      "value": route.params.user.fname
+      "value": user.fname
     },
     {
       "label":"Last name",
-      "value": route.params.user.lname
+      "value": user.lname
+    },
+    {
+      "label":"Email",
+      "value": user.email
     },
     {
       "label":"Password",
-      "value": route.params.user.pass
+      "value": user.pass
     },
   ]
   const condittion = false

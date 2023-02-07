@@ -1,34 +1,38 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useState } from 'react'
-import { StyleSheet, Text, TextInput, View } from 'react-native'
-import { NavigateBtn } from '../../../Components/Buttons'
 import { Progress } from '../../../Components/Headers'
+import { NavigateBtn } from '../../../Components/Buttons'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function Height({navigation}) {
-    const heightObj = [
+export default function GWeight({navigation}) {
+    const weightObj = [
         {
-            "title":"ft/in",
-            "value":"ft",
+            "title":"Lbs",
+            "value":"lbs",
         },
         {
-            "title":"m",
-            "value":"m",
+            "title":"Kg",
+            "value":"kg",
+        },
+        {
+            "title":"St",
+            "value":"st",
         }
     ]
 
-    const [height, setHeight] = useState(0)
     const [obj, setObj] = useState(0)
-    const condittion = height <= 0
+    const [weight, setWeight] = useState(0)
+    const condittion = weight <= 0
 
-    const heightkey = {
-        height: height >= 0 && `${height} ${heightObj[obj].title}`
+    const weightKey = {
+        Gweight: weight >= 0 && `${weight} ${weightObj[obj].title}`
     }
-    
+
     const Submit = async () => {
         try {
-          await AsyncStorage.mergeItem('user', JSON.stringify(heightkey))
+          await AsyncStorage.mergeItem('user', JSON.stringify(weightKey))
           console.log("stored");
-          navigation.navigate('weight')
+          navigation.navigate('finish')
         } catch (e) {
           console.log("not stored");
         }
@@ -36,35 +40,35 @@ export default function Height({navigation}) {
 
   return (
     <View style={styles.container}>
-        {Progress({navigation}, 3)}
+        {Progress({navigation}, 5)}
 
         <View>
             <View style={styles.box}>
                 <TextInput
                     style={styles.input}
+                    value={weight}
                     keyboardType="numeric"
-                    value={height}
-                    onChangeText={e => setHeight(e)}
+                    onChangeText={e => setWeight(e)}
                 />
-                <Text> {heightObj[obj].title} </Text>
+                <Text> {weightObj[obj].title} </Text>
             </View>
 
             <View style={styles.choise}>
-                {heightObj.map((item,key)=>(
+                {weightObj.map((item,key)=>(
                     <Text onPress={()=> setObj(key)} key={key} style={obj === key ? styles.active : styles.choose}> {item.title} </Text>
                 ))}
             </View>
         </View>
 
-        {NavigateBtn({navigation}, "Next", Submit, condittion)}
+      {NavigateBtn({navigation}, "Finish", Submit, condittion)}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'space-between',
+        flex: 1,
+        justifyContent: 'space-between',
     },
     choise: {
         flexDirection: 'row',

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import { DateHeader } from '../../Components/Date'
@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Feather'
 import Ficon from 'react-native-vector-icons/Fontisto'
 import Foicon from 'react-native-vector-icons/Foundation'
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const months = [
   {
@@ -82,6 +83,20 @@ const target = [
 
 export default function Home({route, navigation}) {
 
+    const [user, setUser] = useState("null")
+
+    useEffect(() => {
+        async function getUser(){
+          const value = await AsyncStorage.getItem('user')
+          const val = JSON.parse(value)
+          if(value !== null) {
+              console.log(value);
+              setUser(val)
+          }
+        }
+        getUser();
+      }, [user]) 
+
   const header = () => {
     const date = new Date().getHours()
     let datee = 0
@@ -151,7 +166,7 @@ export default function Home({route, navigation}) {
                 style={styles.logo}
                 source={require('../../assets/logo.jpg')}
             />
-            <Text style={styles.text}>Good {header()} {route.params.user.fname} </Text>
+            <Text style={styles.text}>Good {header()} {user && user.fname} </Text>
         </View>
         <TouchableOpacity style={styles.profile} onPress={()=> navigation.navigate("account")}>
             <Icon style={styles.icon} name="user" size={26} color="black" />

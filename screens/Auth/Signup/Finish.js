@@ -3,15 +3,27 @@ import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacit
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/Feather';
 import * as Progress from 'react-native-progress';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Finish({navigation}) {
     const [show, setShow] = useState(false)
+    const [user, setUser] = useState("null")
 
     useEffect(() => {
         setTimeout(() => {
             setShow(true)
         }, 3000)
-    }, [])
+
+        async function getUser(){
+            const value = await AsyncStorage.getItem('user')
+            const val = JSON.parse(value)
+            if(value !== null) {
+                console.log(value);
+                setUser(val)
+            }
+        }
+        getUser();
+    }, [user])
 
     const Reachs = [
         {
@@ -83,13 +95,19 @@ export default function Finish({navigation}) {
                         <Icon style={styles.icon} name="check" size={24} color="white" />
                     </View>
                 </View>
-                <Text style={styles.text3}> Said, your personalized health plan is ready! </Text>
+                <Text style={styles.text3}> {user.fname}, your personalized health plan is ready! </Text>
 
                 <View style={styles.box}>
                     <View style={styles.box1}>
-                        <Text style={styles.text4}> 60 Kg </Text>
-                        <Icon1 style={styles.icon1} name="trending-down" size={34} color="#3FC495" />
-                        <Text style={styles.text4}> 50 Kg </Text>
+                        {user.goal === "Maintain Weight" ?
+                            <Text style={styles.text4}> {user.weight} </Text>
+                        :
+                            <>
+                                <Text style={styles.text4}> {user.weight} </Text>
+                                <Icon1 style={styles.icon1} name={user.goal === "Lose Weight" ? "trending-down" : "trending-up"} size={34} color="#3FC495" />
+                                <Text style={styles.text4}> {user.Gweight} </Text>
+                            </>
+                        }
                     </View>
                     <Text style={styles.text5}> Follow your recommendations and you will reach your goal. </Text>
                 </View>

@@ -1,10 +1,11 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
 import { Progress } from '../../../Components/Headers'
 
 export default function Weight({navigation}) {
-    const heightObj = [
+    const weightObj = [
         {
             "title":"Lbs",
             "value":"lbs",
@@ -23,6 +24,22 @@ export default function Weight({navigation}) {
     const [weight, setWeight] = useState(0)
     const condittion = weight <= 0
 
+    const weightKey = {
+        weight: weight >= 0 && `${weight} ${weightObj[obj].title}`
+    }
+    
+    const Submit = async () => {
+        try {
+          await AsyncStorage.mergeItem('user', JSON.stringify(weightKey))
+          console.log("stored");
+          const user = await AsyncStorage.getItem('user')
+          const val = JSON.parse(user)
+          navigation.navigate(val.goal !== "Maintain Weight" ? 'gweight' : 'finish')
+        } catch (e) {
+          console.log("not stored");
+        }
+    }
+
   return (
     <View style={styles.container}>
         {Progress({navigation}, 4)}
@@ -35,17 +52,17 @@ export default function Weight({navigation}) {
                     keyboardType="numeric"
                     onChangeText={e => setWeight(e)}
                 />
-                <Text> {heightObj[obj].title} </Text>
+                <Text> {weightObj[obj].title} </Text>
             </View>
 
             <View style={styles.choise}>
-                {heightObj.map((item,key)=>(
+                {weightObj.map((item,key)=>(
                     <Text onPress={()=> setObj(key)} key={key} style={obj === key ? styles.active : styles.choose}> {item.title} </Text>
                 ))}
             </View>
         </View>
 
-        {NavigateBtn({navigation}, "Next", "finish", condittion)}
+        {NavigateBtn({navigation}, "Next", Submit, condittion)}
     </View>
   )
 }

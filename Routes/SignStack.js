@@ -8,6 +8,7 @@ import Birth from '../screens/Auth/Signup/Birth';
 import Height from '../screens/Auth/Signup/Height';
 import Weight from '../screens/Auth/Signup/Weight';
 import Finish from '../screens/Auth/Signup/Finish';
+import GWeight from '../screens/Auth/Signup/GWeight';
 
 export default function SignStack() {
     const Stack = createNativeStackNavigator();
@@ -22,6 +23,7 @@ export default function SignStack() {
       <Stack.Screen name="birth" component={Birth} />
       <Stack.Screen name="height" component={Height} />
       <Stack.Screen name="weight" component={Weight} />
+      <Stack.Screen name="gweight" component={GWeight} />
       <Stack.Screen name="finish" component={Finish} />
     </Stack.Navigator>
   )

@@ -1,9 +1,19 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
 import { Progress } from '../../../Components/Headers'
 
 export default function Birth({navigation}) {
+
+  const Submit = async () => {
+    try {
+      navigation.navigate('height')
+    } catch (e) {
+      console.log("not stored");
+    }
+  }
+
   return (
     <View style={styles.container}>
         {Progress({navigation}, 2)}
@@ -11,7 +21,7 @@ export default function Birth({navigation}) {
         <View style={styles.boxs}>
         </View>
 
-        {NavigateBtn({navigation}, "Next", "height", )}
+        {NavigateBtn({navigation}, "Next", Submit, )}
     </View>
   )
 }

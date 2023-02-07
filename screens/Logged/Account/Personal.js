@@ -1,41 +1,50 @@
-import React from 'react'
-import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 
-
 export function Personal() {
+    const [user, setUser] = useState("null")
+
+    useEffect(() => {
+        async function getUser(){
+            const value = await AsyncStorage.getItem('user')
+            const val = JSON.parse(value)
+            if(value !== null) {
+                console.log(value);
+                setUser(val)
+            }
+        }
+        getUser();
+    }, [user]) 
 
     const Goals = [
         {
             "label":"Goal",
-            "value":"Lose Weight",
+            "value": user.goal,
         },
         {
             "label":"Goal Weight",
-            "value":"50kg",
+            "value": user.Gweight,
         },
     ]
 
     const Details = [
         {
-            "label":"First Name",
-            "value":"Said",
-        },
-        {
             "label":"Current Weight",
-            "value":"60kg",
+            "value": user.weight,
         },
         {
             "label":"Height",
-            "value":"1.70m",
+            "value": user.height,
         },
         {
             "label":"Date of birth",
-            "value":"2003-11-03",
+            "value": "",
         },
         {
             "label":"Gender",
-            "value":"Male",
+            "value": user.sex,
         },
     ]
 

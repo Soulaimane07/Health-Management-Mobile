@@ -17,7 +17,6 @@ export default function HomeStack({route}) {
       <Tab.Screen 
         name="home" 
         component={Home} 
-        initialParams={{user: route.params.user}}
         options={{
           headerShown: false,
           tabBarLabel: 'Home',

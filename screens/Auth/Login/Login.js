@@ -1,12 +1,26 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
 
 export default function Login({route, navigation}) {
-    const [email, setEmail] = useState("null")
-    const [pass, setPass] = useState("null")
+    const [email, setEmail] = useState(null)
+    const [pass, setPass] = useState(null)
 
-    const fun = () => {
-        navigation.navigate('home')
+    const condition = email === null || pass === null
+
+    const user = {
+        email: email,
+        pass: pass,
+    }
+
+    const fun = async () => {
+        try {
+            await AsyncStorage.setItem('user', JSON.stringify(user))
+            console.log("stored");
+            navigation.navigate('home')
+        } catch (e) {
+            console.log("not stored");
+        }
     }
 
   return (
@@ -34,18 +48,25 @@ export default function Login({route, navigation}) {
             />
         </View>
         <View style={styles.info}>
-            <TouchableOpacity onPress={()=> fun()} style={styles.button}>
-                <Text style={styles.buttonText}> Log In </Text>
+            <TouchableOpacity 
+                disabled={condition ? true : false}
+                style={condition ? styles.disabledBtn : styles.button}
+                onPress={()=> fun()} 
+            >
+                <Text style={condition ? styles.disabledBtnText : styles.buttonText}> Log In </Text>
             </TouchableOpacity>
         </View>
         <View style={styles.signPara}>
             <Text> Don't have an account? </Text>
-            <TouchableOpacity onPress={()=> navigation.navigate('start')} style={styles.sign}>
+            <TouchableOpacity
+                style={styles.sign}
+                onPress={()=> navigation.navigate('start')} 
+            >
                 <Text style={styles.signText}> Create Account </Text>
             </TouchableOpacity>
         </View>
 
-        <Text> {email} {pass} </Text>
+        {/* <Text> {email} {pass} </Text> */}
     </View>
   )
 }
@@ -96,5 +117,20 @@ const styles = StyleSheet.create({
     },
     signPara: {
         flexDirection: 'row',
-    }
+    },
+
+    disabledBtn: {
+        borderRadius: 16,
+        padding: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "white",
+        margin: 20,
+        borderWidth: 1,
+        borderColor: "#adb5bd",
+    },
+    disabledBtnText: {
+        color: '#adb5bd',
+        fontSize: 16,
+    },
 })

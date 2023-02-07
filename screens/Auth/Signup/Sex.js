@@ -1,11 +1,12 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
 import { Progress } from '../../../Components/Headers'
 
 export default function Sex({navigation}) {
-    const [sex, setSex] = useState(null)
-    const condittion = sex === null
+    const [box, setBox] = useState(null)
+    const condittion = box === null
 
     const sexObj = [
         {
@@ -18,17 +19,31 @@ export default function Sex({navigation}) {
         }
     ]
 
+    const sex = {
+        sex: box && sexObj[box].title
+    }
+    
+    const Submit = async () => {
+        try {
+          await AsyncStorage.mergeItem('user', JSON.stringify(sex))
+          console.log("stored");
+          navigation.navigate('birth')
+        } catch (e) {
+          console.log("not stored");
+        }
+    }
+
   return (
     <View style={styles.container}>
         {Progress({navigation}, 1)}
         
         <View style={styles.boxs}>
             {sexObj.map((item,key)=>(
-                <Text onPress={()=> setSex(key)} style={sex === key ? styles.active : styles.box} key={key}> {item.title} </Text>
+                <Text onPress={()=> setBox(key)} style={box === key ? styles.active : styles.box} key={key}> {item.title} </Text>
             ))}
         </View>
 
-        {NavigateBtn({navigation}, "Next", "birth", condittion)}
+        {NavigateBtn({navigation}, "Next", Submit, condittion)}
     </View>
   )
 }

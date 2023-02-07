@@ -48,8 +48,8 @@ export default function App() {
           </>
           {/* : */}
           <>
-            <Stack.Screen name="home" initialParams={{user: user}} component={HomeStack} />
-            <Stack.Screen name="account" initialParams={{user: user}} component={AccountStack} />
+            <Stack.Screen name="home" component={HomeStack} />
+            <Stack.Screen name="account" component={AccountStack} />
 
             <Stack.Screen name="calories" 
               options={{
