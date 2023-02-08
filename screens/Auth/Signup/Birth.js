@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TextInput, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
 import { Progress } from '../../../Components/Headers'
 
@@ -19,10 +19,9 @@ export default function Birth({navigation}) {
         {Progress({navigation}, 2)}
 
         <View style={styles.boxs}>
-         
         </View>
 
-        {NavigateBtn({navigation}, "Next", Submit, )}
+        {NavigateBtn({navigation}, "Next", Submit, true )}
     </View>
   )
 }

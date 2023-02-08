@@ -3,11 +3,11 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native"
 export const NavigateBtn = ({navigation}, text, submit, condittion) => {
     return (
         <TouchableOpacity
-            style={condittion ? styles.disabledBtn : styles.button} 
+            style={!condittion ? styles.disabledBtn : styles.button} 
             onPress={()=> submit()}
-            disabled={condittion ? true : false}
+            disabled={!condittion ? true : false}
         >
-            <Text style={condittion ? styles.disabledBtnText : styles.buttonText}> {text} </Text>
+            <Text style={!condittion ? styles.disabledBtnText : styles.buttonText}> {text} </Text>
         </TouchableOpacity>
     )
 }

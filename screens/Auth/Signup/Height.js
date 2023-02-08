@@ -4,6 +4,8 @@ import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
 import { Progress } from '../../../Components/Headers'
 
+import Ficon from 'react-native-vector-icons/FontAwesome'
+
 export default function Height({navigation}) {
     const heightObj = [
         {
@@ -16,21 +18,29 @@ export default function Height({navigation}) {
         }
     ]
 
-    const [height, setHeight] = useState(0)
+    const [heightX, setHeightX] = useState(0)
+    const [heightY, setHeightY] = useState(0)
+
     const [obj, setObj] = useState(0)
-    const condittion = height <= 0
+    const condittion = heightX > 0 && heightY > 0
+
+    const height = {
+        x: heightX,
+        y: heightY,
+        unite: heightObj[obj].title
+    }
 
     const heightkey = {
-        height: height >= 0 && `${height} ${heightObj[obj].title}`
+        height: heightX >= 0 && heightY >= 0 && `${height}`
     }
     
     const Submit = async () => {
         try {
           await AsyncStorage.mergeItem('user', JSON.stringify(heightkey))
-          console.log("stored");
+          console.log("Height is stored");
           navigation.navigate('weight')
         } catch (e) {
-          console.log("not stored");
+          console.log("Height isn't stored");
         }
     }
 
@@ -40,14 +50,48 @@ export default function Height({navigation}) {
 
         <View>
             <View style={styles.box}>
+                {obj === 1 ?
+                <>
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, {width: 50}]}
+                    keyboardType="numeric"
+                    value={heightX}
+                    onChangeText={e => setHeightX(e)}
+                    maxLength={1}
+                />
+                <Ficon name="circle" style={{marginHorizontal: 10}} size={5} />
+                <TextInput
+                    style={[styles.input, {width: 100}]}
+                    keyboardType="numeric"
+                    value={heightY}
+                    maxLength={2}
+                    onChangeText={e => setHeightY(e)}
+                />
+                </>
+                :
+                <>
+                <TextInput
+                    style={[styles.input, {width: 60}]}
                     keyboardType="numeric"
                     value={height}
-                    onChangeText={e => setHeight(e)}
+                    maxLength={2}
+                    onChangeText={e => setHeightX(e)}
                 />
-                <Text> {heightObj[obj].title} </Text>
+                <Text style={{padding: 10, borderBottomWidth: 1, borderBottomColor: "#3FC495", marginLeft: 10, fontSize: 14}}> feet </Text>
+
+                <TextInput
+                    style={[styles.input, {width: 60, marginLeft: 20,}]}
+                    keyboardType="numeric"
+                    value={height}
+                    maxLength={2}
+                    onChangeText={e => setHeightY(e)}
+                />
+                <Text style={{padding: 10, borderBottomWidth: 1, borderBottomColor: "#3FC495", marginLeft: 10, fontSize: 14}}> inches </Text>
+
+                </>
+                }
             </View>
+
 
             <View style={styles.choise}>
                 {heightObj.map((item,key)=>(
@@ -91,7 +135,6 @@ const styles = StyleSheet.create({
     },
     input: {
         fontSize: 26,
-        width: 100,
         textAlign: "center",
         borderBottomWidth: 1,
         borderColor: "#3FC495",
@@ -103,7 +146,7 @@ const styles = StyleSheet.create({
         margin: 10,
         marginBottom: 30,
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-end',
         justifyContent: 'center',
     },
 })

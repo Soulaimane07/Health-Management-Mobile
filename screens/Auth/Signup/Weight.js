@@ -13,30 +13,26 @@ export default function Weight({navigation}) {
         {
             "title":"Kg",
             "value":"kg",
-        },
-        {
-            "title":"St",
-            "value":"st",
         }
     ]
     
     const [obj, setObj] = useState(0)
     const [weight, setWeight] = useState(0)
-    const condittion = weight <= 0
+    const condittion = weight > 0
 
     const weightKey = {
-        weight: weight >= 0 && `${weight} ${weightObj[obj].title}`
+        weight: weight >= 0 && `${weight}`
     }
     
     const Submit = async () => {
         try {
           await AsyncStorage.mergeItem('user', JSON.stringify(weightKey))
-          console.log("stored");
+          console.log("Weight is stored");
           const user = await AsyncStorage.getItem('user')
           const val = JSON.parse(user)
           navigation.navigate(val.goal !== "Maintain Weight" ? 'gweight' : 'finish')
         } catch (e) {
-          console.log("not stored");
+          console.log("Weight isn't stored");
         }
     }
 

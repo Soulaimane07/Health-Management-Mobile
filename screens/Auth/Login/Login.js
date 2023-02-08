@@ -16,10 +16,10 @@ export default function Login({route, navigation}) {
     const fun = async () => {
         try {
             await AsyncStorage.setItem('user', JSON.stringify(user))
-            console.log("stored");
+            console.log("User info stored");
             navigation.navigate('home')
         } catch (e) {
-            console.log("not stored");
+            console.log("User info isn't stored");
         }
     }
 

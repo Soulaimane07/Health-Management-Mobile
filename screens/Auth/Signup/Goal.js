@@ -7,7 +7,7 @@ import Statusbar from '../../../Components/Statusbar';
 
 export default function Goal({navigation}) {
   const [box, setBox] = useState(null)
-  const condittion = box === null
+  const condittion = box !== null
 
   const goals = [
     {
@@ -31,10 +31,10 @@ export default function Goal({navigation}) {
   const Submit = async () => {
     try {
       await AsyncStorage.mergeItem('user', JSON.stringify(goal))
-      console.log("stored");
+      console.log("goal is stored");
       navigation.navigate('sex')
     } catch (e) {
-      console.log("not stored");
+      console.log("goal isn't stored");
     }
   }
 

@@ -95,7 +95,7 @@ export default function Home({route, navigation}) {
           }
         }
         getUser();
-    }, [user]) 
+    }, []) 
 
   const header = () => {
     const date = new Date().getHours()

@@ -23,7 +23,7 @@ export default function Finish({navigation}) {
             }
         }
         getUser();
-    }, [user])
+    }, [])
 
     const Reachs = [
         {
@@ -94,7 +94,6 @@ export default function Finish({navigation}) {
                     <View style={styles.iconbtn}>
                         <Icon style={styles.icon} name="check" size={24} color="white" />
                     </View>
-                   {/* <  */}
                 </View>
                 <Text style={styles.text3}> {user.fname}, your personalized health plan is ready! </Text>
 

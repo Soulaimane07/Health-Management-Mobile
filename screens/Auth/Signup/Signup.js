@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
 
 export default function Signup({navigation}) {
-    const [email, setEmail] = useState("null")
-    const [fname, setFname] = useState("null")
-    const [lname, setLname] = useState("null")
-    const [pass, setPass] = useState("null")
+    const [email, setEmail] = useState(null)
+    const [fname, setFname] = useState(null)
+    const [lname, setLname] = useState(null)
+    const [pass, setPass] = useState(null)
 
     const user = {
         email: email,
@@ -14,14 +14,16 @@ export default function Signup({navigation}) {
         lname: lname,
         pass: pass,
     }
+    
+    const condittion = email !== null && fname !== null && lname !== null && pass !== null
 
     const Submit = async () => {
         try {
             await AsyncStorage.setItem('user', JSON.stringify(user))
-            console.log("stored");
+            console.log("User info is Stored");
             navigation.navigate('goal')
         } catch (e) {
-            console.log("not stored");
+            console.log("User info isn't stored");
         }
     }
 
@@ -68,9 +70,11 @@ export default function Signup({navigation}) {
         </View>
         <View style={styles.info}>
             <TouchableOpacity 
-                style={styles.button} 
-                onPress={()=> Submit()}>
-                <Text style={styles.buttonText}> Create </Text>
+                disabled={!condittion ? true : false}
+                style={!condittion ? styles.disabledBtn : styles.button} 
+                onPress={()=> Submit()}
+            >
+                <Text style={!condittion ? styles.disabledBtnText : styles.buttonText}> Create </Text>
             </TouchableOpacity>
         </View>
         {/* <Text> {email} {fname} {lname} {pass} </Text> */}
@@ -124,6 +128,19 @@ const styles = StyleSheet.create({
     },
     signPara: {
         flexDirection: 'row',
+    },
+
+    disabledBtn: {
+        borderRadius: 16,
+        padding: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "white",
+        marginBottom: 10,
+    },
+    disabledBtnText: {
+        color: '#adb5bd',
+        fontSize: 16,
     },
 
 })

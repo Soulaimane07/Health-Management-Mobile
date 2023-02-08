@@ -16,7 +16,7 @@ export function Personal() {
             }
         }
         getUser();
-    }, [user]) 
+    }, []) 
 
     const Goals = [
         {

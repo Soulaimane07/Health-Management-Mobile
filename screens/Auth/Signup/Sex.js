@@ -6,7 +6,7 @@ import { Progress } from '../../../Components/Headers'
 
 export default function Sex({navigation}) {
     const [box, setBox] = useState(null)
-    const condittion = box === null
+    const condittion = box !== null
 
     const sexObj = [
         {
@@ -26,10 +26,10 @@ export default function Sex({navigation}) {
     const Submit = async () => {
         try {
           await AsyncStorage.mergeItem('user', JSON.stringify(sex))
-          console.log("stored");
+          console.log("Sex is stored");
           navigation.navigate('birth')
         } catch (e) {
-          console.log("not stored");
+          console.log("Sex isn't stored");
         }
     }
 

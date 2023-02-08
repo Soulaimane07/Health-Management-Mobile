@@ -15,7 +15,7 @@ export default function Profile() {
       }
     }
     getUser();
-  }, [user]) 
+  }, []) 
 
   const profile = [
     {

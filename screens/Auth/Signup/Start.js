@@ -5,7 +5,7 @@ function Start({navigation}) {
   return (
     <View style={styles.container}>
         <Text style={styles.header}> Welcome! Let's customize HealthManager for your goals.</Text>
-        <TouchableOpacity onPress={()=> navigation.navigate("finish")} style={styles.button}>
+        <TouchableOpacity onPress={()=> navigation.navigate("signup")} style={styles.button}>
             <Text style={styles.buttonText}> Continue </Text>
         </TouchableOpacity>
         {/* <Text style={styles.alert}> We will never post anything without your permition. </Text> */}

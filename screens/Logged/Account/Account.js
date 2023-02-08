@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
@@ -97,15 +97,23 @@ export function Account({route, navigation}) {
           ))}
       </View>
 
-      <View style={styles.logout}>
+
+
+
+
+      {/* <View style={styles.logout}>
         <Image 
           style={styles.logo}
           source={require('../../../assets/logo.jpg')}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity 
+          style={styles.button}
+          onPress={()=> Alert.alert('hi')}
+        
+        >
           <Text style={styles.Btntext}> LOG OUT </Text>
-        </TouchableOpacity>
-      </View>
+        </TouchableOpacity> 
+      </View>*/}
     </View>
   )
 }

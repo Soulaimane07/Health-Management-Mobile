@@ -1,10 +1,49 @@
 import { View, Text, StyleSheet, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Progress } from '../../../Components/Headers'
 import { NavigateBtn } from '../../../Components/Buttons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function GWeight({navigation}) {
+    const [user, setUser] = useState("null")
+    
+    useEffect(() => {
+        async function getUser(){
+            const value = await AsyncStorage.getItem('user')
+            const val = JSON.parse(value)
+            if(value !== null) {
+                console.log(value);
+                setUser(val)
+            }
+        }
+        getUser();
+    }, []) 
+
+    const height = user.height
+    // const h = JSON.parse(height)
+    
+    const InputCondittion = () => {
+        let x
+        let Statement
+
+        user.goal === "Gain Weight" ?
+        <>
+        {x= Number(user.weight) < weight}
+        {weight <= Number(user?.weight) && weight != 0 ?
+            Statement = <Text style={styles.error}> Your goal weight must be more than {user.weight} kg </Text>
+        : ""}
+        </>
+        :
+        <>
+        {x= Number(user.weight) > weight}
+        {weight >= Number(user?.weight) && weight != 0 ? 
+            Statement = <Text style={styles.error}> Your goal weight must be less than {user.weight} kg </Text> 
+        : ""}
+        </>
+
+        return {x,Statement}
+    }
+
     const weightObj = [
         {
             "title":"Lbs",
@@ -13,16 +52,12 @@ export default function GWeight({navigation}) {
         {
             "title":"Kg",
             "value":"kg",
-        },
-        {
-            "title":"St",
-            "value":"st",
         }
     ]
 
     const [obj, setObj] = useState(0)
     const [weight, setWeight] = useState(0)
-    const condittion = weight <= 0
+    const condittion = weight > 0 && InputCondittion().x
 
     const weightKey = {
         Gweight: weight >= 0 && `${weight} ${weightObj[obj].title}`
@@ -31,10 +66,10 @@ export default function GWeight({navigation}) {
     const Submit = async () => {
         try {
           await AsyncStorage.mergeItem('user', JSON.stringify(weightKey))
-          console.log("stored");
+          console.log("Goal Weight is stored");
           navigation.navigate('finish')
         } catch (e) {
-          console.log("not stored");
+          console.log("Goal Weight isn't stored");
         }
     }
 
@@ -42,12 +77,18 @@ export default function GWeight({navigation}) {
     <View style={styles.container}>
         {Progress({navigation}, 5)}
 
+ 
+        {/* <Text> {h} </Text> */}
+
         <View>
+            {InputCondittion().Statement}
+
             <View style={styles.box}>
                 <TextInput
                     style={styles.input}
                     value={weight}
                     keyboardType="numeric"
+                    maxLength={3}
                     onChangeText={e => setWeight(e)}
                 />
                 <Text> {weightObj[obj].title} </Text>
@@ -110,4 +151,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    error: {
+        color: "red",
+        textAlign: "center",
+        marginBottom: 20,
+    }
 })

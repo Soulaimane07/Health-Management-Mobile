@@ -51,7 +51,7 @@ export const Progress = ({navigation}, p) => {
           }
         }
         getUser();
-    }, [user]) 
+    }, []) 
 
     return (
         <View>
