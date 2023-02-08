@@ -1,10 +1,10 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
 import { Progress } from '../../../Components/Headers'
 
 export default function Birth({navigation}) {
+  const [date, setDate] = useState(new Date())
 
   const Submit = async () => {
     try {
@@ -19,6 +19,7 @@ export default function Birth({navigation}) {
         {Progress({navigation}, 2)}
 
         <View style={styles.boxs}>
+         
         </View>
 
         {NavigateBtn({navigation}, "Next", Submit, )}

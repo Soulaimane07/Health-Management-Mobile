@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 
@@ -23,19 +23,23 @@ export default function First({navigation}) {
     ]
 
   return (
-    <SafeAreaView style={!show ? {backgroundColor: "white", flex: 1, justifyContent: 'center', alignItems: 'center'} : styles.container}>
+    <ImageBackground source={require('../../assets/auth/image1.jpg')} style={!show ? {backgroundColor: "white", flex: 1, justifyContent: 'center', alignItems: 'center'} : styles.container} >
         <StatusBar
             style="dark"
             hidden = {false} 
-            backgroundColor = "white" 
+            backgroundColor = "transparent" 
             translucent = {true}
         />
         <Image 
             style={!show ? {width: 300, height: 300} : {width: 240, height: 240, marginTop: 60}}
-            source={require('../../assets/logo.jpg')}
+            source={require('../../assets/logoPng.png')}
         />
         {show &&
             <View style={styles.buttons}>
+                <View style={styles.para}>
+                    <Text style={styles.text}> Healthy eating. </Text>
+                    <Text style={styles.text}> Simplified. </Text>
+                </View>
                 {buttons.map((item,key)=>(
                     <TouchableOpacity
                         key={key}
@@ -47,7 +51,7 @@ export default function First({navigation}) {
                 ))}
             </View>
         }
-    </SafeAreaView>
+    </ImageBackground>
   )
 }
 
@@ -79,5 +83,16 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 18,
+    },
+
+    para: {
+        marginBottom: 40,
+        paddingHorizontal: 20,
+        color: "white"
+    },
+    text: {
+        textAlign: 'center',
+        fontSize: 30,
+        color: "white"
     },
 })

@@ -1,6 +1,8 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import IconFo from 'react-native-vector-icons/FontAwesome';
 import IconEn from 'react-native-vector-icons/Entypo';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 
 export const Progress = ({navigation}, p) => {
 
@@ -37,12 +39,26 @@ export const Progress = ({navigation}, p) => {
         },
     ]
 
+    const [user, setUser] = useState("null")
+
+    useEffect(() => {
+        async function getUser(){
+          const value = await AsyncStorage.getItem('user')
+          const val = JSON.parse(value)
+          if(value !== null) {
+              console.log(value);
+              setUser(val)
+          }
+        }
+        getUser();
+    }, [user]) 
+
     return (
         <View>
             <View style={styles.header}>
                 <View style={styles.prog}>
                     {prog.map((item,key)=>(
-                        <IconEn key={key} name="minus" color={key === p ? "#3FC495" : "white"} size={34} />
+                        <IconEn key={key} name="minus" color={key <= p ? "#3FC495" : "white"} size={34} />
                     ))}
                 </View>
                 <TouchableOpacity

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/Feather';
 import * as Progress from 'react-native-progress';
@@ -82,11 +82,11 @@ export default function Finish({navigation}) {
   return (
     !show 
     ?
-        <View style={styles.container}>
+        <ImageBackground source={require("../../../assets/finish/finish.png")} style={styles.container}>
             <Text style={styles.text1}>We're setting everything up for you</Text>
             <Text style={styles.text2}>Creating your personal recommendations...</Text>
             <ActivityIndicator style={styles.spinner} size="large" color="#3FC495" />
-        </View>
+        </ImageBackground>
     :
         <>
             <ScrollView vertical={true} style={styles.started}>
@@ -94,6 +94,7 @@ export default function Finish({navigation}) {
                     <View style={styles.iconbtn}>
                         <Icon style={styles.icon} name="check" size={24} color="white" />
                     </View>
+                   {/* <  */}
                 </View>
                 <Text style={styles.text3}> {user.fname}, your personalized health plan is ready! </Text>
 
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "flex-end",
-        bottom: 60,      
+        bottom: 60,  
     },
     text1: {
         fontSize: 28,

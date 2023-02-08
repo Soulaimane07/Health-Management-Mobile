@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
 
 export default function Login({route, navigation}) {
-    const [email, setEmail] = useState(null)
-    const [pass, setPass] = useState(null)
+    const [email, setEmail] = useState("")
+    const [pass, setPass] = useState("")
 
-    const condition = email === null || pass === null
+    const condition = email === "" || pass === ""
 
     const user = {
         email: email,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         width: "100%",
-        backgroundColor: "white",
+        // backgroundColor: "white",
     },
     welcome: {
         fontSize: 30,
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     textInput: {
-        borderWidth: 1,  
+        borderWidth: 1.6,  
         borderColor: '#3FC495',
         fontSize: 16,
         borderRadius: 16,
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: "#3FC495",
         marginBottom: 10,
+        width: "100%"
     },
     buttonText: {
         color: 'white',
@@ -125,9 +126,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: "white",
-        margin: 20,
-        borderWidth: 1,
-        borderColor: "#adb5bd",
+        marginBottom: 10,
+        // borderWidth: 1,
+        // borderColor: "#adb5bd",
     },
     disabledBtnText: {
         color: '#adb5bd',

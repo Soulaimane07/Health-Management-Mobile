@@ -5,10 +5,10 @@ function Start({navigation}) {
   return (
     <View style={styles.container}>
         <Text style={styles.header}> Welcome! Let's customize HealthManager for your goals.</Text>
-        <TouchableOpacity onPress={()=> navigation.navigate("signup")} style={styles.button}>
+        <TouchableOpacity onPress={()=> navigation.navigate("finish")} style={styles.button}>
             <Text style={styles.buttonText}> Continue </Text>
         </TouchableOpacity>
-        <Text style={styles.alert}> We will never post anything without your permition. </Text>
+        {/* <Text style={styles.alert}> We will never post anything without your permition. </Text> */}
     </View>
   )
 }
@@ -17,7 +17,7 @@ export default Start
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "white",
+        // backgroundColor: "white",
         flex: 1,
         justifyContent: 'center',
         alignContent: 'center',
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: "#3FC495",
-        marginBottom: 10,
+        marginBottom: 30,
     },
     buttonText: {
         color: 'white',

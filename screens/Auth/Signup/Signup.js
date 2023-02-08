@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         width: "100%",
-        backgroundColor: "white",
+        // backgroundColor: "white",
     },
     welcome: {
         fontSize: 30,
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         borderRadius: 16,
         padding: 10,
+        paddingHorizontal: 20,
     },
     button: {
         borderRadius: 16,
