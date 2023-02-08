@@ -17,11 +17,14 @@ export default function Login({route, navigation}) {
         try {
             await AsyncStorage.setItem('user', JSON.stringify(user))
             console.log("User info stored");
+            route.params.setLogged(true)
             navigation.navigate('home')
         } catch (e) {
             console.log("User info isn't stored");
         }
     }
+
+    console.log(route.params.logged);
 
   return (
     <View style={styles.container}>

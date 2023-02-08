@@ -10,46 +10,44 @@ import AccountStack from './Routes/AccountStack';
 import Calories from './screens/Logged/Target/Calories';
 import Steps from './screens/Logged/Target/Steps';
 import Water from './screens/Logged/Target/Water';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { View } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [logged, setLogged] = useState(false)
 
-  // const [email, setEmail] = useState(null)
-  // const [pass, setPass] = useState(null)
+    useEffect(() => {
+        async function getUser(){
+          const value = await AsyncStorage.getItem('user')
+          if(value !== null) {
+              console.log(value);
+              setLogged(true)
+          }else {
+            setLogged(false)
+          }
+        }
+        getUser();
+    }, []) 
 
-  // const Luser = {
-  //   email: setEmail,
-  //   pass: setPass
-  // }
-
-  const user = {
-    fname: "Said",
-    lname: "Berkaoui",
-    email: "Said@gmail.com",
-    pass: "*****",
-    goal: "Lose Weight",
-    weight: 80,
-    goalweight: 60,
-  }
-
-  const logged = false
+    console.log(logged);
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {/* {!logged ? */}
+        {!logged ?
           <>
             <Stack.Screen name="first" component={First} />
-            <Stack.Screen name="login" component={Login} />
+            <Stack.Screen name="login" initialParams={{setLogged: setLogged}} component={Login} />
             
-            <Stack.Screen name="start" component={SignStack} />
+            <Stack.Screen name="start" initialParams={{setLogged: setLogged}} component={SignStack} />
           </>
-          {/* : */}
+        :
           <>
             <Stack.Screen name="home" component={HomeStack} />
-            <Stack.Screen name="account" component={AccountStack} />
+            <Stack.Screen name="account" initialParams={{setLogged: setLogged}} component={AccountStack} />
 
             <Stack.Screen name="calories" 
               options={{
@@ -76,7 +74,7 @@ export default function App() {
               component={Water} 
             />
           </>
-        {/* } */}
+        }
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -6,7 +6,7 @@ import FaIcon from 'react-native-vector-icons/FontAwesome'
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
 import IosIcon from 'react-native-vector-icons/Ionicons'
 
-export function Account({navigation}) {
+export function Account({route,navigation}) {
   const [user, setUser] = useState("null")
 
   useEffect(() => {
@@ -58,6 +58,18 @@ export function Account({navigation}) {
     },
   ]
 
+  const Logout = async () => {
+      try {
+          await AsyncStorage.removeItem("user");
+          route.params.setLogged(false)
+        console.log("user logged out");
+          navigation.navigate('first')
+      }
+      catch(exception) {
+        console.log("user didn't log out");
+      }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.box}>
@@ -104,7 +116,7 @@ export function Account({navigation}) {
         />
         <TouchableOpacity 
           style={styles.button}
-          onPress={()=> Alert.alert('hi')}
+          onPress={()=> Logout()}
         
         >
           <Text style={styles.Btntext}> LOG OUT </Text>
@@ -117,7 +129,7 @@ export function Account({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 50,
+    paddingTop: 20,
     paddingHorizontal: 20,
   },
   box: {

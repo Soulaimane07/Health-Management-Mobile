@@ -16,14 +16,14 @@ export default function HomeStack({route}) {
     >
       <Tab.Screen 
         name="home" 
-        component={Home} 
         options={{
           headerShown: false,
           tabBarLabel: 'Home',
           tabBarIcon: ({color, size}) => (
             <Micon name="home" color={color} size={size} />
-          ),
-        }}
+            ),
+          }}
+          component={Home} 
       />
     </Tab.Navigator>  
   )

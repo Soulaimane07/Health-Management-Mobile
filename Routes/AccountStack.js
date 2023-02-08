@@ -10,7 +10,7 @@ export default function AccountStack({route}) {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="account" component={Account} />
+      <Stack.Screen name="account" initialParams={{setLogged: route.params.setLogged}} component={Account} />
       <Stack.Screen 
         name="personal" 
         options={{

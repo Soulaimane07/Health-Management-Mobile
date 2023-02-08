@@ -5,7 +5,7 @@ import Icon1 from 'react-native-vector-icons/Feather';
 import * as Progress from 'react-native-progress';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Finish({navigation}) {
+export default function Finish({route, navigation}) {
     const [show, setShow] = useState(false)
     const [user, setUser] = useState("null")
 
@@ -79,6 +79,12 @@ export default function Finish({navigation}) {
         }
     ]
 
+    const Login = () => {
+        console.log("User Logged in");
+            route.params.setLogged(true)
+            navigation.navigate('home')
+    }
+
   return (
     !show 
     ?
@@ -149,7 +155,7 @@ export default function Finish({navigation}) {
 
             </ScrollView>
             <View style={styles.btn}>
-                <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate("home")}>
+                <TouchableOpacity style={styles.button} onPress={()=> Login()}>
                     <Text style={styles.buttonText}> GET STARTED </Text>
                 </TouchableOpacity>
             </View>
