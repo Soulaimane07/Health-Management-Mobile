@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-import { Alert, Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
 import IosIcon from 'react-native-vector-icons/Ionicons'
 
-export function Account({route, navigation}) {
+export function Account({navigation}) {
   const [user, setUser] = useState("null")
 
   useEffect(() => {
@@ -97,11 +97,7 @@ export function Account({route, navigation}) {
           ))}
       </View>
 
-
-
-
-
-      {/* <View style={styles.logout}>
+      <View style={styles.logout}>
         <Image 
           style={styles.logo}
           source={require('../../../assets/logo.jpg')}
@@ -113,15 +109,16 @@ export function Account({route, navigation}) {
         >
           <Text style={styles.Btntext}> LOG OUT </Text>
         </TouchableOpacity> 
-      </View>*/}
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
-    marginTop: 50,
+    flex: 1,
+    paddingTop: 50,
+    paddingHorizontal: 20,
   },
   box: {
     backgroundColor: "white",
@@ -218,6 +215,5 @@ const styles = StyleSheet.create({
     color: '#e5383b',
     fontSize: 16,
     fontWeight: 'bold',
-  }
-
+  },
 })
