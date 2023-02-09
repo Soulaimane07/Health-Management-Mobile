@@ -11,11 +11,9 @@ export default function Sex({navigation}) {
     const sexObj = [
         {
             "title":"Female",
-            "value":"f",
         },
         {
             "title":"Male",
-            "value":"m",
         }
     ]
 

@@ -12,15 +12,12 @@ export default function Goal({navigation}) {
   const goals = [
     {
       "title":"Lose Weight",
-      "value":"l"
     },
     {
       "title":"Maintain Weight",
-      "value":"m"
     },
     {
       "title":"Gain Weight",
-      "value":"g"
     },
   ]
 

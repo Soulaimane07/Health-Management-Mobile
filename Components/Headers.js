@@ -20,7 +20,7 @@ export const Progress = ({navigation}, p) => {
         {
             'title': 'Birth',
             'text':'Got it',
-            'header':"What's your date of birth?",
+            'header':"What's your age?",
         },
         {
             'title': 'height',

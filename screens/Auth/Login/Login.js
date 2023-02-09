@@ -68,8 +68,6 @@ export default function Login({route, navigation}) {
                 <Text style={styles.signText}> Create Account </Text>
             </TouchableOpacity>
         </View>
-
-        {/* <Text> {email} {pass} </Text> */}
     </View>
   )
 }

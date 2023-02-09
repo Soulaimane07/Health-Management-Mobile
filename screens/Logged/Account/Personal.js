@@ -1,10 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import {StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
+import Modal from '../../../Components/Modal'
 
 export function Personal() {
     const [user, setUser] = useState("null")
+    const [ShowModal, setShowmodal] = useState(false)
+    const [ModalVal, setModalval] = useState(null)
 
     useEffect(() => {
         async function getUser(){
@@ -39,20 +42,21 @@ export function Personal() {
             "value": user.height,
         },
         {
-            "label":"Date of birth",
-            "value": "",
+            "label":"Age",
+            "value": user.age ,
         },
         {
             "label":"Gender",
             "value": user.sex,
         },
     ]
-
+    
   return (
     <View style={styles.container}>
         <Text style={styles.text}> YOUR GOAL </Text>
         <View style={styles.box}>
             {Goals.map((item,key)=>(
+                <TouchableOpacity onPress={()=> setShowmodal(true) & setModalval(item.label) }>
                 <View key={key}>
                     <View style={styles.row1}>
                         <Text style={styles.row1key}> {item.label} </Text>
@@ -63,13 +67,14 @@ export function Personal() {
                     </View>
                     {key+1 !== Goals.length && <View style={styles.hr1}></View>}
                 </View>
+                </TouchableOpacity>
             ))}
         </View>
 
         <Text style={styles.text}> DETAILS </Text>
         <View style={styles.box}>
             {Details.map((item,key)=>(
-                <>
+                <TouchableOpacity onPress={()=> setShowmodal(true) & setModalval(item.label)}>
                 <View key={key} style={styles.row1}>
                     <Text style={styles.row1key}> {item.label} </Text>
                     <View style={styles.row1value}>
@@ -78,9 +83,11 @@ export function Personal() {
                     </View>
                 </View>
                 {key+1 !== Details.length && <View style={styles.hr1}></View>}
-                </>
+                </TouchableOpacity>
             ))}
         </View>
+
+        <Modal ShowModal={ShowModal} setShowmodal={setShowmodal} ModalVal={ModalVal}  />
     </View>
   )
 }

@@ -92,7 +92,6 @@ export default function Height({navigation}) {
                 }
             </View>
 
-
             <View style={styles.choise}>
                 {heightObj.map((item,key)=>(
                     <Text onPress={()=> setObj(key)} key={key} style={obj === key ? styles.active : styles.choose}> {item.title} </Text>

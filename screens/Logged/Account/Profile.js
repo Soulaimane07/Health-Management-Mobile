@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-import {Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 export default function Profile() {
   const [user, setUser] = useState("null")
@@ -72,10 +72,34 @@ export default function Profile() {
     },
   ]
 
+  const [modal, SetModal] = useState(false)
+
+  const pro = user?.profile
+  
+  const [click, setClick] = useState(pro)
+
+  const condittion1 = click !== pro
+
+  const val = {
+    profile: click,
+  }
+
+  const Submit = async () => {
+    try {
+      await AsyncStorage.mergeItem('user', JSON.stringify(val))
+      console.log("User Profile is updated!");
+      // RefreshControl(true)
+      SetModal(false)
+    } catch (e) {
+      console.log("User Profile is not updated!");
+    }
+}
+
+  
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <TouchableOpacity style={styles.profile}>
+        <TouchableOpacity onPress={()=> SetModal(true)} style={styles.profile}>
           <Image source={profiles[profileNbr].image} style={[styles.icon ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]} />
           <Text style={{marginTop: 20, color: "#E8E2E2"}}> Click to Change Profile Image ? </Text>
         </TouchableOpacity>
@@ -100,6 +124,40 @@ export default function Profile() {
             <Text style={styles.DeleteText}> Delete account </Text>
         </TouchableOpacity>
       </View>
+
+
+      <Modal 
+        style={styles.modal}
+        // transparent={true}
+        animationType="slide"
+        visible={modal}
+      >
+        <View style={styles.modalView}>
+          <Text style={styles.text3}>  Choose your profile icon </Text>
+
+          <ScrollView horizontal={true} alignItems="center" style={styles.profiles} > 
+           {profiles.map((profile,key)=>( 
+            <TouchableOpacity key={key} onPress={()=> setClick(key)}>
+            <View style={[styles.profile1, key === click && {backgroundColor: "#3FC495"}]} >
+              <Image source={profile.image} style={{borderRadius: 16, marginHorizontal: 10 ,width:200,height:200}} />
+              </View>
+              </TouchableOpacity>
+           ))}
+          </ScrollView>
+
+          <View style={styles.profilbutton}>
+            {condittion1 &&
+              <TouchableOpacity onPress={()=> Submit()} style={styles.button}>
+                <Text style={styles.buttonText}>Save</Text>
+              </TouchableOpacity>
+            }
+            <TouchableOpacity onPress={()=> SetModal(false)} style={styles.Cbutton}>
+              <Text style={styles.CbuttonText}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
     </View>
   )
 }
@@ -115,10 +173,8 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
 
-
   profile: {
     width: "100%",
-    // height: "100%",
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
@@ -136,7 +192,6 @@ const styles = StyleSheet.create({
   text2: {
     color: "#6c757d",
   },
-
 
   Btnbox: {
     position: "absolute",
@@ -170,7 +225,6 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
   },
 
-
   delete: {
     borderRadius: 16,
     padding: 15,
@@ -185,6 +239,82 @@ const styles = StyleSheet.create({
     color: '#e5383b',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+
+
+  modalView: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  profile1: {
+    borderRadius: 16,
+    padding: 10,
+    overflow: 'hidden',
+  },
+
+  button: {
+    borderRadius: 16,
+    padding: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: "#3FC495",
+    marginHorizontal: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  disabledBtn: {
+      borderRadius: 16,
+      padding: 15,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: "white",
+      margin: 20,
+  },
+  disabledBtnText: {
+      color: '#adb5bd',
+      fontSize: 16,
+  },
+  profilbutton : {
+    width: '100%',
+  },
+
+  text3: {
+    color: "#434242",
+    fontSize: 24,
+    marginTop: 100,
+  },
+  profiles: {
+    // paddingHorizontal:'50%'
+  },
+
+
+
+  Cbutton: {
+    borderRadius: 16,
+    padding: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: "#F0EEED",
+    marginVertical: 10,
+    marginHorizontal: 20,
+  },
+  CbuttonText: {
+    color: 'black',
+    fontSize: 16,
+  },
+  disabledBtn: {
+      borderRadius: 16,
+      padding: 15,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: "white",
+      margin: 20,
+  },
+  disabledBtnText: {
+      color: '#adb5bd',
+      fontSize: 16,
   },
 
 })
