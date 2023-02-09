@@ -157,19 +157,49 @@ export default function Home({route, navigation}) {
     return x
   }
 
+  const profileNbr = user?.profile ? user?.profile : 0
+
+  const profiles = [
+    {
+      image: require("../../assets/profiles/1.png"),
+      width: 90,
+      height: 90,
+    },
+    {
+      image: require("../../assets/profiles/2.png"),
+      width: 88,
+      height: 60,
+    },
+    {
+      image: require("../../assets/profiles/3.png"),
+      width: 76,
+      height: 80,
+    },
+    {
+      image: require("../../assets/profiles/4.png"),
+      width: 90,
+      height: 80,
+    },
+    {
+      image: require("../../assets/profiles/5.png"),
+      width: 90,
+      height: 80,
+    },
+    {
+      image: require("../../assets/profiles/6.png"),
+      width: 80,
+      height: 70,
+    },
+  ]
+
   return (
     <View style={styles.container}>
       <Statusbar color="#3FC495" style="light" />
       <SafeAreaView style={styles.header}>
-        <View style={styles.head}>
-            <Image
-                style={styles.logo}
-                source={require('../../assets/logo.jpg')}
-            />
-            <Text style={styles.text}>Good {header()} {user && user.fname} </Text>
-        </View>
         <TouchableOpacity style={styles.profile} onPress={()=> navigation.navigate("account")}>
-            <Icon style={styles.icon} name="user" size={26} color="black" />
+            <ImageBackground source={profiles[profileNbr].image}  style={[styles.logo ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]}>
+            </ImageBackground>
+            <Text style={styles.text}>Good {header()} {user && user.fname} </Text>
         </TouchableOpacity>
       </SafeAreaView>
 
@@ -233,9 +263,11 @@ const styles = StyleSheet.create({
   header: {
       backgroundColor: "white",
       padding: 20,
+      paddingVertical: 10,
       flexDirection: "row",
       justifyContent: 'space-between',
       alignItems: 'center',
+      borderRadius: 8,
   },
   text: {
       fontSize: 20,
@@ -246,14 +278,10 @@ const styles = StyleSheet.create({
       height: 50,
       marginRight: 8,
   },
-  head: {
+
+    profile: {
       flexDirection: "row",
       alignItems: 'center',      
-  },
-
-  profile: {
-      padding: 6,
-      borderRadius: 16,
   },
 
   callendar: {

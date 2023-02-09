@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
@@ -70,13 +70,48 @@ export function Account({route,navigation}) {
       }
   }
 
+  const profileNbr = user?.profile ? user?.profile : 0
+
+  const profiles = [
+    {
+      image: require("../../../assets/profiles/1.png"),
+      width: 100,
+      height: 100,
+    },
+    {
+      image: require("../../../assets/profiles/2.png"),
+      width: 98,
+      height: 70,
+    },
+    {
+      image: require("../../../assets/profiles/3.png"),
+      width: 86,
+      height: 90,
+    },
+    {
+      image: require("../../../assets/profiles/4.png"),
+      width: 100,
+      height: 90,
+    },
+    {
+      image: require("../../../assets/profiles/5.png"),
+      width: 100,
+      height: 90,
+    },
+    {
+      image: require("../../../assets/profiles/6.png"),
+      width: 90,
+      height: 80,
+    },
+  ]
+  
+
   return (
     <View style={styles.container}>
       <View style={styles.box}>
         <TouchableOpacity onPress={()=> navigation.navigate("profile")} style={styles.profile}>
-          <View style={styles.icon}>
-            <Icon name="user" size={26} color="white" />
-          </View>
+          <ImageBackground source={profiles[profileNbr].image}  style={[styles.icon ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]}>
+          </ImageBackground>
           <Text style={styles.name}> {user.fname} {user.lname} </Text>
         </TouchableOpacity>
 
@@ -142,11 +177,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    backgroundColor: "#ced4da",
-    width: 60,
-    height: 60,
     borderRadius: 100,
-    marginRight: 20,
+    marginRight: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },

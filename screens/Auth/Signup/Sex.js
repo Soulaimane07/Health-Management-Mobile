@@ -20,13 +20,20 @@ export default function Sex({navigation}) {
     ]
 
     const sex = {
-        sex: box && sexObj[box].title
+        sex: box != null && sexObj[box].title
     }
-    
+
     const Submit = async () => {
         try {
           await AsyncStorage.mergeItem('user', JSON.stringify(sex))
           console.log("Sex is stored");
+
+          let profile = {
+            profile: box === 0 ? 0 : 1
+        }
+
+          await AsyncStorage.mergeItem('user', JSON.stringify(profile))
+          console.log("Profile is stored");
           navigation.navigate('birth')
         } catch (e) {
           console.log("Sex isn't stored");

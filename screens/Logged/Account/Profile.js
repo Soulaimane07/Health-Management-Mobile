@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-import {StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 export default function Profile() {
   const [user, setUser] = useState("null")
@@ -37,9 +37,49 @@ export default function Profile() {
   ]
   const condittion = false
 
+  const profileNbr = user?.profile ? user?.profile : 0
+
+  const profiles = [
+    {
+      image: require("../../../assets/profiles/1.png"),
+      width: 200,
+      height: 200,
+    },
+    {
+      image: require("../../../assets/profiles/2.png"),
+      width: 240,
+      height: 170,
+    },
+    {
+      image: require("../../../assets/profiles/3.png"),
+      width: 186,
+      height: 190,
+    },
+    {
+      image: require("../../../assets/profiles/4.png"),
+      width: 200,
+      height: 190,
+    },
+    {
+      image: require("../../../assets/profiles/5.png"),
+      width: 210,
+      height: 180,
+    },
+    {
+      image: require("../../../assets/profiles/6.png"),
+      width: 210,
+      height: 180,
+    },
+  ]
+
   return (
     <View style={styles.container}>
       <View style={styles.box}>
+        <TouchableOpacity style={styles.profile}>
+          <Image source={profiles[profileNbr].image} style={[styles.icon ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]} />
+          <Text style={{marginTop: 20, color: "#E8E2E2"}}> Click to Change Profile Image ? </Text>
+        </TouchableOpacity>
+
          {profile.map((item,key)=>(
           <View style={styles.row} key={key}>
             <Text style={styles.text1}> {item.label} </Text>
@@ -73,6 +113,15 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 20,
     borderRadius: 16,
+  },
+
+
+  profile: {
+    width: "100%",
+    // height: "100%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
   },
 
   row: {
