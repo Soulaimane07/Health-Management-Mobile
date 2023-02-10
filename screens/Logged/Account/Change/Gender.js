@@ -1,51 +1,52 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import Oicon from 'react-native-vector-icons/Octicons'
 import Ficon from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function GoalChange(props) {
-    const [newGaol, setNewGoal] = useState(props.goal)
-    const condition = newGaol === props.goal
+export default function Gender(props) {
+    const [newSex, setNewSex] = useState(props.sex)
+    const condition = newSex === props.sex
 
-    const goals = [
+    const sexObj = [
         {
-          "title":"Lose Weight",
+            "title":"Female",
         },
         {
-          "title":"Maintain Weight",
-        },
-        {
-          "title":"Gain Weight",
-        },
+            "title":"Male",
+        }
     ]
 
-    const goal = {
-        goal: newGaol,
+    const sex = {
+        sex: newSex,
     }
 
     const Submit = async () => {
         try {
-          await AsyncStorage.mergeItem("user", JSON.stringify(goal))
-          console.log("User's Goal is Updated!")
+          await AsyncStorage.mergeItem("user", JSON.stringify(sex))
+          console.log("User's Sex is Updated!")
         } catch (e) {
-          console.log("User goal is not updated");
+          console.log("User Sex is not updated");
         }
     }
 
   return (
     <>
         <View>
-            <Text style={{textAlign: "center", fontSize: 18, fontWeight: 'bold'}}> Change Your Goal </Text>
+            <Text style={{textAlign: "center", fontSize: 18, fontWeight: 'bold'}}> Change Your Sex </Text>
         </View>
-
+        
         <View>
-            {goals.map((item,key)=>(
-                <TouchableOpacity key={key} onPress={()=> setNewGoal(item.title)} style={Goalstyles.box}> 
-                    <Text style={[{fontWeight: "bold", fontSize: 16}, item.title === newGaol ? {color:'#3FC495'} : {color: "#adb5bd"}]}>
+            {sexObj.map((item,key)=>(
+                <TouchableOpacity 
+                    key={key} 
+                    onPress={()=> setNewSex(item.title)} 
+                    style={Goalstyles.box}
+                > 
+                    <Text style={[{fontWeight: "bold", fontSize: 16}, item.title === newSex ? {color:'#3FC495'} : {color: "#adb5bd"}]}>
                         {item.title}
                     </Text>
-                    {item.title === newGaol 
+                    {item.title === newSex 
                         ?    <Oicon name='check-circle-fill' color="#3FC495" size={24} />
                         :    <Ficon name='circle-thin' color="#adb5bd" size={27} />
                     }
@@ -76,13 +77,6 @@ const Goalstyles = StyleSheet.create({
 })
 
 const styles = StyleSheet.create({
-    hr1: {
-        backgroundColor: "#e9ecef",
-        height: 1,
-        marginVertical: 10, 
-    },
-
-
     button: {
         borderRadius: 16,
         padding: 15,
@@ -109,14 +103,18 @@ const styles = StyleSheet.create({
     },
     
 
-    textInput: {
-        borderWidth: 1.6,  
-        borderColor: '#3FC495',
-        fontSize: 16,
-        borderRadius: 16,
-        padding: 10,
-        paddingHorizontal: 20,
-        textAlign: 'center',
+    NumInput: {
+        marginHorizontal: "30%",
+        fontSize: 26,
+        textAlign: "center",
+        borderBottomWidth: 1,
+        borderColor: "#3FC495",
+        paddingVertical: 6,
     },
-
+    error: {
+        color: "red",
+        textAlign: "center",
+        marginBottom: 20,
+        fontWeight: 'bold',
+    }
 })

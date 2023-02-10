@@ -33,13 +33,10 @@ export default function Birth({navigation}) {
             style={styles.age} 
             onChangeText={(e)=>setAge(e)}
           />
-
           
           <Text style={{fontSize:17, marginLeft: 10}}>
             Years old
           </Text>
-
-        
         </View>
 
         {NavigateBtn({navigation}, "Next", Submit, condittion)}

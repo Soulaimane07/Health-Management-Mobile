@@ -1,11 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import {StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import {StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { Goal } from '../../../Components/ChangeData'
-import GoalChange from '../../../Components/GoalChange'
+
+import GoalChange from './Change/GoalChange'
+import GoalWeight from './Change/GoalWeight'
+import CurrentWeight from './Change/CurrentWeight'
+import Age from './Change/Age'
+import Gender from './Change/Gender'
 
 export function Personal() {
     const [user, setUser] = useState("null")
@@ -32,7 +36,7 @@ export function Personal() {
         {
             "label":"Goal Weight",
             "value": user.Gweight,
-            "change":""
+            "change": <GoalWeight Gweight={user?.Gweight} />
         },
     ]
 
@@ -40,62 +44,68 @@ export function Personal() {
         {
             "label":"Current Weight",
             "value": user.weight,
+            "change": <CurrentWeight weight={user?.weight} />,
         },
         {
             "label":"Height",
             "value": user.height,
+            "change": "",
         },
         {
             "label":"Age",
             "value": user.age ,
+            "change": <Age age={user?.age} />,
         },
         {
             "label":"Gender",
             "value": user.sex,
+            "change": <Gender sex={user?.sex} /> ,
         },
     ]
 
     const refB = useRef(null)
-    const snapPoints = useMemo(()=> ["46%"], [])
+    const snapPoints = useMemo(()=> ["50%"], [])
 
+    const [IsOpen, setIsOpen] = useState(false)
     const OpenModal = () => {
         refB.current?.present()
+        setTimeout(() => {
+            setIsOpen(true)
+        }, 120);
     }
     
   return (
-    <GestureHandlerRootView style={{flex: 1,}}>
+    <GestureHandlerRootView style={{flex: 1}}>
     <BottomSheetModalProvider>
-        <View style={styles.container}>
+        <View style={[styles.container, IsOpen && {backgroundColor: "#2C3333"}]}>
             <Text style={styles.text}> YOUR GOAL </Text>
-            <View style={styles.box}>
+            <View style={[styles.box, IsOpen ? {backgroundColor:"#374040"} : {backgroundColor: "white"}]}>
                 {Goals.map((item,key)=>(
                     <TouchableOpacity key={key} onPress={()=> OpenModal() & setSheetBody(item.change) }>
-                    <View>
                         <View style={styles.row1}>
-                            <Text style={styles.row1key}> {item.label} </Text>
+                            <Text style={[styles.row1key, IsOpen && {color: "#adb5bd"}]}> {item.label} </Text>
                             <View style={styles.row1value}>
                                 <Text style={styles.rowText}> {item.value} </Text>
                                 <FaIcon style={styles.rowicon} name="angle-right" size={26} color="#adb5bd" />
                             </View>
                         </View>
-                        {key+1 !== Goals.length && <View style={styles.hr1}></View>}
-                    </View>
+                        {key+1 !== Goals.length && <View style={[styles.hr1, IsOpen ? {backgroundColor: "#4F5C5C"} : {backgroundColor: "#e9ecef",}]}></View>}
                     </TouchableOpacity>
                 ))}
             </View>
 
             <Text style={styles.text}> DETAILS </Text>
-            <View style={styles.box}>
+            <View style={[styles.box, IsOpen ? {backgroundColor:"#374040"} : {backgroundColor: "white"}]}>
                 {Details.map((item,key)=>(
                     <TouchableOpacity key={key} onPress={()=> OpenModal() & setSheetBody(item.change)}>
-                    <View style={styles.row1}>
-                        <Text style={styles.row1key}> {item.label} </Text>
-                        <View style={styles.row1value}>
-                            <Text style={styles.rowText}> {item.value} </Text>
-                            <FaIcon style={styles.rowicon} name="angle-right" size={26} color="#adb5bd" />
+                        <View style={styles.row1}>
+                            <Text style={[styles.row1key, IsOpen && {color: "#adb5bd"}]}> {item.label} </Text>
+                            <View style={styles.row1value}>
+                                <Text style={styles.rowText}> {item.value} </Text>
+                                <FaIcon style={styles.rowicon} name="angle-right" size={26} color="#adb5bd" />
+                            </View>
                         </View>
-                    </View>
-                    {key+1 !== Details.length && <View style={styles.hr1}></View>}
+                    {key+1 !== Details.length && <View style={[styles.hr1, IsOpen ? {backgroundColor: "#4F5C5C"} : {backgroundColor: "#e9ecef",}]}></View>}
                     </TouchableOpacity>
                 ))}
             </View>
@@ -105,6 +115,7 @@ export function Personal() {
             ref={refB}
             index={0}
             snapPoints={snapPoints}
+            onDismiss={()=> setIsOpen(false)}
         >
             <View style={styles.bottomSheet}>
                 {SheetBody}
@@ -118,7 +129,7 @@ export function Personal() {
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 20,
-        // backgroundColor: "#6c757d",
+        
         flex: 1,
     },
     text: {
@@ -128,7 +139,6 @@ const styles = StyleSheet.create({
         color: "#6c757d",
     },
     box: {
-        backgroundColor: "white",
         padding: 20,
         paddingVertical: 10,
         borderRadius: 16,
@@ -160,7 +170,6 @@ const styles = StyleSheet.create({
 
 
     hr1: {
-        backgroundColor: "#e9ecef",
         height: 1,
         marginVertical: 10, 
     },
