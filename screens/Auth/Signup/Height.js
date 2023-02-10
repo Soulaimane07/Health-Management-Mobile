@@ -25,9 +25,11 @@ export default function Height({navigation}) {
     const condittion = heightX > 0 && heightY > 0
 
     const height = {
-        x: heightX,
-        y: heightY,
-        unite: heightObj[obj].title
+        height: {
+            x: heightX,
+            y: heightY,
+            unite: heightObj[obj].title
+        }
     }
 
     const heightkey = {

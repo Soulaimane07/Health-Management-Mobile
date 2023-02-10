@@ -42,7 +42,7 @@ export default function Signup({navigation}) {
         <View style={styles.info}>
             <Text style={styles.label}> First Name </Text>
             <TextInput 
-                autoComplete='name'
+                autoComplete="name"
                 style={styles.textInput} 
                 placeholderTextColor='white'
                 onChangeText={e => setFname(e)}

@@ -1,13 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useEffect, useState } from 'react'
-import {StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import {StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
-import Modal from '../../../Components/Modal'
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { Goal } from '../../../Components/ChangeData'
+import GoalChange from '../../../Components/GoalChange'
 
 export function Personal() {
     const [user, setUser] = useState("null")
-    const [ShowModal, setShowmodal] = useState(false)
-    const [ModalVal, setModalval] = useState(null)
+    const [SheetBody, setSheetBody] = useState(null)
 
     useEffect(() => {
         async function getUser(){
@@ -25,10 +27,12 @@ export function Personal() {
         {
             "label":"Goal",
             "value": user.goal,
+            "change": <GoalChange goal={user?.goal} />
         },
         {
             "label":"Goal Weight",
             "value": user.Gweight,
+            "change":""
         },
     ]
 
@@ -50,14 +54,40 @@ export function Personal() {
             "value": user.sex,
         },
     ]
+
+    const refB = useRef(null)
+    const snapPoints = useMemo(()=> ["46%"], [])
+
+    const OpenModal = () => {
+        refB.current?.present()
+    }
     
   return (
-    <View style={styles.container}>
-        <Text style={styles.text}> YOUR GOAL </Text>
-        <View style={styles.box}>
-            {Goals.map((item,key)=>(
-                <TouchableOpacity onPress={()=> setShowmodal(true) & setModalval(item.label) }>
-                <View key={key}>
+    <GestureHandlerRootView style={{flex: 1,}}>
+    <BottomSheetModalProvider>
+        <View style={styles.container}>
+            <Text style={styles.text}> YOUR GOAL </Text>
+            <View style={styles.box}>
+                {Goals.map((item,key)=>(
+                    <TouchableOpacity key={key} onPress={()=> OpenModal() & setSheetBody(item.change) }>
+                    <View>
+                        <View style={styles.row1}>
+                            <Text style={styles.row1key}> {item.label} </Text>
+                            <View style={styles.row1value}>
+                                <Text style={styles.rowText}> {item.value} </Text>
+                                <FaIcon style={styles.rowicon} name="angle-right" size={26} color="#adb5bd" />
+                            </View>
+                        </View>
+                        {key+1 !== Goals.length && <View style={styles.hr1}></View>}
+                    </View>
+                    </TouchableOpacity>
+                ))}
+            </View>
+
+            <Text style={styles.text}> DETAILS </Text>
+            <View style={styles.box}>
+                {Details.map((item,key)=>(
+                    <TouchableOpacity key={key} onPress={()=> OpenModal() & setSheetBody(item.change)}>
                     <View style={styles.row1}>
                         <Text style={styles.row1key}> {item.label} </Text>
                         <View style={styles.row1value}>
@@ -65,36 +95,31 @@ export function Personal() {
                             <FaIcon style={styles.rowicon} name="angle-right" size={26} color="#adb5bd" />
                         </View>
                     </View>
-                    {key+1 !== Goals.length && <View style={styles.hr1}></View>}
-                </View>
-                </TouchableOpacity>
-            ))}
+                    {key+1 !== Details.length && <View style={styles.hr1}></View>}
+                    </TouchableOpacity>
+                ))}
+            </View>
         </View>
 
-        <Text style={styles.text}> DETAILS </Text>
-        <View style={styles.box}>
-            {Details.map((item,key)=>(
-                <TouchableOpacity onPress={()=> setShowmodal(true) & setModalval(item.label)}>
-                <View key={key} style={styles.row1}>
-                    <Text style={styles.row1key}> {item.label} </Text>
-                    <View style={styles.row1value}>
-                        <Text style={styles.rowText}> {item.value} </Text>
-                        <FaIcon style={styles.rowicon} name="angle-right" size={26} color="#adb5bd" />
-                    </View>
-                </View>
-                {key+1 !== Details.length && <View style={styles.hr1}></View>}
-                </TouchableOpacity>
-            ))}
-        </View>
-
-        <Modal ShowModal={ShowModal} setShowmodal={setShowmodal} ModalVal={ModalVal}  />
-    </View>
+        <BottomSheetModal
+            ref={refB}
+            index={0}
+            snapPoints={snapPoints}
+        >
+            <View style={styles.bottomSheet}>
+                {SheetBody}
+            </View>
+        </BottomSheetModal>
+    </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 20,
+        paddingHorizontal: 20,
+        // backgroundColor: "#6c757d",
+        flex: 1,
     },
     text: {
         fontSize: 16,
@@ -107,6 +132,7 @@ const styles = StyleSheet.create({
         padding: 20,
         paddingVertical: 10,
         borderRadius: 16,
+        overflow: 'hidden',
     },
     row1: {
         flexDirection: 'row',
@@ -137,5 +163,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#e9ecef",
         height: 1,
         marginVertical: 10, 
+    },
+    bottomSheet: {
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
+        flex: 1,
+        marginBottom: 20,
     },
 })
