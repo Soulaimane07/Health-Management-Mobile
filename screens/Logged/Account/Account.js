@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-import { Alert, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
@@ -59,15 +59,29 @@ export function Account({route,navigation}) {
   ]
 
   const Logout = async () => {
-      try {
+        try {
           await AsyncStorage.removeItem("user");
           route.params.setLogged(false)
-        console.log("user logged out");
+          console.log("user logged out");
           navigation.navigate('first')
-      }
-      catch(exception) {
-        console.log("user didn't log out");
-      }
+        }
+        catch(exception) {
+          console.log("user didn't log out");
+        }
+    }
+
+  const LogoutAlert = () => {
+    Alert.alert('Log out', 'Are you sure you want to log out ?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {text: 'LOG OUT', onPress: () => Logout()},
+    ],{
+      cancelable: true
+    }
+    );
+    
   }
 
   const profileNbr = user?.profile ? user?.profile : 0
@@ -107,7 +121,7 @@ export function Account({route,navigation}) {
   
 
   return (
-    <View style={styles.container}>
+    <ScrollView vertical style={styles.container}>
       <View style={styles.box}>
         <TouchableOpacity onPress={()=> navigation.navigate("profile")} style={styles.profile}>
           <ImageBackground source={profiles[profileNbr].image}  style={[styles.icon ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]}>
@@ -151,20 +165,19 @@ export function Account({route,navigation}) {
         />
         <TouchableOpacity 
           style={styles.button}
-          onPress={()=> Logout()}
-        
+          onPress={()=> LogoutAlert()}
         >
           <Text style={styles.Btntext}> LOG OUT </Text>
         </TouchableOpacity> 
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+    paddingVertical: 20,
     paddingHorizontal: 20,
   },
   box: {
@@ -237,6 +250,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 16,
     alignItems: 'center',
+    marginBottom: 40,
   },
   logo: {
     width: 100,
@@ -260,4 +274,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  cancel: {
+    color: "red"
+  }
 })

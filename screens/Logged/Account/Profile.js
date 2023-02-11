@@ -1,8 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import {Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { BottomSheetModal, BottomSheetModalProvider, BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+
+import ChangeProfile from './Change/ChangeProfile'
+import ChangeFname from './Change/ChangeFname'
+import ChangeLname from './Change/ChangeLname'
+import ChangePass from './Change/ChangePass'
+import DeleteAccount from './Change/DeleteAccount'
 
 export default function Profile() {
   const [user, setUser] = useState("null")
@@ -19,22 +25,47 @@ export default function Profile() {
     getUser();
   }, []) 
 
+
+  const [SheetBody, setSheetBody] = useState(null)
+  const refB = useRef(null)
+  const snapPoints = useMemo(()=> ["60%", "100%"], [])
+  const [IsOpen, setIsOpen] = useState(false)
+  const OpenModal = () => {
+      refB.current?.present()
+      setTimeout(() => {
+          setIsOpen(true)
+      }, 120);
+  }
+  const CloseModal = () => {
+    refB.current?.close()
+    setTimeout(() => {
+        setIsOpen(false)
+    }, 120);
+  }
+
+
+
+  /* ******************* */
+
   const profile = [
-    {
-      "label":"First name",
-      "value": user.fname
-    },
-    {
-      "label":"Last name",
-      "value": user.lname
-    },
     {
       "label":"Email",
       "value": user.email
     },
     {
+      "label":"First name",
+      "value": user.fname,
+      "change": <ChangeFname fname={user?.fname} CloseModal={CloseModal} />,
+    },
+    {
+      "label":"Last name",
+      "value": user.lname,
+      "change": <ChangeLname lname={user?.lname} CloseModal={CloseModal} /> ,
+    },
+    {
       "label":"Password",
-      "value": user.pass
+      "value": user.pass,
+      "change": <ChangePass pass={user?.pass} CloseModal={CloseModal} />,
     },
   ]
   const profileNbr = user?.profile ? user?.profile : 0
@@ -70,101 +101,40 @@ export default function Profile() {
       width: 210,
       height: 180,
     },
-    {
-      image: require("../../../assets/profiles/1.png"),
-      width: 200,
-      height: 200,
-    },
-    {
-      image: require("../../../assets/profiles/2.png"),
-      width: 240,
-      height: 170,
-    },
-    {
-      image: require("../../../assets/profiles/3.png"),
-      width: 186,
-      height: 190,
-    },
-    {
-      image: require("../../../assets/profiles/4.png"),
-      width: 200,
-      height: 190,
-    },
-    {
-      image: require("../../../assets/profiles/5.png"),
-      width: 210,
-      height: 180,
-    },
-    {
-      image: require("../../../assets/profiles/6.png"),
-      width: 210,
-      height: 180,
-    },
   ]
 
 
 
-
-
-
-  /* *********** */
-
-  const [click, setClick] = useState(user.profile)
-
-  const condittion1 = click === user?.profile
-
-  const val = {
-    profile: click,
-  }
-
-  const Submit = async () => {
-    try {
-      await AsyncStorage.mergeItem('user', JSON.stringify(val))
-      console.log("User Profile is updated!");
-      CloseModal()
-    } catch (e) {
-      console.log("User Profile is not updated!");
-    }
-  }
-
-  const refB = useRef(null)
-  const snapPoints = useMemo(()=> ["60%", "100%"], [])
-
-  const [IsOpen, setIsOpen] = useState(false)
-  const OpenModal = () => {
-      refB.current?.present()
-      setTimeout(() => {
-          setIsOpen(true)
-      }, 120);
-  }
-  const CloseModal = () => {
-    refB.current?.close()
-    setTimeout(() => {
-        setIsOpen(false)
-    }, 120);
-  }
-  
   return (
     <GestureHandlerRootView style={{flex: 1}}>
     <BottomSheetModalProvider>
-    <View style={[styles.container, IsOpen && {backgroundColor: "gray"}]}>
-      <View style={[styles.box, IsOpen ? {backgroundColor: "gray"} : {backgroundColor:"white"}]}>
-        <TouchableOpacity onPress={OpenModal} style={styles.profile}>
+    <View style={[styles.container, IsOpen && {backgroundColor: "#2C3333"}]}>
+      <View style={[styles.box, IsOpen ? {backgroundColor: "#374040"} : {backgroundColor:"white"}]}>
+        <TouchableOpacity onPress={()=> OpenModal() & setSheetBody(<ChangeProfile profile={user?.profile} profiles={profiles} CloseModal={CloseModal} />)} style={styles.profile}>
           <Image source={profiles[profileNbr].image} style={[styles.icon ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]} />
           <Text style={{marginTop: 20, color: "#E8E2E2"}}> Click to Change Profile Image ? </Text>
         </TouchableOpacity>
 
-         {profile.map((item,key)=>(
-          <View style={styles.row} key={key}>
-            <Text style={styles.text1}> {item.label} </Text>
-            <Text style={styles.text2}> {item.value} </Text>
-          </View>
-         ))}
+        {profile.map((item,key)=>(
+          key === 0 ?
+            <View key={key} style={styles.row}>
+              <Text style={styles.text1}> {item.label} </Text>
+              <Text style={styles.text2}> {item.value} </Text>
+            </View>
+          :
+            <TouchableOpacity onPress={()=> OpenModal() & setSheetBody(item.change)} key={key}>
+              <View style={styles.row}>
+                <Text style={styles.text1}> {item.label} </Text>
+                <Text style={styles.text2}> {item.value} </Text>
+              </View>
+            </TouchableOpacity>
+        ))}
       </View>
 
       <View style={styles.Btnbox}>
         <TouchableOpacity 
-            style={styles.delete}
+          onPress={()=> setSheetBody(<DeleteAccount CloseModal={CloseModal} />) & OpenModal()}
+          style={styles.delete}
         >
             <Text style={styles.DeleteText}> Delete account </Text>
         </TouchableOpacity>
@@ -177,28 +147,7 @@ export default function Profile() {
         onDismiss={()=> setIsOpen(false)}
       >
         <View style={styles.modalView}>
-          <View style={{marginBottom: 20}}>
-            <Text style={{textAlign: "center", fontSize: 18, fontWeight: 'bold'}}> Change Your Avatar </Text>
-            {click == user?.profile && <Text style={styles.error}> This avatar is your current avatar ! </Text>}
-          </View>
-
-          <BottomSheetScrollView contentContainerStyle={{paddingBottom: "60%", justifyContent: 'center', flexDirection:'row', flexWrap:'wrap', alignItems: 'flex-start'}}> 
-           {profiles.map((profile,key)=>( 
-              <TouchableOpacity key={key} onPress={()=> setClick(key)} style={[key == click && {backgroundColor: "#3FC495"}, styles.profile1]}>
-                <Image source={profile.image} style={{width: "100%", height: "100%"}} />
-              </TouchableOpacity>
-           ))}
-          </BottomSheetScrollView>
-
-          {click !== user?.profile &&
-            <TouchableOpacity
-              onPress={Submit}
-              disabled={condittion1 ? true : false}
-              style={condittion1 ? styles.disabledBtn : styles.button}
-            >
-              <Text style={condittion1 ? styles.disabledBtnText : styles.buttonText}> SAVE </Text>
-            </TouchableOpacity>
-          }
+          {SheetBody}
         </View>
       </BottomSheetModal>
     </View>
@@ -216,19 +165,17 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 16,
   },
-
   profile: {
     width: "100%",
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
   },
-
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 14,
   },
   text1: {
     fontSize: 18,
@@ -270,45 +217,4 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 20,
   },
-  profile1: {
-    borderRadius: 16,
-    padding:10, 
-    margin: 10, 
-    width: 150, 
-    height: 150,
-  },
-  button: {
-    borderRadius: 16,
-    padding: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: "#3FC495",
-    marginHorizontal: 20,
-    marginTop: 20,
-  },
-  buttonText: {
-      color: 'white',
-      fontSize: 16,
-      fontWeight: 'bold',
-  },
-  disabledBtn: {
-      borderRadius: 16,
-      padding: 15,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: "white",
-      marginHorizontal: 20,
-  },
-  disabledBtnText: {
-      color: '#adb5bd',
-      fontWeight: 'bold',
-      fontSize: 16,
-  },
-  error: {
-    color: "red",
-    textAlign: "center",
-    marginTop: 10,
-    fontWeight: 'bold',
-}
-
 })
