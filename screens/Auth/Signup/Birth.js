@@ -6,7 +6,7 @@ import { Progress } from '../../../Components/Headers'
 
 export default function Birth({navigation}) {
   const [age, setAge] = useState(0)
-  const agevalue={
+  const agevalue = {
     age: age > 5 && age
   }
   const condittion = age > 5
@@ -22,7 +22,7 @@ export default function Birth({navigation}) {
 
   return (
     <View style={styles.container}>
-        {Progress({navigation}, 2)}
+        {Progress({navigation}, 3)}
         {!condittion && age !== 0 &&
           <Text style={styles.error}>You should be more than 5 years old</Text>
         }

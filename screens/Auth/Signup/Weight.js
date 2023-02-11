@@ -1,27 +1,29 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
 import { Progress } from '../../../Components/Headers'
 
 export default function Weight({navigation}) {
-    const weightObj = [
-        {
-            "title":"Lbs",
-            "value":"lbs",
-        },
-        {
-            "title":"Kg",
-            "value":"kg",
+    const [user, setUser] = useState("null")
+
+    useEffect(() => {
+        async function getUser(){
+          const value = await AsyncStorage.getItem('user')
+          const val = JSON.parse(value)
+          if(value !== null) {
+              console.log(value);
+              setUser(val)
+          }
         }
-    ]
+        getUser();
+    }, []) 
     
-    const [obj, setObj] = useState(0)
     const [weight, setWeight] = useState(0)
     const condittion = weight > 0
 
     const weightKey = {
-        weight: weight >= 0 && `${weight}`
+        weight: weight >= 0 && weight
     }
     
     const Submit = async () => {
@@ -38,7 +40,7 @@ export default function Weight({navigation}) {
 
   return (
     <View style={styles.container}>
-        {Progress({navigation}, 4)}
+        {Progress({navigation}, 5)}
 
         <View>
             <View style={styles.box}>
@@ -48,13 +50,7 @@ export default function Weight({navigation}) {
                     keyboardType="numeric"
                     onChangeText={e => setWeight(e)}
                 />
-                <Text> {weightObj[obj].title} </Text>
-            </View>
-
-            <View style={styles.choise}>
-                {weightObj.map((item,key)=>(
-                    <Text onPress={()=> setObj(key)} key={key} style={obj === key ? styles.active : styles.choose}> {item.title} </Text>
-                ))}
+                <Text> {user?.system === "eu" ? "kg" : "Lbs"} </Text>
             </View>
         </View>
 

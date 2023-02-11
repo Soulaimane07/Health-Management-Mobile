@@ -4,7 +4,6 @@ import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, Tou
 import { DateHeader } from '../../Components/Date'
 import Statusbar from '../../Components/Statusbar'
 
-import Icon from 'react-native-vector-icons/Feather'
 import Ficon from 'react-native-vector-icons/Fontisto'
 import Foicon from 'react-native-vector-icons/Foundation'
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -276,12 +275,13 @@ const styles = StyleSheet.create({
   logo: {
       width: 50,
       height: 50,
-      marginRight: 8,
+      marginRight: 10,
   },
 
     profile: {
       flexDirection: "row",
-      alignItems: 'center',      
+      alignItems: 'center',  
+      width: "100%"    
   },
 
   callendar: {

@@ -10,6 +10,7 @@ import GoalWeight from './Change/GoalWeight'
 import CurrentWeight from './Change/CurrentWeight'
 import Age from './Change/Age'
 import Gender from './Change/Gender'
+import ChangeHeight from './Change/ChangeHeight'
 
 export function Personal() {
     const [user, setUser] = useState("null")
@@ -27,6 +28,9 @@ export function Personal() {
         getUser();
     }, []) 
 
+    const Hunit = user?.system === "eu" ? "m" : "f/in"
+    const Wunit = user?.system === "eu" ? "Kg" : "Lbs"
+
     const Goals = [
         {
             "label":"Goal",
@@ -35,7 +39,7 @@ export function Personal() {
         },
         {
             "label":"Goal Weight",
-            "value": user.Gweight,
+            "value": `${user.Gweight} ${Wunit}`,
             "change": <GoalWeight Gweight={user?.Gweight} />
         },
     ]
@@ -43,13 +47,13 @@ export function Personal() {
     const Details = [
         {
             "label":"Current Weight",
-            "value": user.weight,
+            "value": `${user.weight} ${Wunit}`,
             "change": <CurrentWeight weight={user?.weight} />,
         },
         {
             "label":"Height",
-            "value": user.height,
-            "change": "",
+            "value": `${user?.height?.x}.${user?.height?.y} ${Hunit}`,
+            "change": <ChangeHeight height={user?.height} />,
         },
         {
             "label":"Age",
@@ -65,7 +69,6 @@ export function Personal() {
 
     const refB = useRef(null)
     const snapPoints = useMemo(()=> ["50%"], [])
-
     const [IsOpen, setIsOpen] = useState(false)
     const OpenModal = () => {
         refB.current?.present()
@@ -110,6 +113,7 @@ export function Personal() {
                 ))}
             </View>
         </View>
+
 
         <BottomSheetModal
             ref={refB}

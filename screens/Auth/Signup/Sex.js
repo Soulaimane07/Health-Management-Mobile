@@ -32,7 +32,7 @@ export default function Sex({navigation}) {
 
           await AsyncStorage.mergeItem('user', JSON.stringify(profile))
           console.log("Profile is stored");
-          navigation.navigate('birth')
+          navigation.navigate('system')
         } catch (e) {
           console.log("Sex isn't stored");
         }

@@ -9,6 +9,8 @@ export default function Finish({route, navigation}) {
     const [show, setShow] = useState(false)
     const [user, setUser] = useState("null")
 
+    const unit = user?.system === "eu" ? "Kg" : "Lbs"
+
     useEffect(() => {
         setTimeout(() => {
             setShow(true)
@@ -81,8 +83,8 @@ export default function Finish({route, navigation}) {
 
     const Login = () => {
         console.log("User Logged in");
-            route.params.setLogged(true)
-            navigation.navigate('home')
+        route.params.setLogged(true)
+        navigation.navigate('home')
     }
 
   return (
@@ -109,9 +111,9 @@ export default function Finish({route, navigation}) {
                             <Text style={styles.text4}> {user.weight} </Text>
                         :
                             <>
-                                <Text style={styles.text4}> {user.weight} </Text>
+                                <Text style={styles.text4}> {user.weight} {unit} </Text>
                                 <Icon1 style={styles.icon1} name={user.goal === "Lose Weight" ? "trending-down" : "trending-up"} size={34} color="#3FC495" />
-                                <Text style={styles.text4}> {user.Gweight} </Text>
+                                <Text style={styles.text4}> {user.Gweight} {unit} </Text>
                             </>
                         }
                     </View>

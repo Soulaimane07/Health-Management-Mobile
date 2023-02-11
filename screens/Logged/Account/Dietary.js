@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import {StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import BouncyCheckbox from "react-native-bouncy-checkbox";
+import Ficon from 'react-native-vector-icons/FontAwesome'
+import Oicon from 'react-native-vector-icons/Octicons'
 
 export default function Dietary() {
+    const [selected, setSelect] = useState(null)
 
     const food = [
         {
@@ -57,37 +59,31 @@ export default function Dietary() {
 
     let condittion = selected === null
 
-    const [selected, setSelect] = useState(null)
-
   return (
     <View style={styles.container}>
         <Text style={styles.text}>FOOD PREFERENCES</Text>
         <View style={styles.box}>
             {food.map((item,key)=>(
-                <View key={key} style={styles.row}>
+                <TouchableOpacity onPress={()=> setSelect(item.val)} key={key} style={styles.row}>
                     <Text style={styles.row1key}> {item.label} </Text>
-                    <BouncyCheckbox
-                        size={24}
-                        fillColor="#3FC495"
-                        isChecked={item.value}
-                        onPress={()=> setSelect(item.val)}
-                    />
-                </View>    
+                    {item.value 
+                        ?    <Oicon name='check-circle-fill' color="#3FC495" size={24} />
+                        :    <Ficon name='circle-thin' color="#adb5bd" size={27} />
+                    }
+                </TouchableOpacity>    
             ))}
         </View>
         
         <Text style={styles.text}>ALLERGIES</Text>
         <View style={styles.box}>
             {ALLERGIES.map((item,key)=>(
-                <View key={key} style={styles.row}>
-                    <Text onPress={()=> setSelect(item.val)} style={styles.row1key}> {item.label} </Text>
-                    <BouncyCheckbox
-                        size={24}
-                        fillColor="#3FC495"
-                        isChecked={item.value}
-                        onPress={()=> setSelect(item.val)}
-                    />
-                </View>    
+                <TouchableOpacity onPress={()=> setSelect(item.val)} key={key} style={styles.row}>
+                    <Text style={styles.row1key}> {item.label} </Text>
+                    {item.value 
+                        ?    <Oicon name='check-circle-fill' color="#3FC495" size={24} />
+                        :    <Ficon name='circle-thin' color="#adb5bd" size={27} />
+                    }
+                </TouchableOpacity>    
             ))}
         </View>
 

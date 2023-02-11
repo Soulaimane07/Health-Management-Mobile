@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
 import { Progress } from '../../../Components/Headers'
@@ -7,33 +7,30 @@ import { Progress } from '../../../Components/Headers'
 import Ficon from 'react-native-vector-icons/FontAwesome'
 
 export default function Height({navigation}) {
-    const heightObj = [
-        {
-            "title":"ft/in",
-            "value":"ft",
-        },
-        {
-            "title":"m",
-            "value":"m",
+    const [user, setUser] = useState("null")
+
+    useEffect(() => {
+        async function getUser(){
+          const value = await AsyncStorage.getItem('user')
+          const val = JSON.parse(value)
+          if(value !== null) {
+              console.log(value);
+              setUser(val)
+          }
         }
-    ]
+        getUser();
+    }, []) 
 
     const [heightX, setHeightX] = useState(0)
     const [heightY, setHeightY] = useState(0)
 
-    const [obj, setObj] = useState(0)
     const condittion = heightX > 0 && heightY > 0
 
-    const height = {
+    const heightkey = {
         height: {
             x: heightX,
             y: heightY,
-            unite: heightObj[obj].title
         }
-    }
-
-    const heightkey = {
-        height: heightX >= 0 && heightY >= 0 && `${height}`
     }
     
     const Submit = async () => {
@@ -48,16 +45,14 @@ export default function Height({navigation}) {
 
   return (
     <View style={styles.container}>
-        {Progress({navigation}, 3)}
+        {Progress({navigation}, 4)}
 
-        <View>
-            <View style={styles.box}>
-                {obj === 1 ?
-                <>
+        <View style={styles.box}>
+            {user?.system === "eu" ?
+            <>
                 <TextInput
                     style={[styles.input, {width: 50}]}
                     keyboardType="numeric"
-                    value={heightX}
                     onChangeText={e => setHeightX(e)}
                     maxLength={1}
                 />
@@ -65,17 +60,16 @@ export default function Height({navigation}) {
                 <TextInput
                     style={[styles.input, {width: 100}]}
                     keyboardType="numeric"
-                    value={heightY}
                     maxLength={2}
                     onChangeText={e => setHeightY(e)}
                 />
-                </>
-                :
-                <>
+                <Text style={{marginLeft: 10, fontSize: 20}}> meter </Text>
+            </>
+            :
+            <>
                 <TextInput
                     style={[styles.input, {width: 60}]}
                     keyboardType="numeric"
-                    value={height}
                     maxLength={2}
                     onChangeText={e => setHeightX(e)}
                 />
@@ -84,21 +78,12 @@ export default function Height({navigation}) {
                 <TextInput
                     style={[styles.input, {width: 60, marginLeft: 20,}]}
                     keyboardType="numeric"
-                    value={height}
                     maxLength={2}
                     onChangeText={e => setHeightY(e)}
                 />
                 <Text style={{padding: 10, borderBottomWidth: 1, borderBottomColor: "#3FC495", marginLeft: 10, fontSize: 14}}> inches </Text>
-
-                </>
-                }
-            </View>
-
-            <View style={styles.choise}>
-                {heightObj.map((item,key)=>(
-                    <Text onPress={()=> setObj(key)} key={key} style={obj === key ? styles.active : styles.choose}> {item.title} </Text>
-                ))}
-            </View>
+            </>
+            }
         </View>
 
         {NavigateBtn({navigation}, "Next", Submit, condittion)}

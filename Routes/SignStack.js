@@ -9,6 +9,7 @@ import Height from '../screens/Auth/Signup/Height';
 import Weight from '../screens/Auth/Signup/Weight';
 import Finish from '../screens/Auth/Signup/Finish';
 import GWeight from '../screens/Auth/Signup/GWeight';
+import System from '../screens/Auth/Signup/System';
 
 export default function SignStack({route}) {
     const Stack = createNativeStackNavigator();
@@ -20,6 +21,7 @@ export default function SignStack({route}) {
       
       <Stack.Screen name="goal" component={Goal} />
       <Stack.Screen name="sex" component={Sex} />
+      <Stack.Screen name="system" component={System} />
       <Stack.Screen name="birth" component={Birth} />
       <Stack.Screen name="height" component={Height} />
       <Stack.Screen name="weight" component={Weight} />

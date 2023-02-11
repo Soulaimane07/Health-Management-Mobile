@@ -8,7 +8,6 @@ function Start({navigation}) {
         <TouchableOpacity onPress={()=> navigation.navigate("signup")} style={styles.button}>
             <Text style={styles.buttonText}> Continue </Text>
         </TouchableOpacity>
-        {/* <Text style={styles.alert}> We will never post anything without your permition. </Text> */}
     </View>
   )
 }

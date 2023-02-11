@@ -2,7 +2,7 @@
   "expo": {
     "name": "Health Manager",
     "slug": "mobile-v1",
-    "version": "1.0.0",
+    "version": "3.0.0",
     "orientation": "portrait",
     "icon": "./assets/logoPng.png",
     "userInterfaceStyle": "light",

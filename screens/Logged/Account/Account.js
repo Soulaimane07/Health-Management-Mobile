@@ -21,6 +21,8 @@ export function Account({route,navigation}) {
     getUser();
   }, []) 
 
+  const unit = user?.system === "eu" ? "Kg" : "Lbs"
+
   const profile = [
     {
       "label":"Goal",
@@ -28,11 +30,11 @@ export function Account({route,navigation}) {
     },
     {
       "label":"Current Weight",
-      "value": user.weight,
+      "value": `${user.weight} ${unit}`,
     },
     {
       "label":"Goal Weight",
-      "value": user.Gweight,
+      "value": `${user.Gweight} ${unit}`,
     },
     {
       "label":"Active Diet",

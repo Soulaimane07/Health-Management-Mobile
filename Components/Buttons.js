@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     buttonText: {
       color: 'white',
       fontSize: 16,
+      fontWeight: "bold",
     },
     disabledBtn: {
         borderRadius: 16,
@@ -36,5 +37,6 @@ const styles = StyleSheet.create({
     disabledBtnText: {
         color: '#adb5bd',
         fontSize: 16,
+        fontWeight: "bold",
     },
 })

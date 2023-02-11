@@ -18,6 +18,11 @@ export const Progress = ({navigation}, p) => {
             'header': "What sex should we use to calculate your recommendations?",
         },
         {
+            'title': 'system',
+            'text': 'Great!',
+            'header': "Choose your unit system?",
+        },
+        {
             'title': 'Birth',
             'text':'Got it',
             'header':"What's your age?",
@@ -38,20 +43,6 @@ export const Progress = ({navigation}, p) => {
             'header':"What's your Goal weight?",
         },
     ]
-
-    const [user, setUser] = useState("null")
-
-    useEffect(() => {
-        async function getUser(){
-          const value = await AsyncStorage.getItem('user')
-          const val = JSON.parse(value)
-          if(value !== null) {
-              console.log(value);
-              setUser(val)
-          }
-        }
-        getUser();
-    }, []) 
 
     return (
         <View>

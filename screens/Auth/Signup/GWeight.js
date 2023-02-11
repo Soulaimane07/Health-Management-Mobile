@@ -19,9 +19,6 @@ export default function GWeight({navigation}) {
         getUser();
     }, []) 
 
-    const height = user.height
-    // const h = JSON.parse(height)
-    
     const InputCondittion = () => {
         let x
         let Statement
@@ -44,23 +41,11 @@ export default function GWeight({navigation}) {
         return {x,Statement}
     }
 
-    const weightObj = [
-        {
-            "title":"Lbs",
-            "value":"lbs",
-        },
-        {
-            "title":"Kg",
-            "value":"kg",
-        }
-    ]
-
-    const [obj, setObj] = useState(0)
     const [weight, setWeight] = useState(0)
     const condittion = weight > 0 && InputCondittion().x
 
     const weightKey = {
-        Gweight: weight >= 0 && `${weight} ${weightObj[obj].title}`
+        Gweight: weight >= 0 && weight
     }
 
     const Submit = async () => {
@@ -75,10 +60,7 @@ export default function GWeight({navigation}) {
 
   return (
     <View style={styles.container}>
-        {Progress({navigation}, 5)}
-
- 
-        {/* <Text> {h} </Text> */}
+        {Progress({navigation}, 6)}
 
         <View>
             {InputCondittion().Statement}
@@ -91,13 +73,7 @@ export default function GWeight({navigation}) {
                     maxLength={3}
                     onChangeText={e => setWeight(e)}
                 />
-                <Text> {weightObj[obj].title} </Text>
-            </View>
-
-            <View style={styles.choise}>
-                {weightObj.map((item,key)=>(
-                    <Text onPress={()=> setObj(key)} key={key} style={obj === key ? styles.active : styles.choose}> {item.title} </Text>
-                ))}
+                <Text> {user?.system === "eu" ? "Kg" : "Lbs"} </Text>
             </View>
         </View>
 
