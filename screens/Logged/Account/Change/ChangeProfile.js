@@ -15,6 +15,7 @@ export default function ChangeProfile(props) {
         try {
         await AsyncStorage.mergeItem('user', JSON.stringify(val))
         props.CloseModal()
+        props.getUser()
         console.log("User Profile is updated!");
         } catch (e) {
         console.log("User Profile is not updated!");

@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "white",
     padding: 20,
+    paddingBottom: 10,
     borderRadius: 16,
   },
   profile: {

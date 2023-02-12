@@ -27,6 +27,8 @@ export default function GoalChange(props) {
     const Submit = async () => {
         try {
           await AsyncStorage.mergeItem("user", JSON.stringify(goal))
+          props.CloseModal()
+          props.getUser()
           console.log("User's Goal is Updated!")
         } catch (e) {
           console.log("User goal is not updated");

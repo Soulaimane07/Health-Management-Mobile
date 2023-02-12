@@ -16,56 +16,23 @@ export function Personal() {
     const [user, setUser] = useState("null")
     const [SheetBody, setSheetBody] = useState(null)
 
-    useEffect(() => {
-        async function getUser(){
-            const value = await AsyncStorage.getItem('user')
-            const val = JSON.parse(value)
-            if(value !== null) {
-                console.log(value);
-                setUser(val)
-            }
+    async function getUser(){
+        const value = await AsyncStorage.getItem('user')
+        const val = JSON.parse(value)
+        if(value !== null) {
+            console.log(value);
+            setUser(val)
         }
+    }
+    
+    useEffect(() => {
         getUser();
     }, []) 
 
     const Hunit = user?.system === "eu" ? "m" : "f/in"
     const Wunit = user?.system === "eu" ? "Kg" : "Lbs"
 
-    const Goals = [
-        {
-            "label":"Goal",
-            "value": user.goal,
-            "change": <GoalChange goal={user?.goal} />
-        },
-        {
-            "label":"Goal Weight",
-            "value": `${user.Gweight} ${Wunit}`,
-            "change": <GoalWeight Gweight={user?.Gweight} />
-        },
-    ]
-
-    const Details = [
-        {
-            "label":"Current Weight",
-            "value": `${user.weight} ${Wunit}`,
-            "change": <CurrentWeight weight={user?.weight} />,
-        },
-        {
-            "label":"Height",
-            "value": `${user?.height?.x}.${user?.height?.y} ${Hunit}`,
-            "change": <ChangeHeight height={user?.height} />,
-        },
-        {
-            "label":"Age",
-            "value": user.age ,
-            "change": <Age age={user?.age} />,
-        },
-        {
-            "label":"Gender",
-            "value": user.sex,
-            "change": <Gender sex={user?.sex} /> ,
-        },
-    ]
+   
 
     const refB = useRef(null)
     const snapPoints = useMemo(()=> ["50%"], [])
@@ -76,6 +43,48 @@ export function Personal() {
             setIsOpen(true)
         }, 120);
     }
+    const CloseModal = () => {
+        refB.current?.close()
+        setTimeout(() => {
+            setIsOpen(false)
+        }, 120);
+    }
+
+    const Goals = [
+        {
+            "label":"Goal",
+            "value": user.goal,
+            "change": <GoalChange goal={user?.goal} CloseModal={CloseModal} getUser={getUser} />
+        },
+        {
+            "label":"Goal Weight",
+            "value": `${user.Gweight} ${Wunit}`,
+            "change": <GoalWeight Gweight={user?.Gweight} CloseModal={CloseModal} getUser={getUser} />
+        },
+    ]
+
+    const Details = [
+        {
+            "label":"Current Weight",
+            "value": `${user.weight} ${Wunit}`,
+            "change": <CurrentWeight weight={user?.weight} CloseModal={CloseModal} getUser={getUser} />,
+        },
+        {
+            "label":"Height",
+            "value": `${user?.height?.x}${user?.system === "eu" ? "." : "/"}${user?.height?.y} ${Hunit}`,
+            "change": <ChangeHeight height={user?.height} system={user?.system} CloseModal={CloseModal} getUser={getUser} />,
+        },
+        {
+            "label":"Age",
+            "value": user.age ,
+            "change": <Age age={user?.age} CloseModal={CloseModal} getUser={getUser} />,
+        },
+        {
+            "label":"Gender",
+            "value": user.sex,
+            "change": <Gender sex={user?.sex} CloseModal={CloseModal} getUser={getUser} /> ,
+        },
+    ]
     
   return (
     <GestureHandlerRootView style={{flex: 1}}>
@@ -113,7 +122,6 @@ export function Personal() {
                 ))}
             </View>
         </View>
-
 
         <BottomSheetModal
             ref={refB}

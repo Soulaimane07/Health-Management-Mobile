@@ -13,22 +13,25 @@ import DeleteAccount from './Change/DeleteAccount'
 export default function Profile() {
   const [user, setUser] = useState("null")
 
-  useEffect(() => {
-    async function getUser(){
-      const value = await AsyncStorage.getItem('user')
-      const val = JSON.parse(value)
-      if(value !== null) {
-          console.log(value);
-          setUser(val)
-      }
+  async function getUser(){
+    const value = await AsyncStorage.getItem('user')
+    const val = JSON.parse(value)
+    if(value !== null) {
+        console.log(value);
+        setUser(val)
     }
+  }
+
+  useEffect(() => {
     getUser();
   }, []) 
 
 
   const [SheetBody, setSheetBody] = useState(null)
+  const [sheet, setSheet] = useState(false)
+  
   const refB = useRef(null)
-  const snapPoints = useMemo(()=> ["60%", "100%"], [])
+  const snapPoints =  useMemo(()=> [sheet ? "100%" : "70%"], [sheet])
   const [IsOpen, setIsOpen] = useState(false)
   const OpenModal = () => {
       refB.current?.present()
@@ -44,7 +47,6 @@ export default function Profile() {
   }
 
 
-
   /* ******************* */
 
   const profile = [
@@ -55,17 +57,17 @@ export default function Profile() {
     {
       "label":"First name",
       "value": user.fname,
-      "change": <ChangeFname fname={user?.fname} CloseModal={CloseModal} />,
+      "change": <ChangeFname getUser={getUser} fname={user?.fname} CloseModal={CloseModal} />,
     },
     {
       "label":"Last name",
       "value": user.lname,
-      "change": <ChangeLname lname={user?.lname} CloseModal={CloseModal} /> ,
+      "change": <ChangeLname getUser={getUser} lname={user?.lname} CloseModal={CloseModal} /> ,
     },
     {
       "label":"Password",
       "value": user.pass,
-      "change": <ChangePass pass={user?.pass} CloseModal={CloseModal} />,
+      "change": <ChangePass getUser={getUser} pass={user?.pass} CloseModal={CloseModal} />,
     },
   ]
   const profileNbr = user?.profile ? user?.profile : 0
@@ -110,7 +112,7 @@ export default function Profile() {
     <BottomSheetModalProvider>
     <View style={[styles.container, IsOpen && {backgroundColor: "#2C3333"}]}>
       <View style={[styles.box, IsOpen ? {backgroundColor: "#374040"} : {backgroundColor:"white"}]}>
-        <TouchableOpacity onPress={()=> OpenModal() & setSheetBody(<ChangeProfile profile={user?.profile} profiles={profiles} CloseModal={CloseModal} />)} style={styles.profile}>
+        <TouchableOpacity onPress={()=> setSheet(true) & setSheetBody(<ChangeProfile getUser={getUser} profile={user?.profile} profiles={profiles} CloseModal={CloseModal} />) & OpenModal()} style={styles.profile}>
           <Image source={profiles[profileNbr].image} style={[styles.icon ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]} />
           <Text style={{marginTop: 20, color: "#E8E2E2"}}> Click to Change Profile Image ? </Text>
         </TouchableOpacity>
@@ -122,7 +124,7 @@ export default function Profile() {
               <Text style={styles.text2}> {item.value} </Text>
             </View>
           :
-            <TouchableOpacity onPress={()=> OpenModal() & setSheetBody(item.change)} key={key}>
+            <TouchableOpacity onPress={()=> setSheet(false) & setSheetBody(item.change) & OpenModal()} key={key}>
               <View style={styles.row}>
                 <Text style={styles.text1}> {item.label} </Text>
                 <Text style={styles.text2}> {item.value} </Text>
@@ -133,7 +135,7 @@ export default function Profile() {
 
       <View style={styles.Btnbox}>
         <TouchableOpacity 
-          onPress={()=> setSheetBody(<DeleteAccount CloseModal={CloseModal} />) & OpenModal()}
+          onPress={()=> setSheet(false) & setSheetBody(<DeleteAccount CloseModal={CloseModal} />) & OpenModal()}
           style={styles.delete}
         >
             <Text style={styles.DeleteText}> Delete account </Text>

@@ -19,6 +19,7 @@ export default function ChangeFname(props) {
         try {
           await AsyncStorage.mergeItem("user", JSON.stringify(Pass))
           props.CloseModal()
+          props.getUser()
           console.log("User's Password is Updated!")
         } catch (e) {
           console.log("User Password is not updated");

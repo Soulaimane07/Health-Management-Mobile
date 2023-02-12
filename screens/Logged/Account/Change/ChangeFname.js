@@ -15,6 +15,7 @@ export default function ChangeFname(props) {
         try {
           await AsyncStorage.mergeItem("user", JSON.stringify(Fname))
           props.CloseModal()
+          props.getUser()
           console.log("User's First name is Updated!")
         } catch (e) {
           console.log("User First name is not updated");
@@ -28,7 +29,7 @@ export default function ChangeFname(props) {
             {condition && 
                 <View style={styles.error}>
                     <Micon color="red" name="error" size={20} />
-                    <Text style={styles.errorText}> This nale is your current First name ! </Text>
+                    <Text style={styles.errorText}> This name is your current First name ! </Text>
                 </View>
             }
         </View>

@@ -13,6 +13,8 @@ export default function Age(props) {
     const Submit = async () => {
         try {
           await AsyncStorage.mergeItem("user", JSON.stringify(age))
+          props.CloseModal()
+          props.getUser()
           console.log("User's age is Updated!")
         } catch (e) {
           console.log("User age is not updated");
