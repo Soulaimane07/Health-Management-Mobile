@@ -47,8 +47,11 @@ export default function Sex({navigation}) {
                 <Text onPress={()=> setBox(key)} style={box === key ? styles.active : styles.box} key={key}> {item.title} </Text>
             ))}
         </View>
+        
+        <View style={styles.BtnBox}>
+            {NavigateBtn({navigation}, "Next", Submit, condittion)}
+        </View>
 
-        {NavigateBtn({navigation}, "Next", Submit, condittion)}
     </View>
   )
 }
@@ -78,5 +81,9 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         backgroundColor: "#3FC495",
         color: "white",
+    },
+    BtnBox: {
+        marginHorizontal: 20,
+        marginBottom: 20
     }
 })

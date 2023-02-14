@@ -87,6 +87,40 @@ export default function Finish({route, navigation}) {
         navigation.navigate('home')
     }
 
+    const Indic = () => {
+        const height = Number(user?.height?.x) * 100 + Number(user?.height?.y)
+        const imc = (user?.weight)*10000 / Math.pow(height, 2)
+        return imc
+    }
+
+    const IMCData = [
+        {
+            "title":"Maigreur",
+            "from": 0,
+            "to": 18.5
+        },
+        {
+            "title":"Notmal",
+            "from": 18.5,
+            "to": 25.5
+        },
+        {
+            "title":"Surpoids",
+            "from": 25,
+            "to": 30
+        },
+        {
+            "title":"Obisité Moderee",
+            "from": 30,
+            "to": 40
+        },
+        {
+            "title":"Obesite Severe",
+            "from": 40,
+            "to": 100
+        },
+    ]
+
   return (
     !show 
     ?
@@ -98,6 +132,10 @@ export default function Finish({route, navigation}) {
     :
         <>
             <ScrollView vertical={true} style={styles.started}>
+                {IMCData.map((item,key)=>(
+                    Indic() < item.to && Indic() > item.from ? <Text> {item.title} </Text> : ""
+                ))} 
+
                 <View style={styles.header}>
                     <View style={styles.iconbtn}>
                         <Icon style={styles.icon} name="check" size={24} color="white" />
@@ -154,8 +192,8 @@ export default function Finish({route, navigation}) {
                         </View>
                     ))}
                 </View>
-
             </ScrollView>
+
             <View style={styles.btn}>
                 <TouchableOpacity style={styles.button} onPress={()=> Login()}>
                     <Text style={styles.buttonText}> GET STARTED </Text>

@@ -47,7 +47,9 @@ export default function Goal({navigation}) {
         ))}
       </View>
 
-      {NavigateBtn({navigation}, "Next", Submit, condittion)}
+      <View style={styles.BtnBox}>
+        {NavigateBtn({navigation}, "Next", Submit, condittion)}
+      </View>
     </View>
   )
 }
@@ -77,5 +79,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: "#3FC495",
     color: "white",
+  },
+  BtnBox: {
+    marginHorizontal: 20,
+    marginBottom: 20
   }
 })

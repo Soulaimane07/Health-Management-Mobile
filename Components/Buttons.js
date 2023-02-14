@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native"
 export const NavigateBtn = ({navigation}, text, submit, condittion) => {
     return (
         <TouchableOpacity
-            style={!condittion ? styles.disabledBtn : styles.button} 
+            style={[!condittion ? styles.disabledBtn : styles.button]} 
             onPress={()=> submit()}
             disabled={!condittion ? true : false}
         >
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: "#3FC495",
-      margin: 20,
+      marginVertical: 20
     },
     buttonText: {
       color: 'white',
@@ -32,11 +32,35 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: "white",
-        margin: 20,
+        marginVertical: 20
     },
     disabledBtnText: {
         color: '#adb5bd',
         fontSize: 16,
         fontWeight: "bold",
+    },
+})
+
+export const MyButton = ({navigation}, text, link ) => {
+    return (
+        <TouchableOpacity onPress={()=> navigation.navigate(link)} style={ButtonStyle.button}>
+            <Text style={ButtonStyle.buttonText}> {text} </Text>
+        </TouchableOpacity>
+    )
+}
+
+const ButtonStyle = StyleSheet.create({
+    button: {
+        borderRadius: 16,
+        padding: 15,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "#3FC495",
+        marginBottom: 10,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 18,
     },
 })

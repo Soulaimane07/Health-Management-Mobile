@@ -86,7 +86,9 @@ export default function Height({navigation}) {
             }
         </View>
 
-        {NavigateBtn({navigation}, "Next", Submit, condittion)}
+        <View style={styles.BtnBox}>
+            {NavigateBtn({navigation}, "Next", Submit, condittion)}
+        </View>
     </View>
   )
 }
@@ -135,4 +137,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         justifyContent: 'center',
     },
+    BtnBox: {
+        marginHorizontal: 20,
+        marginBottom: 20
+    }
 })

@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
+import { StyleSheet, Text, View, TextInput} from 'react-native';
+import { NavigateBtn } from '../../../Components/Buttons';
 
 export default function Signup({navigation}) {
     const [email, setEmail] = useState(null)
@@ -15,7 +16,7 @@ export default function Signup({navigation}) {
         pass: pass,
     }
     
-    const condittion = email !== null && fname !== null && lname !== null && pass !== null
+    const condittion = email !== null && fname !== null && lname !== null && pass !== null && pass.length > 8
 
     const Submit = async () => {
         try {
@@ -69,13 +70,7 @@ export default function Signup({navigation}) {
             />
         </View>
         <View style={styles.info}>
-            <TouchableOpacity 
-                disabled={!condittion ? true : false}
-                style={!condittion ? styles.disabledBtn : styles.button} 
-                onPress={()=> Submit()}
-            >
-                <Text style={!condittion ? styles.disabledBtnText : styles.buttonText}> Create </Text>
-            </TouchableOpacity>
+            {NavigateBtn({navigation}, "Create", Submit, condittion )}
         </View>
         {/* <Text> {email} {fname} {lname} {pass} </Text> */}
     </View>
@@ -97,7 +92,6 @@ const styles = StyleSheet.create({
     },
     info: {
         justifyContent: 'center',
-        marginBottom: 20,
     },
     label: {
         marginBottom: 6,

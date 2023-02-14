@@ -23,9 +23,11 @@ export default function Birth({navigation}) {
   return (
     <View style={styles.container}>
         {Progress({navigation}, 3)}
+        
         {!condittion && age !== 0 &&
           <Text style={styles.error}>You should be more than 5 years old</Text>
         }
+        
         <View style={styles.boxs}>
           <TextInput 
             keyboardType="numeric" 
@@ -39,7 +41,9 @@ export default function Birth({navigation}) {
           </Text>
         </View>
 
-        {NavigateBtn({navigation}, "Next", Submit, condittion)}
+        <View style={styles.BtnBox}>
+          {NavigateBtn({navigation}, "Next", Submit, condittion)}
+        </View>
     </View>
   )
 }
@@ -88,5 +92,9 @@ const styles = StyleSheet.create({
       color: "red",
       textAlign: "center",
       marginBottom: 20,
+  },
+  BtnBox: {
+      marginHorizontal: 20,
+      marginBottom: 20
   }
 })

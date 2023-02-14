@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image} from 'react-native';
+import { NavigateBtn } from '../../../Components/Buttons';
+import Height from '../Signup/Height';
 
 export default function Login({route, navigation}) {
     const [email, setEmail] = useState("")
@@ -27,7 +29,11 @@ export default function Login({route, navigation}) {
     console.log(route.params.logged);
 
   return (
+
     <View style={styles.container}>
+        <View style={{alignItems:"center"}}>
+            <Image source={require("../../../assets/logoPng.png")} style={{marginTop: 40,marginBottom: 50 ,width:150, height:150}} />
+        </View>
         <Text style={styles.welcome}> Log in your Account </Text>
         <View style={styles.info}>
             <Text style={styles.label}> Email Adress </Text>
@@ -51,13 +57,7 @@ export default function Login({route, navigation}) {
             />
         </View>
         <View style={styles.info}>
-            <TouchableOpacity 
-                disabled={condition ? true : false}
-                style={condition ? styles.disabledBtn : styles.button}
-                onPress={()=> fun()} 
-            >
-                <Text style={condition ? styles.disabledBtnText : styles.buttonText}> Log In </Text>
-            </TouchableOpacity>
+            {NavigateBtn({navigation}, "Login", fun, !condition)}
         </View>
         <View style={styles.signPara}>
             <Text> Don't have an account? </Text>
@@ -76,9 +76,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
         flex: 1,
-        justifyContent: 'center',
         width: "100%",
-        // backgroundColor: "white",
     },
     welcome: {
         fontSize: 30,
@@ -126,10 +124,7 @@ const styles = StyleSheet.create({
         padding: 15,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: "white",
         marginBottom: 10,
-        // borderWidth: 1,
-        // borderColor: "#adb5bd",
     },
     disabledBtnText: {
         color: '#adb5bd',

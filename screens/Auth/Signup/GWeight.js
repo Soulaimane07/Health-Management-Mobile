@@ -77,7 +77,9 @@ export default function GWeight({navigation}) {
             </View>
         </View>
 
-      {NavigateBtn({navigation}, "Finish", Submit, condittion)}
+        <View style={styles.BtnBox}>
+            {NavigateBtn({navigation}, "Finish", Submit, condittion)}
+        </View> 
     </View>
   )
 }
@@ -131,5 +133,9 @@ const styles = StyleSheet.create({
         color: "red",
         textAlign: "center",
         marginBottom: 20,
+    },
+    BtnBox: {
+        marginHorizontal: 20,
+        marginBottom: 20
     }
 })

@@ -13,7 +13,6 @@ import Steps from './screens/Logged/Target/Steps';
 import Water from './screens/Logged/Target/Water';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 

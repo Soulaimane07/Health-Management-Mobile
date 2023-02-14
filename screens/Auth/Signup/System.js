@@ -52,8 +52,10 @@ export default function System({navigation}) {
                 </TouchableOpacity>
             ))}
         </View>
-      
-        {NavigateBtn({navigation}, "Next", Submit, condittion)}
+        
+        <View style={styles.BtnBox}>
+            {NavigateBtn({navigation}, "Next", Submit, condittion)}
+        </View>
     </View>
   )
 }
@@ -73,4 +75,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center'
     },
+    BtnBox: {
+        marginHorizontal: 20,
+        marginBottom: 20
+    }
 })

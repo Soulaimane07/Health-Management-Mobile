@@ -1,13 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+import { MyButton } from '../../../Components/Buttons'
 
 function Start({navigation}) {
   return (
     <View style={styles.container}>
         <Text style={styles.header}> Welcome! Let's customize HealthManager for your goals.</Text>
-        <TouchableOpacity onPress={()=> navigation.navigate("signup")} style={styles.button}>
-            <Text style={styles.buttonText}> Continue </Text>
-        </TouchableOpacity>
+        {MyButton({navigation}, "continue", "signup")}
     </View>
   )
 }

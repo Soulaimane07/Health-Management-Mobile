@@ -1,8 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import IconFo from 'react-native-vector-icons/FontAwesome';
 import IconEn from 'react-native-vector-icons/Entypo';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
 
 export const Progress = ({navigation}, p) => {
 
@@ -62,7 +60,7 @@ export const Progress = ({navigation}, p) => {
             <View style={styles.text}>
                 <Image 
                     style={styles.logo}
-                    source={require('../assets/logo.jpg')}
+                    source={require('../assets/logoPng.png')}
                 />
                 <Text style={styles.text1}> {prog[p]?.text} </Text>
             </View>
@@ -102,8 +100,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     logo: {
-        width: 30,
-        height: 30,
+        width: 40,
+        height: 40,
         marginRight: 8,
     },
     text1: {
