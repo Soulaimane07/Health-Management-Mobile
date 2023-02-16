@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: "#3FC495",
-      marginVertical: 20
     },
     buttonText: {
       color: 'white',
@@ -32,7 +31,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: "white",
-        marginVertical: 20
     },
     disabledBtnText: {
         color: '#adb5bd',
@@ -62,5 +60,6 @@ const ButtonStyle = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 18,
+        fontWeight: "bold",
     },
 })

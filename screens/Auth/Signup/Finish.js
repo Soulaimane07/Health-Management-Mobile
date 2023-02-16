@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/Feather';
 import * as Progress from 'react-native-progress';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Calories} from '../../../Components/Calcules';
 
 export default function Finish({route, navigation}) {
     const [show, setShow] = useState(false)
@@ -50,32 +51,34 @@ export default function Finish({route, navigation}) {
         },
     ]
 
+    const calories = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex)
+
     const recommendations = [
         {
             "title":"Calories",
-            "val":1062,
+            "val": calories,
             "mesure":"Kcal",
             "proVal":1,
             "color":"#3FC495",
         },
         {
             "title":"Carbs",
-            "val":50,
-            "mesure":"%",
+            "val": (((calories*50)/100)/4).toFixed(2) ,
+            "mesure":"g",
             "proVal":0.5,
             "color":"#F99417",
         },
         {
             "title":"Fat",
-            "val":30,
-            "mesure":"%",
+            "val": (((calories*30)/100)/9).toFixed(2),
+            "mesure":"g",
             "proVal":0.3,
             "color":"#645CBB",
         },
         {
             "title":"Protein",
-            "val":20,
-            "mesure":"%",
+            "val": (((calories*20)/100)/4).toFixed(2),
+            "mesure":"g",
             "proVal":0.2,
             "color":"#F48484",
         }
@@ -97,27 +100,32 @@ export default function Finish({route, navigation}) {
         {
             "title":"Maigreur",
             "from": 0,
-            "to": 18.5
+            "to": 18.5,
+            "color":"#219ebc"
         },
         {
-            "title":"Notmal",
+            "title":"Normal",
             "from": 18.5,
-            "to": 25.5
+            "to": 25.5,
+            "color":"#25a244"
         },
         {
             "title":"Surpoids",
             "from": 25,
-            "to": 30
+            "to": 30,
+            "color":"#ff9914"
         },
         {
             "title":"Obisité Moderee",
             "from": 30,
-            "to": 40
+            "to": 40,
+            "color":"#fb6107"
         },
         {
             "title":"Obesite Severe",
             "from": 40,
-            "to": 100
+            "to": 100,
+            "color":"red"
         },
     ]
 
@@ -132,10 +140,6 @@ export default function Finish({route, navigation}) {
     :
         <>
             <ScrollView vertical={true} style={styles.started}>
-                {IMCData.map((item,key)=>(
-                    Indic() < item.to && Indic() > item.from ? <Text> {item.title} </Text> : ""
-                ))} 
-
                 <View style={styles.header}>
                     <View style={styles.iconbtn}>
                         <Icon style={styles.icon} name="check" size={24} color="white" />
@@ -156,6 +160,17 @@ export default function Finish({route, navigation}) {
                         }
                     </View>
                     <Text style={styles.text5}> Follow your recommendations and you will reach your goal. </Text>
+                </View>
+
+                <View style={styles.box}>
+                    <Text style={styles.boxHeader}>Indice de masse corporelle (IMC)  </Text>
+                    {IMCData.map((item,key)=>(
+                        Indic()<= item.to && Indic() >= item.from &&
+                            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                                <Text style={{color: item.color, marginRight: 10, fontWeight: 'bold'}}>{(Indic()).toFixed(2)}</Text>
+                                <Text style={{color: item.color, fontWeight: 'bold'}}> {item.title} </Text>
+                            </View>
+                    ))}
                 </View>
                 
                 <View style={styles.box}>
@@ -286,6 +301,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 16,
+        fontWeight: 'bold'
     },
 
 

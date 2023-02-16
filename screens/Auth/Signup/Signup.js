@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image} from 'react-native';
 import { NavigateBtn } from '../../../Components/Buttons';
 
 export default function Signup({navigation}) {
@@ -30,6 +30,9 @@ export default function Signup({navigation}) {
 
   return (
     <View style={styles.container}>
+        <View style={{alignItems:"center"}}>
+            <Image source={require("../../../assets/logoPng.png")} style={{marginTop: 40, marginBottom: 30, width: 100, height: 100}} />
+        </View>
         <Text style={styles.welcome}> Create your Account </Text>
         <View style={styles.info}>
             <Text style={styles.label}> Email Adress </Text>
@@ -72,26 +75,24 @@ export default function Signup({navigation}) {
         <View style={styles.info}>
             {NavigateBtn({navigation}, "Create", Submit, condittion )}
         </View>
-        {/* <Text> {email} {fname} {lname} {pass} </Text> */}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
         flex: 1,
-        justifyContent: 'center',
         width: "100%",
-        // backgroundColor: "white",
+        padding: 20,
     },
     welcome: {
         fontSize: 30,
         textAlign: 'center',
-        marginBottom: 40,
+        marginBottom: 10,
     },
     info: {
         justifyContent: 'center',
+        marginTop: 20,
     },
     label: {
         marginBottom: 6,

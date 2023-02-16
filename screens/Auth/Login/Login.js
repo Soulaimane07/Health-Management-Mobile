@@ -32,7 +32,7 @@ export default function Login({route, navigation}) {
 
     <View style={styles.container}>
         <View style={{alignItems:"center"}}>
-            <Image source={require("../../../assets/logoPng.png")} style={{marginTop: 40,marginBottom: 50 ,width:150, height:150}} />
+            <Image source={require("../../../assets/logoPng.png")} style={{marginTop: 40, marginBottom: 100, width: 100, height: 100}} />
         </View>
         <Text style={styles.welcome}> Log in your Account </Text>
         <View style={styles.info}>
@@ -56,7 +56,7 @@ export default function Login({route, navigation}) {
                 onChangeText={e => setPass(e)}
             />
         </View>
-        <View style={styles.info}>
+        <View style={[styles.info]}>
             {NavigateBtn({navigation}, "Login", fun, !condition)}
         </View>
         <View style={styles.signPara}>

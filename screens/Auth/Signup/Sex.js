@@ -51,7 +51,6 @@ export default function Sex({navigation}) {
         <View style={styles.BtnBox}>
             {NavigateBtn({navigation}, "Next", Submit, condittion)}
         </View>
-
     </View>
   )
 }

@@ -19,18 +19,18 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [logged, setLogged] = useState(false)
 
-    useEffect(() => {
-        async function getUser(){
-          const value = await AsyncStorage.getItem('user')
-          if(value !== null) {
-              console.log(value);
-              setLogged(true)
-          }else {
-            setLogged(false)
-          }
-        }
-        getUser();
-    }, []) 
+    // useEffect(() => {
+    //     async function getUser(){
+    //       const value = await AsyncStorage.getItem('user')
+    //       if(value !== null) {
+    //           console.log(value);
+    //           setLogged(true)
+    //       }else {
+    //         setLogged(false)
+    //       }
+    //     }
+    //     getUser();
+    // }, []) 
 
     console.log(logged);
 
