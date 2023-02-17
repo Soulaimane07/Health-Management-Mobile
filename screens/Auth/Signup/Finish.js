@@ -51,12 +51,12 @@ export default function Finish({route, navigation}) {
         },
     ]
 
-    const calories = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex)
+    const calories = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
 
     const recommendations = [
         {
             "title":"Calories",
-            "val": calories,
+            "val": calories?.toFixed(2) ,
             "mesure":"Kcal",
             "proVal":1,
             "color":"#3FC495",

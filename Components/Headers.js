@@ -40,6 +40,11 @@ export const Progress = ({navigation}, p) => {
             'text':"Great, Almost done!",
             'header':"What's your Goal weight?",
         },
+        {
+            'title': 'Goal weight',
+            'text':"Thanks, you're doing great!",
+            'header':"Your activity level?",
+        },
     ]
 
     return (

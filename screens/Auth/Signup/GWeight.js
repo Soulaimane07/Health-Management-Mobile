@@ -52,7 +52,7 @@ export default function GWeight({navigation}) {
         try {
           await AsyncStorage.mergeItem('user', JSON.stringify(weightKey))
           console.log("Goal Weight is stored");
-          navigation.navigate('finish')
+          navigation.navigate('active')
         } catch (e) {
           console.log("Goal Weight isn't stored");
         }
@@ -78,7 +78,7 @@ export default function GWeight({navigation}) {
         </View>
 
         <View style={styles.BtnBox}>
-            {NavigateBtn({navigation}, "Finish", Submit, condittion)}
+            {NavigateBtn({navigation}, "Next", Submit, condittion)}
         </View> 
     </View>
   )

@@ -9,6 +9,8 @@ import Foicon from 'react-native-vector-icons/Foundation'
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import {Calories, Steps, Water} from '../../Components/Calcules'
+
 const months = [
   {
       'title':"Janvier"
@@ -46,38 +48,6 @@ const months = [
   {
       'title':"Decembre"
   },
-]
-
-const target = [
-  {
-      "color":"#fff0f3",
-      "leftTitle": "Target Calories",
-      "leftValue": 880,
-      "unit":"cal",
-      "icon": <Ficon name='fire' color="#e71d36" size={40} /> ,
-      "rightTitle": "Burnt Calories",
-      "rightValue": 560,
-      "path":"calories"
-  },
-  {
-      "color":"#fff2b2",
-      "leftTitle": "Target Steps",
-      "leftValue": 10000,
-      "icon": <Foicon name='foot' color="#fdb833" size={50} />,
-      "rightTitle": "Finished Steps",
-      "rightValue": 7540,
-      "path":"steps"
-  },
-  {
-      "color":"#caf0f8",
-      "leftTitle": "Target Water",
-      "leftValue": 10000,
-      "unit":"ml",
-      "icon": <Micon name='cup-water' color="#5390d9" size={50} />,
-      "rightTitle": "Taken Steps",
-      "rightValue": 7540,
-      "path":"water"
-  }
 ]
 
 export default function Home({route, navigation}) {
@@ -189,6 +159,41 @@ export default function Home({route, navigation}) {
       width: 80,
       height: 70,
     },
+  ]
+
+  const calories = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
+  const water = Water(user?.weight)
+
+  const target = [
+    {
+        "color":"#fff0f3",
+        "leftTitle": "Target Calories",
+        "leftValue": calories?.toFixed(0),
+        "unit":"Kcal",
+        "icon": <Ficon name='fire' color="#e71d36" size={40} /> ,
+        "rightTitle": "Calories consumed",
+        "rightValue": 0,
+        "path":"calories"
+    },
+    {
+        "color":"#fff2b2",
+        "leftTitle": "Target Steps",
+        "leftValue": Steps(user?.goal) ,
+        "icon": <Foicon name='foot' color="#fdb833" size={50} />,
+        "rightTitle": "Finished Steps",
+        "rightValue": user?.steps ? user?.steps : 0,
+        "path":"steps"
+    },
+    {
+        "color":"#caf0f8",
+        "leftTitle": "Target Water",
+        "leftValue": water,
+        "unit":"ml",
+        "icon": <Micon name='cup-water' color="#5390d9" size={50} />,
+        "rightTitle": "Water consumed",
+        "rightValue": 0,
+        "path":"water"
+    }
   ]
 
   return (
