@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Image } from 'react-native'
 import { StyleSheet, Text, View } from 'react-native'
 import { Calories } from '../../../Components/Calcules'
+import Statusbar from '../../../Components/Statusbar'
 
 export default function CaloriesPage() {
 
@@ -35,7 +36,7 @@ export default function CaloriesPage() {
     {
       "title":"Left",
       "val":  calorieSTarget?.toFixed(0)-caloriesTaken,
-      "color":"#3FC495"
+      "color":"#e71d36"
     },
   ]
 
@@ -60,6 +61,7 @@ export default function CaloriesPage() {
 
   return (
     <View style={styles.container}>
+      <Statusbar color="#e71d36" style="light" />
       <View style={styles.box}>
         <Text style={styles.h1}> Calories </Text>
         <View style={styles.boxContent}>
@@ -83,7 +85,6 @@ export default function CaloriesPage() {
           ))}
         </View>
       </View>
-
     </View>
   )
 }
@@ -101,9 +102,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   h1: {
-    fontSize: 20,
+    fontSize: 26,
     textAlign: 'center',
     marginBottom: 10,
+    fontWeight: "bold",
   },
   boxContent: {
     flexDirection: 'row',

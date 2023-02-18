@@ -8,7 +8,7 @@ import Statusbar from '../../../Components/Statusbar'
 export default function Steps({navigation}) {
   const [steps, setSteps] = useState(0)
 
-  const condittion = steps >= 0
+  const condittion = steps > 0
 
   const Steps = {
     water : steps
@@ -45,7 +45,7 @@ export default function Steps({navigation}) {
       </View>
 
       <View style={styles.BtnBox}>
-        {NavigateBtn({navigation}, "Save", Submit, condittion)}
+        {NavigateBtn({navigation}, "Save", Submit, condittion, "#5390d9")}
       </View>
     </View>
   )
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
   },
   h1: {
     fontSize: 20,
+    fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
   },
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   TextInput: {
-    borderBottomColor: '#3FC495',
+    borderBottomColor: '#5390d9',
     borderBottomWidth: 1,
     fontSize: 26,
     textAlign: "center",

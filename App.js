@@ -52,7 +52,7 @@ export default function App() {
             <Stack.Screen name="calories" 
               options={{
                 headerShown: true, 
-                headerStyle: {backgroundColor: '#3FC495'}, 
+                headerStyle: {backgroundColor: '#e71d36'}, 
                 headerTintColor:"white", title:"Calories"
               }}  
               component={Calories} 
@@ -60,7 +60,7 @@ export default function App() {
             <Stack.Screen name="steps" 
               options={{
                 headerShown: true, 
-                headerStyle: {backgroundColor: '#3FC495'}, 
+                headerStyle: {backgroundColor: '#fdb833'}, 
                 headerTintColor:"white", title:"Steps"
               }}  
               component={Steps} 

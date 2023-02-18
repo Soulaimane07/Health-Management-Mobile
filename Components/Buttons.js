@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native"
 
-export const NavigateBtn = ({navigation}, text, submit, condittion) => {
+export const NavigateBtn = ({navigation}, text, submit, condittion, color) => {
     return (
         <TouchableOpacity
-            style={[!condittion ? styles.disabledBtn : styles.button]} 
+            style={[!condittion ? styles.disabledBtn : color ? {backgroundColor: color} : {backgroundColor: "#3FC495"}  , styles.button]} 
             onPress={()=> submit()}
             disabled={!condittion ? true : false}
         >
@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
       padding: 15,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: "#3FC495",
     },
     buttonText: {
       color: 'white',

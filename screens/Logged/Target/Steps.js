@@ -3,11 +3,12 @@ import React, { useState } from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 import { NavigateBtn } from '../../../Components/Buttons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Statusbar from '../../../Components/Statusbar'
 
 export default function Steps({navigation}) {
   const [steps, setSteps] = useState(0)
 
-  const condittion = steps >= 0
+  const condittion = steps > 0
 
   const Steps = {
     steps : steps
@@ -25,6 +26,7 @@ export default function Steps({navigation}) {
 
   return (
     <View style={styles.container}>
+      <Statusbar color="#fdb833" style="light" />
       <View>
         <View style={styles.box}>
         </View>
@@ -43,7 +45,7 @@ export default function Steps({navigation}) {
       </View>
 
       <View style={styles.BtnBox}>
-        {NavigateBtn({navigation}, "Save", Submit, condittion)}
+        {NavigateBtn({navigation}, "Save", Submit, condittion, "#fdb833")}
       </View>
     </View>
   )
@@ -65,6 +67,7 @@ const styles = StyleSheet.create({
   },
   h1: {
     fontSize: 20,
+    fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
   },
@@ -72,7 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 10,
-    marginHorizontal: 40,
+    marginHorizontal: 50,
     alignItems: 'center'
   },
   boxx: {
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   TextInput: {
-    borderBottomColor: '#3FC495',
+    borderBottomColor: '#fdb833',
     borderBottomWidth: 1,
     fontSize: 26,
     textAlign: "center",
