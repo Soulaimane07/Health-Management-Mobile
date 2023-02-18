@@ -4,6 +4,10 @@ import { TextInput } from 'react-native-gesture-handler'
 import { NavigateBtn } from '../../../Components/Buttons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Statusbar from '../../../Components/Statusbar'
+import video from './44425-glass-water.mp4'
+
+import { Video, AVPlaybackStatus } from 'expo-av';
+import { Button } from 'react-native'
 
 export default function Steps({navigation}) {
   const [steps, setSteps] = useState("null")
@@ -23,12 +27,21 @@ export default function Steps({navigation}) {
       console.log("not stored");
     }
   }
+  const video = React.useRef(null);
 
   return (
     <View style={styles.container}>
       <Statusbar color="#fdb833" style="light" />
       <View>
         <View style={styles.box}>
+          <Video
+            ref={video}
+            style={styles.video}
+            source={require('../../../assets/videos/steps2.mp4')}
+            resizeMode="contain"
+            isLooping
+            shouldPlay= {true}
+          />
         </View>
 
         <View style={styles.box}>
@@ -97,13 +110,17 @@ const styles = StyleSheet.create({
   BtnBox: {
     marginHorizontal: 20,
     marginBottom: 20
-},
-error: {
-  color: "red",
-  textAlign: "center",
-  marginBottom: 20,
-  fontWeight: 'bold',
-}
+  },
+  error: {
+    color: "red",
+    textAlign: "center",
+    marginBottom: 20,
+    fontWeight: 'bold',
+  },
+  video: {
+    width: "100%",
+    height: 200,
+  }
   
   
 })

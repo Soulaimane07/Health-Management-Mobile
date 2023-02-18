@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-gesture-handler'
 import { NavigateBtn } from '../../../Components/Buttons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Statusbar from '../../../Components/Statusbar'
+import { Video, AVPlaybackStatus } from 'expo-av';
 
 export default function Steps({navigation}) {
   const [steps, setSteps] = useState(null)
@@ -24,11 +25,22 @@ export default function Steps({navigation}) {
     }
   }
 
+  const video = React.useRef(null);
+  const [status, setStatus] = React.useState({});
+
   return (
     <View style={styles.container}>
       <Statusbar color="#5390d9" style="light" />
       <View>
         <View style={styles.box}>
+          <Video
+            ref={video}
+            style={styles.video}
+            source={require('../../../assets/videos/water.mp4')}
+            resizeMode="contain"
+            isLooping
+            shouldPlay= {true}
+          />
         </View>
 
         <View style={styles.box}>
@@ -103,6 +115,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
     fontWeight: 'bold',
+  },
+  video: {
+    width: "100%",
+    height: 200,
   }
   
   
