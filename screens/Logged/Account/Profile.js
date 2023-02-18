@@ -9,6 +9,7 @@ import ChangeFname from './Change/ChangeFname'
 import ChangeLname from './Change/ChangeLname'
 import ChangePass from './Change/ChangePass'
 import DeleteAccount from './Change/DeleteAccount'
+import Statusbar from '../../../Components/Statusbar'
 
 export default function Profile() {
   const [user, setUser] = useState("null")
@@ -109,6 +110,7 @@ export default function Profile() {
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
+      <Statusbar color="#3FC495" style="light" />
     <BottomSheetModalProvider>
     <View style={[styles.container, IsOpen && {backgroundColor: "#2C3333"}]}>
       <View style={[styles.box, IsOpen ? {backgroundColor: "#374040"} : {backgroundColor:"white"}]}>

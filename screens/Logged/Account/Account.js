@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Feather'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
 import IosIcon from 'react-native-vector-icons/Ionicons'
+import Statusbar from '../../../Components/Statusbar'
 
 export function Account({route,navigation}) {
   const [user, setUser] = useState("null")
@@ -124,6 +125,7 @@ export function Account({route,navigation}) {
 
   return (
     <ScrollView vertical style={styles.container}>
+      <Statusbar color="#f2f2f2" style="dark-content" />
       <View style={styles.box}>
         <TouchableOpacity onPress={()=> navigation.navigate("profile")} style={styles.profile}>
           <ImageBackground source={profiles[profileNbr].image}  style={[styles.icon ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]}>

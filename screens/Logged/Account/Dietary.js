@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Ficon from 'react-native-vector-icons/FontAwesome'
 import Oicon from 'react-native-vector-icons/Octicons'
+import Statusbar from '../../../Components/Statusbar'
 
 export default function Dietary() {
     const [selected, setSelect] = useState(null)
@@ -61,6 +62,7 @@ export default function Dietary() {
 
   return (
     <View style={styles.container}>
+        <Statusbar color="#3FC495" style="light" />
         <Text style={styles.text}>FOOD PREFERENCES</Text>
         <View style={styles.box}>
             {food.map((item,key)=>(

@@ -198,7 +198,7 @@ export default function Home({route, navigation}) {
 
   return (
     <View style={styles.container}>
-      <Statusbar color="#3FC495" style="light" />
+      <Statusbar color="white" style="dark-content" />
       <SafeAreaView style={styles.header}>
         <TouchableOpacity style={styles.profile} onPress={()=> navigation.navigate("account")}>
             <ImageBackground source={profiles[profileNbr].image}  style={[styles.logo ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]}>

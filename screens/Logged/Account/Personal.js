@@ -11,6 +11,7 @@ import CurrentWeight from './Change/CurrentWeight'
 import Age from './Change/Age'
 import Gender from './Change/Gender'
 import ChangeHeight from './Change/ChangeHeight'
+import Statusbar from '../../../Components/Statusbar'
 
 export function Personal() {
     const [user, setUser] = useState("null")
@@ -88,6 +89,7 @@ export function Personal() {
     
   return (
     <GestureHandlerRootView style={{flex: 1}}>
+        <Statusbar color="#3FC495" style="light" />
     <BottomSheetModalProvider>
         <View style={[styles.container, IsOpen && {backgroundColor: "#2C3333"}]}>
             <Text style={styles.text}> YOUR GOAL </Text>
