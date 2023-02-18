@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import Statusbar from '../../../Components/Statusbar'
 
 export default function Steps({navigation}) {
-  const [steps, setSteps] = useState(0)
+  const [steps, setSteps] = useState(null)
 
   const condittion = steps > 0
 
@@ -33,9 +33,12 @@ export default function Steps({navigation}) {
 
         <View style={styles.box}>
           <Text style={styles.h1}>Water consumption</Text>
+          {steps == 0 && <Text style={styles.error}> Water number can not be null (0) </Text>}
+          {steps < 0 && <Text style={styles.error}> Water number can not be negative </Text>}
           <View style={styles.boxContent}>
             <TextInput 
               keyboardType='numeric'
+              selectionColor={'#5390d9'}
               style={[styles.TextInput, {flex: 1}]}
               onChangeText={e=> setSteps(e)}
             />
@@ -94,7 +97,13 @@ const styles = StyleSheet.create({
   BtnBox: {
     marginHorizontal: 20,
     marginBottom: 20
-}
+  },
+  error: {
+    color: "red",
+    textAlign: "center",
+    marginBottom: 20,
+    fontWeight: 'bold',
+  }
   
   
 })
