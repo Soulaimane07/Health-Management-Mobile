@@ -54,7 +54,7 @@ export default function System({navigation}) {
         </View>
         
         <View style={styles.BtnBox}>
-            {NavigateBtn({navigation}, "Next", Submit, condittion)}
+            {NavigateBtn("Next", Submit, condittion)}
         </View>
     </View>
   )

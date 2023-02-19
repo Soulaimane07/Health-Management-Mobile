@@ -15,7 +15,6 @@ export default Start
 
 const styles = StyleSheet.create({
     container: {
-        // backgroundColor: "white",
         flex: 1,
         justifyContent: 'center',
         alignContent: 'center',
@@ -27,20 +26,4 @@ const styles = StyleSheet.create({
         marginBottom: 40,
         fontWeight: 'bold',
     },
-    button: {
-        borderRadius: 16,
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "#3FC495",
-        marginBottom: 30,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    alert: {
-        color: "black",
-    }
 })

@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useState } from 'react'
-import Micon from "react-native-vector-icons/MaterialIcons"
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { NavigateBtn } from '../../../../Components/Buttons'
+import Error from '../../../../Components/Error'
 
 export default function ChangeFname(props) {
     const [newFname, setNewfname] = useState(props.fname)
@@ -27,9 +28,8 @@ export default function ChangeFname(props) {
         <View style={{marginBottom: 20}}>
             <Text style={{textAlign: "center", fontSize: 18, fontWeight: 'bold'}}> Change Your First Name </Text>
             {condition && 
-                <View style={styles.error}>
-                    <Micon color="red" name="error" size={20} />
-                    <Text style={styles.errorText}> This name is your current First name ! </Text>
+                <View style={{marginTop: 10}}>
+                    <Error text={`This name is your current First name !`} />
                 </View>
             }
         </View>
@@ -43,58 +43,14 @@ export default function ChangeFname(props) {
             />
         </View>
 
-        <TouchableOpacity
-            onPress={Submit}
-            disabled={condition}
-            style={condition ? styles.disabledBtn : styles.button}
-        >
-            <Text style={condition ? styles.disabledBtnText : styles.buttonText}> SAVE </Text>
-        </TouchableOpacity>
+        <View style={{marginHorizontal: 20}}>
+            {NavigateBtn("SAVE", Submit, !condition)}
+        </View>
     </>
   )
 }
 
 const styles = StyleSheet.create({
-    button: {
-      borderRadius: 16,
-      padding: 15,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: "#3FC495",
-      marginHorizontal: 20,
-      marginTop: 20,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    disabledBtn: {
-        borderRadius: 16,
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "white",
-        marginHorizontal: 20,
-    },
-    disabledBtnText: {
-        color: '#adb5bd',
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-
-    error: {
-      textAlign: "center",
-      marginTop: 10,
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    errorText: {
-      fontWeight: 'bold',
-      color: "red",
-    },
-
     NumInput: {
         marginHorizontal: "20%",
         fontSize: 26,

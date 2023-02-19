@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Oicon from 'react-native-vector-icons/Octicons'
 import Ficon from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { NavigateBtn } from '../../../../Components/Buttons'
 
 export default function GoalChange(props) {
     const [newGaol, setNewGoal] = useState(props.goal)
@@ -55,13 +56,9 @@ export default function GoalChange(props) {
             ))}
         </View>
 
-        <TouchableOpacity
-            onPress={Submit}
-            disabled={condition ? true : false}
-            style={condition ? styles.disabledBtn : styles.button}
-        >
-            <Text style={condition ? styles.disabledBtnText : styles.buttonText}> SAVE </Text>
-        </TouchableOpacity>
+        <View>
+            {NavigateBtn("SAVE", Submit, !condition)}
+        </View>
     </>
   )
 }
@@ -75,42 +72,4 @@ const Goalstyles = StyleSheet.create({
         marginHorizontal: 20,
         alignItems: 'center',
     }
-})
-
-const styles = StyleSheet.create({
-    button: {
-        borderRadius: 16,
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "#3FC495",
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    disabledBtn: {
-        borderRadius: 16,
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "white",
-    },
-    disabledBtnText: {
-        color: '#adb5bd',
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-    
-
-    textInput: {
-        borderWidth: 1.6,  
-        borderColor: '#3FC495',
-        fontSize: 16,
-        borderRadius: 16,
-        padding: 10,
-        paddingHorizontal: 20,
-        textAlign: 'center',
-    },
 })

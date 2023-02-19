@@ -1,0 +1,29 @@
+{
+    "english":{
+        "first":{
+            "login":"Login",
+            "continue":"Continue without account"
+        },
+        "login":{
+            "title":"Log in your Account"
+        }
+    },
+    "frensh":{
+        "first":{
+            "login":"Connexion",
+            "continue":"Continuer sans compte"
+        },
+        "login":{
+            "title":"connectez-vous à votre compte"
+        }
+    },
+    "arabic":{
+        "first":{
+            "login":"تسجيل الدخول",
+            "continue":"تواصل بدون حساب"
+        },
+        "login":{
+            "title":"تسجيل الدخول إلى حسابك"
+        }    
+    }
+}

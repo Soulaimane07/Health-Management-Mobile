@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useState } from 'react'
-import Micon from "react-native-vector-icons/MaterialIcons"
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { NavigateBtn } from '../../../../Components/Buttons'
+import Error from '../../../../Components/Error'
 
 export default function ChangeFname(props) {
     const [oldPass, setOldPass] = useState("")
@@ -31,21 +32,18 @@ export default function ChangeFname(props) {
         <View style={{marginBottom: 20}}>
             <Text style={{textAlign: "center", fontSize: 18, fontWeight: 'bold'}}> Change Your Password </Text>
             {condition1 || oldPass !== "" && 
-                <View style={styles.error}>
-                    <Micon color="red" name="error" size={20} />
-                    <Text style={styles.errorText}> The old password is wrong ! </Text>
+                <View style={{marginTop: 10}}>
+                    <Error text={`The old password is wrong `} />
                 </View>
             }
             {newPass.toLowerCase() === props.pass.toLowerCase() && 
-                <View style={styles.error}>
-                    <Micon color="red" name="error" size={20} />
-                    <Text style={styles.errorText}> This is your current Password ! </Text>
+                <View style={{marginTop: 10}}>
+                    <Error text={`This is your current Password !`} />
                 </View>
             }
             {newPass.length < 8 && 
-                <View style={styles.error}>
-                    <Micon color="red" name="error" size={20} />
-                    <Text style={styles.errorText}> The Password must be more than 8 letters ! </Text>
+                <View style={{marginTop: 10}}>
+                    <Error text={`The Password must be more than 8 letters !`} />
                 </View>
             }
         </View>
@@ -67,58 +65,14 @@ export default function ChangeFname(props) {
             />
         </View>
 
-        <TouchableOpacity
-            onPress={Submit}
-            disabled={condition ? false : true}
-            style={condition ? styles.button : styles.disabledBtn}
-        >
-            <Text style={condition ? styles.buttonText : styles.disabledBtnText}> SAVE </Text>
-        </TouchableOpacity>
+        <View style={{marginHorizontal: 20}}>
+            {NavigateBtn("SAVE", Submit, condition)}
+        </View>
     </>
   )
 }
 
 const styles = StyleSheet.create({
-    button: {
-      borderRadius: 16,
-      padding: 15,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: "#3FC495",
-      marginHorizontal: 20,
-      marginTop: 20,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    disabledBtn: {
-        borderRadius: 16,
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "white",
-        marginHorizontal: 20,
-    },
-    disabledBtnText: {
-        color: '#adb5bd',
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-
-    error: {
-      textAlign: "center",
-      marginTop: 10,
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    errorText: {
-      fontWeight: 'bold',
-      color: "red",
-    },
-
     NumInput: {
         marginHorizontal: "20%",
         fontSize: 22,

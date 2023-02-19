@@ -10,7 +10,7 @@ export default function Dietary() {
     const food = [
         {
             "label":"Vegan",
-            "value": true,
+            "value": false,
             "val":"vegan"
         },
         {
@@ -48,7 +48,7 @@ export default function Dietary() {
         },
         {
             "label":"Allergic to milk",
-            "value": true,
+            "value": false,
             "val":"milk",
         },
         {

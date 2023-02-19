@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Micon from "react-native-vector-icons/MaterialIcons"
+import { NavigateBtn } from '../../../../Components/Buttons'
+import Error from '../../../../Components/Error'
 
 export default function DeleteAccount(props) {
     const [number, setNumber] = useState(0)
@@ -24,9 +25,8 @@ export default function DeleteAccount(props) {
     <>
         <View style={{marginBottom: 20}}>
             <Text style={{textAlign: "center", fontSize: 18, fontWeight: 'bold'}}> Delete your Account </Text>
-            <View style={styles.error}>
-                <Micon color="red" name="error" size={20} />
-                <Text style={styles.errorText}> Are you sure ! </Text>
+            <View style={{marginTop: 10}}>
+                <Error text={"Are you sure !"} />
             </View>
         </View>
 
@@ -40,58 +40,14 @@ export default function DeleteAccount(props) {
             />
         </View>
 
-        <TouchableOpacity
-            onPress={Submit}
-            disabled={condition}
-            style={condition ? styles.disabledBtn : styles.button}
-        >
-            <Text style={condition ? styles.disabledBtnText : styles.buttonText}> Delete </Text>
-        </TouchableOpacity>
+        <View style={{marginHorizontal: 20}}>
+            {NavigateBtn("Delete", Submit, !condition)}
+        </View>
     </>
   )
 }
 
 const styles = StyleSheet.create({
-    button: {
-      borderRadius: 16,
-      padding: 15,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: "#3FC495",
-      marginHorizontal: 20,
-      marginTop: 20,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    disabledBtn: {
-        borderRadius: 16,
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "white",
-        marginHorizontal: 20,
-    },
-    disabledBtnText: {
-        color: '#adb5bd',
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-
-    error: {
-      textAlign: "center",
-      marginTop: 10,
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    errorText: {
-      fontWeight: 'bold',
-      color: "red",
-    },
-
     NumInput: {
         marginHorizontal: "20%",
         fontSize: 26,

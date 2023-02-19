@@ -4,7 +4,6 @@ import { TextInput } from 'react-native-gesture-handler'
 import { NavigateBtn } from '../../../Components/Buttons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Statusbar from '../../../Components/Statusbar'
-import video from './44425-glass-water.mp4'
 
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { Button } from 'react-native'
@@ -61,7 +60,7 @@ export default function Steps({navigation}) {
       </View>
 
       <View style={styles.BtnBox}>
-        {NavigateBtn({navigation}, "Save", Submit, condittion, "#fdb833")}
+        {NavigateBtn("Save", Submit, condittion, "#fdb833")}
       </View>
     </View>
   )
@@ -121,6 +120,4 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
   }
-  
-  
 })

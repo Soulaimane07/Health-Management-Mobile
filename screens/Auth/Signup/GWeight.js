@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Progress } from '../../../Components/Headers'
 import { NavigateBtn } from '../../../Components/Buttons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Error from '../../../Components/Error'
 
 export default function GWeight({navigation}) {
     const [user, setUser] = useState("null")
@@ -24,19 +25,19 @@ export default function GWeight({navigation}) {
         let Statement
 
         user.goal === "Gain Weight" ?
-        <>
-        {x= Number(user.weight) < weight}
-        {weight <= Number(user?.weight) && weight != 0 ?
-            Statement = <Text style={styles.error}> Your goal weight must be more than {user.weight} kg </Text>
-        : ""}
-        </>
+            <>
+                {x= Number(user.weight) < weight}
+                {weight <= Number(user?.weight) && weight != 0 ?
+                    Statement = <Error text={`Your goal weight must be more than ${user.weight} kg`} />
+                : ""}
+            </>
         :
-        <>
-        {x= Number(user.weight) > weight}
-        {weight >= Number(user?.weight) && weight != 0 ? 
-            Statement = <Text style={styles.error}> Your goal weight must be less than {user.weight} kg </Text> 
-        : ""}
-        </>
+            <>
+                {x= Number(user.weight) > weight}
+                {weight >= Number(user?.weight) && weight != 0 ? 
+                    Statement = <Error text={`Your goal weight must be less than ${user.weight} kg`} />
+                : ""}
+            </>
 
         return {x,Statement}
     }
@@ -73,12 +74,12 @@ export default function GWeight({navigation}) {
                     maxLength={3}
                     onChangeText={e => setWeight(e)}
                 />
-                <Text> {user?.system === "eu" ? "Kg" : "Lbs"} </Text>
+                <Text style={{marginLeft: 10, fontSize: 20}}> {user?.system === "eu" ? "Kg" : "Lbs"} </Text>
             </View>
         </View>
 
         <View style={styles.BtnBox}>
-            {NavigateBtn({navigation}, "Next", Submit, condittion)}
+            {NavigateBtn("Next", Submit, condittion)}
         </View> 
     </View>
   )

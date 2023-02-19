@@ -33,8 +33,6 @@ export function Personal() {
     const Hunit = user?.system === "eu" ? "m" : "f/in"
     const Wunit = user?.system === "eu" ? "Kg" : "Lbs"
 
-   
-
     const refB = useRef(null)
     const snapPoints = useMemo(()=> ["50%"], [])
     const [IsOpen, setIsOpen] = useState(false)
@@ -86,10 +84,12 @@ export function Personal() {
             "change": <Gender sex={user?.sex} CloseModal={CloseModal} getUser={getUser} /> ,
         },
     ]
+
+    user?.goal === "Maintain Weight" && Goals.splice(1, 1);
     
   return (
     <GestureHandlerRootView style={{flex: 1}}>
-        <Statusbar color="#3FC495" style="light" />
+    <Statusbar color="#3FC495" style="light" />
     <BottomSheetModalProvider>
         <View style={[styles.container, IsOpen && {backgroundColor: "#2C3333"}]}>
             <Text style={styles.text}> YOUR GOAL </Text>

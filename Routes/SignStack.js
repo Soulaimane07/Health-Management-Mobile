@@ -16,7 +16,7 @@ export default function SignStack({route}) {
     const Stack = createNativeStackNavigator();
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName='start' screenOptions={{ headerShown: false }}>
       <Stack.Screen name="start" component={Start} />
       <Stack.Screen name="signup" component={Signup} />
       

@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
+import Error from '../../../Components/Error'
 import { Progress } from '../../../Components/Headers'
 
 export default function Birth({navigation}) {
@@ -22,28 +23,26 @@ export default function Birth({navigation}) {
 
   return (
     <View style={styles.container}>
-        {Progress({navigation}, 3)}
+      {Progress({navigation}, 3)}
+      
+      {!condittion && age !== 0 && <Error text={"You should be more than 5 years old"} />}
+      
+      <View style={styles.boxs}>
+        <TextInput 
+          keyboardType="numeric" 
+          maxLength={2} 
+          style={styles.age} 
+          onChangeText={(e)=>setAge(e)}
+        />
         
-        {!condittion && age !== 0 &&
-          <Text style={styles.error}>You should be more than 5 years old</Text>
-        }
-        
-        <View style={styles.boxs}>
-          <TextInput 
-            keyboardType="numeric" 
-            maxLength={2} 
-            style={styles.age} 
-            onChangeText={(e)=>setAge(e)}
-          />
-          
-          <Text style={{fontSize:17, marginLeft: 10}}>
-            Years old
-          </Text>
-        </View>
+        <Text style={{fontSize:17, marginLeft: 10}}>
+          Years old
+        </Text>
+      </View>
 
-        <View style={styles.BtnBox}>
-          {NavigateBtn({navigation}, "Next", Submit, condittion)}
-        </View>
+      <View style={styles.BtnBox}>
+        {NavigateBtn("Next", Submit, condittion)}
+      </View>
     </View>
   )
 }

@@ -43,6 +43,8 @@ export function Account({route,navigation}) {
     },
   ]
 
+  user?.goal === "Maintain Weight" && profile.splice(2, 1);
+
   const customization = [
     {
       "icon": <Fa5Icon style={styles.icon1} name="user-alt" size={20} color="#3FC495" />,
@@ -260,7 +262,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 100,
     height: 100,
-    backgroundColor: "red",
   },
   button: {
     borderRadius: 16,

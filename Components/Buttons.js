@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native"
 
-export const NavigateBtn = ({navigation}, text, submit, condittion, color) => {
+export const NavigateBtn = (text, submit, condittion, color) => {
     return (
         <TouchableOpacity
             style={[!condittion ? styles.disabledBtn : color ? {backgroundColor: color} : {backgroundColor: "#3FC495"}  , styles.button]} 
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     },
 })
 
-export const MyButton = ({navigation}, text, link ) => {
+export const MyButton = ({navigation}, text, link) => {
     return (
         <TouchableOpacity onPress={()=> navigation.navigate(link)} style={ButtonStyle.button}>
             <Text style={ButtonStyle.buttonText}> {text} </Text>

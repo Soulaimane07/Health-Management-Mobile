@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, ScrollView} from 'react-native';
 import { NavigateBtn } from '../../../Components/Buttons';
 
 export default function Signup({navigation}) {
@@ -16,7 +16,7 @@ export default function Signup({navigation}) {
         pass: pass,
     }
     
-    const condittion = email !== null && fname !== null && lname !== null && pass !== null && pass.length > 8
+    const condittion = email !== null && fname !== null && lname !== null && pass !== null && pass.length > 4
 
     const Submit = async () => {
         try {
@@ -29,9 +29,9 @@ export default function Signup({navigation}) {
     }
 
   return (
-    <View style={styles.container}>
+    <ScrollView vertical={true} style={styles.container}>
         <View style={{alignItems:"center"}}>
-            <Image source={require("../../../assets/logoPng.png")} style={{marginTop: 40, marginBottom: 30, width: 100, height: 100}} />
+            <Image source={require("../../../assets/logoPng.png")} style={{marginBottom: 30, width: 120, height: 120}} />
         </View>
         <Text style={styles.welcome}> Create your Account </Text>
         <View style={styles.info}>
@@ -72,10 +72,10 @@ export default function Signup({navigation}) {
                 onChangeText={e => setPass(e)}
             />
         </View>
-        <View style={styles.info}>
-            {NavigateBtn({navigation}, "Create", Submit, condittion )}
+        <View style={[styles.info, {marginBottom: 160}]}>
+            {NavigateBtn("Create", Submit, condittion )}
         </View>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -84,6 +84,8 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         padding: 20,
+        paddingVertical: 40,
+        paddingBottom: 100,
     },
     welcome: {
         fontSize: 30,
@@ -106,36 +108,4 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingHorizontal: 20,
     },
-    button: {
-        borderRadius: 16,
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "#3FC495",
-        marginBottom: 10,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-    },
-    signText: {
-        color: '#3FC495',
-    },
-    signPara: {
-        flexDirection: 'row',
-    },
-
-    disabledBtn: {
-        borderRadius: 16,
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "white",
-        marginBottom: 10,
-    },
-    disabledBtnText: {
-        color: '#adb5bd',
-        fontSize: 16,
-    },
-
 })

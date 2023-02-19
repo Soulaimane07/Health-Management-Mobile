@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react'
-import { StyleSheet, Text, View} from 'react-native';
+import { ScrollView, StyleSheet, Text, View} from 'react-native';
 import { NavigateBtn } from '../../../Components/Buttons';
 import { Progress } from '../../../Components/Headers';
 import Statusbar from '../../../Components/Statusbar';
@@ -44,14 +44,14 @@ export default function Goal({navigation}) {
 
       {Progress({navigation}, 7)}
       
-      <View style={styles.boxs}>
+      <ScrollView vertical style={styles.boxs}>
         {goals.map((item,key)=>(
-          <Text onPress={()=> setBox(key)} style={box === key ? styles.active : styles.box} key={key}>{item.title}</Text>
+          <Text onPress={()=> setBox(key)} style={[key+1 == goals.length && {marginBottom: 40} ,box === key ? styles.active : styles.box]} key={key}>{item.title}</Text>
         ))}
-      </View>
+      </ScrollView>
 
       <View style={styles.BtnBox}>
-        {NavigateBtn({navigation}, "Finish", Submit, condittion)}
+        {NavigateBtn("Finish", Submit, condittion)}
       </View>
     </View>
   )

@@ -200,7 +200,7 @@ export default function Home({route, navigation}) {
     <View style={styles.container}>
       <Statusbar color="white" style="dark-content" />
       <SafeAreaView style={styles.header}>
-        <TouchableOpacity style={styles.profile} onPress={()=> navigation.navigate("account")}>
+        <TouchableOpacity style={styles.profile} onPress={()=> navigation.navigate("accountStack")}>
             <ImageBackground source={profiles[profileNbr].image}  style={[styles.logo ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]}>
             </ImageBackground>
             <Text style={styles.text}>Good {header()} {user && user.fname} </Text>

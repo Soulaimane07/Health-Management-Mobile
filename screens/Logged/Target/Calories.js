@@ -31,7 +31,8 @@ export default function CaloriesPage() {
     },
     {
       "title":"Target",
-      "val": calorieSTarget?.toFixed(0)
+      "val": calorieSTarget?.toFixed(0),
+      "unit":"Kcal"
     },
     {
       "title":"Left",
@@ -40,21 +41,26 @@ export default function CaloriesPage() {
     },
   ]
 
+  const caloriesFun = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
+
   const calories = [
     {
       "logo": require('../../../assets/calories/carbs1.png'),
       "title":"Carbs",
-      "val":"100"
+      "val": (((caloriesFun*50)/100)/4).toFixed(2),
+      "unit":"g"
     },
     {
       "logo": require('../../../assets/calories/eggs.png'),
       "title":"Protein",
-      "val":"100"
+      "val": (((caloriesFun*20)/100)/4).toFixed(2),
+      "unit":"g"
     },
     {
       "logo": require('../../../assets/calories/fat1.png'),
       "title":"Fat",
-      "val":"100"
+      "val": (((caloriesFun*30)/100)/9).toFixed(2),
+      "unit":"g"
     },
   ]
   
@@ -68,7 +74,7 @@ export default function CaloriesPage() {
           {options.map((item,key)=>(
             <View key={key} style={[styles.boxx, key == 1 && {borderLeftWidth: 0.4, borderRightWidth: 0.4,}]}>
               <Text style={{fontWeight: 'bold', marginBottom: 10}}> {item.title} </Text>
-              <Text style={{color: item.color}}> {item.val} </Text>
+              <Text style={{color: item.color}}> {item.val} {item.unit} </Text>
             </View>
           ))}
         </View>
@@ -80,7 +86,7 @@ export default function CaloriesPage() {
             <View key={key} style={styles.boxx}>
               <Image source={item.logo} />
               <Text style={{fontWeight: 'bold', marginBottom: 10}}> {item.title} </Text>
-              <Text> {item.val} </Text>
+              <Text> {item.val} {item.unit} </Text>
             </View>
           ))}
         </View>

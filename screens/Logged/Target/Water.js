@@ -60,7 +60,7 @@ export default function Steps({navigation}) {
       </View>
 
       <View style={styles.BtnBox}>
-        {NavigateBtn({navigation}, "Save", Submit, condittion, "#5390d9")}
+        {NavigateBtn("Save", Submit, condittion, "#5390d9")}
       </View>
     </View>
   )

@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
-import Micon from "react-native-vector-icons/MaterialIcons"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import { NavigateBtn } from '../../../../Components/Buttons'
+import Error from '../../../../Components/Error'
 
 export default function ChangeProfile(props) {
     const [click, setClick] = useState(props.profile)
@@ -25,13 +26,12 @@ export default function ChangeProfile(props) {
   return (
     <>
       <View style={{marginBottom: 20}}>
-          <Text style={{textAlign: "center", fontSize: 18, fontWeight: 'bold'}}> Change Your Avatar </Text>
-          {click == props.profile && 
-            <View style={styles.error}>
-              <Micon color="red" name="error" size={20} />
-              <Text style={styles.errorText}> This avatar is your current avatar ! </Text>
-            </View>
-          }
+        <Text style={{textAlign: "center", fontSize: 18, fontWeight: 'bold'}}> Change Your Avatar </Text>
+        {click == props.profile && 
+          <View style={{marginTop: 10}}>
+            <Error text={"This avatar is your current avatar !"} />
+          </View>
+        }
       </View>
 
       <BottomSheetScrollView contentContainerStyle={{paddingBottom: "60%", justifyContent: 'center', flexDirection:'row', flexWrap:'wrap', alignItems: 'flex-start'}}> 
@@ -43,13 +43,9 @@ export default function ChangeProfile(props) {
       </BottomSheetScrollView>
 
       {click !== props.profile &&
-          <TouchableOpacity
-              onPress={Submit}
-              disabled={condittion1 ? true : false}
-              style={condittion1 ? styles.disabledBtn : styles.button}
-          >
-              <Text style={condittion1 ? styles.disabledBtnText : styles.buttonText}> SAVE </Text>
-          </TouchableOpacity>
+        <View style={{marginHorizontal: 20}}>
+            {NavigateBtn("SAVE", Submit, !condittion1)}
+        </View>
       }
     </>
   )
@@ -63,42 +59,4 @@ const styles = StyleSheet.create({
     width: 150, 
     height: 150,
   },
-  button: {
-    borderRadius: 16,
-    padding: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: "#3FC495",
-    marginHorizontal: 20,
-    marginTop: 20,
-  },
-  buttonText: {
-      color: 'white',
-      fontSize: 16,
-      fontWeight: 'bold',
-  },
-  disabledBtn: {
-      borderRadius: 16,
-      padding: 15,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: "white",
-      marginHorizontal: 20,
-  },
-  disabledBtnText: {
-      color: '#adb5bd',
-      fontWeight: 'bold',
-      fontSize: 16,
-  },
-  error: {
-    textAlign: "center",
-    marginTop: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  errorText: {
-    fontWeight: 'bold',
-    color: "red",
-  }
 })

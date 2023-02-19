@@ -5,6 +5,7 @@ import Icon1 from 'react-native-vector-icons/Feather';
 import * as Progress from 'react-native-progress';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Calories} from '../../../Components/Calcules';
+import { Video } from 'expo-av';
 
 export default function Finish({route, navigation}) {
     const [show, setShow] = useState(false)
@@ -129,6 +130,8 @@ export default function Finish({route, navigation}) {
         },
     ]
 
+    const video = React.useRef(null);
+
   return (
     !show 
     ?
@@ -141,13 +144,20 @@ export default function Finish({route, navigation}) {
         <>
             <ScrollView vertical={true} style={styles.started}>
                 <View style={styles.header}>
-                    <View style={styles.iconbtn}>
+                    {/* <View style={styles.iconbtn}>
                         <Icon style={styles.icon} name="check" size={24} color="white" />
-                    </View>
+                    </View> */}
+                    <Video
+                        ref={video}
+                        style={styles.video}
+                        source={require('../../../assets/finish/verification.mp4')}
+                        resizeMode="contain"
+                        shouldPlay= {true}
+                    />
                 </View>
-                <Text style={styles.text3}> {user.fname}, your personalized health plan is ready! </Text>
 
                 <View style={styles.box}>
+                    <Text style={styles.text3}> {user.fname}, your personalized health plan is ready! </Text>
                     <View style={styles.box1}>
                         {user.goal === "Maintain Weight" ?
                             <Text style={styles.text4}> {user.weight} </Text>
@@ -166,7 +176,7 @@ export default function Finish({route, navigation}) {
                     <Text style={styles.boxHeader}>Indice de masse corporelle (IMC)  </Text>
                     {IMCData.map((item,key)=>(
                         Indic()<= item.to && Indic() >= item.from &&
-                            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                            <View key={key} style={{flexDirection: 'row', justifyContent: 'center'}}>
                                 <Text style={{color: item.color, marginRight: 10, fontWeight: 'bold'}}>{(Indic()).toFixed(2)}</Text>
                                 <Text style={{color: item.color, fontWeight: 'bold'}}> {item.title} </Text>
                             </View>
@@ -251,10 +261,8 @@ const styles = StyleSheet.create({
         borderRadius: 100,
     },
     text3: {
-        marginVertical: 10,
-        marginBottom: 20,
-        paddingHorizontal: 40,
-        fontSize: 24,
+        marginBottom: 30,
+        fontSize: 20,
         textAlign: 'center'
     },
 
@@ -332,5 +340,15 @@ const styles = StyleSheet.create({
     boxHeader1: {
         textAlign: 'center',
         marginBottom: 20,
-    }
+    },
+
+    header: {
+        backgroundColor: "white",
+        marginHorizontal: 20,
+        borderRadius: 16
+    },
+    video: {
+        width: "100%",
+        height: 100,
+      }
 })

@@ -20,16 +20,17 @@ export default function App() {
   const [logged, setLogged] = useState(false)
 
     useEffect(() => {
-        async function getUser(){
-          const value = await AsyncStorage.getItem('user')
-          if(value !== null) {
-              console.log(value);
-              setLogged(true)
-          }else {
-            setLogged(false)
-          }
+      async function getUser(){
+        const value = await AsyncStorage.getItem('user')
+        if(value !== null) {
+            console.log(value);
+            setLogged(true)
+        }else {
+          setLogged(false)
         }
-        getUser();
+      }
+
+      getUser();
     }, []) 
 
     console.log(logged);
@@ -41,38 +42,39 @@ export default function App() {
           <>
             <Stack.Screen name="first" component={First} />
             <Stack.Screen name="login" initialParams={{setLogged: setLogged}} component={Login} />
-            
-            <Stack.Screen name="start" initialParams={{setLogged: setLogged}} component={SignStack} />
+            <Stack.Screen name="signStack" initialParams={{setLogged: setLogged}} component={SignStack} />
           </>
         :
           <>
             <Stack.Screen name="home" component={HomeStack} />
-            <Stack.Screen name="account" initialParams={{setLogged: setLogged}} component={AccountStack} />
+            <Stack.Screen name="accountStack" initialParams={{setLogged: setLogged}} component={AccountStack} />
 
-            <Stack.Screen name="calories" 
-              options={{
-                headerShown: true, 
-                headerStyle: {backgroundColor: '#e71d36'}, 
-                headerTintColor:"white", title:"Calories"
-              }}  
-              component={Calories} 
-            />
-            <Stack.Screen name="steps" 
-              options={{
-                headerShown: true, 
-                headerStyle: {backgroundColor: '#fdb833'}, 
-                headerTintColor:"white", title:"Steps"
-              }}  
-              component={Steps} 
-            />
-            <Stack.Screen name="water" 
-              options={{
-                headerShown: true, 
-                headerStyle: {backgroundColor: '#5390d9'}, 
-                headerTintColor:"white", title:"Water"
-              }}  
-              component={Water} 
-            />
+            <>
+              <Stack.Screen name="calories" 
+                options={{
+                  headerShown: true, 
+                  headerStyle: {backgroundColor: '#e71d36'}, 
+                  headerTintColor:"white", title:"Calories"
+                }}  
+                component={Calories} 
+              />
+              <Stack.Screen name="steps" 
+                options={{
+                  headerShown: true, 
+                  headerStyle: {backgroundColor: '#fdb833'}, 
+                  headerTintColor:"white", title:"Steps"
+                }}  
+                component={Steps} 
+              />
+              <Stack.Screen name="water" 
+                options={{
+                  headerShown: true, 
+                  headerStyle: {backgroundColor: '#5390d9'}, 
+                  headerTintColor:"white", title:"Water"
+                }}  
+                component={Water} 
+              />
+            </>
           </>
         }
       </Stack.Navigator>

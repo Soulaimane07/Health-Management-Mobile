@@ -1,6 +1,8 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Error from '../../../../Components/Error'
+import { NavigateBtn } from '../../../../Components/Buttons'
 
 export default function Age(props) {
     const [newAge, setNewAge] = useState(0)
@@ -28,7 +30,7 @@ export default function Age(props) {
         </View>
 
         <View>
-            {newAge == props.age && <Text style={styles.error}> {props.age} is your current Age </Text>}
+            {newAge == props.age && <Error text={`${props.age} is your current Age`} />}
             <TextInput
                 keyboardType="numeric" 
                 maxLength={3} 
@@ -38,44 +40,14 @@ export default function Age(props) {
             />
         </View>
 
-        <TouchableOpacity
-            onPress={Submit}
-            disabled={condition ? true : false}
-            style={condition ? styles.disabledBtn : styles.button}
-        >
-            <Text style={condition ? styles.disabledBtnText : styles.buttonText}> SAVE </Text>
-        </TouchableOpacity>
+        <View>
+            {NavigateBtn("SAVE", Submit, !condition)}
+        </View>
     </>
   )
 }
 
 const styles = StyleSheet.create({
-    button: {
-        borderRadius: 16,
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "#3FC495",
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    disabledBtn: {
-        borderRadius: 16,
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "white",
-    },
-    disabledBtnText: {
-        color: '#adb5bd',
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-    
-
     NumInput: {
         marginHorizontal: "30%",
         fontSize: 26,
@@ -83,11 +55,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: "#3FC495",
         paddingVertical: 6,
+        marginTop: 20,
     },
-    error: {
-        color: "red",
-        textAlign: "center",
-        marginBottom: 20,
-        fontWeight: 'bold',
-    }
 })
