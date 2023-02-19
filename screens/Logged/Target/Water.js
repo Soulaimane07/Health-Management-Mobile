@@ -39,6 +39,7 @@ export default function Steps({navigation}) {
             source={require('../../../assets/videos/water.mp4')}
             resizeMode="contain"
             isLooping
+            isMuted
             shouldPlay= {true}
           />
         </View>

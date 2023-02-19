@@ -55,6 +55,7 @@ export default function Height({navigation}) {
                     keyboardType="numeric"
                     onChangeText={e => setHeightX(e)}
                     maxLength={1}
+                    defaultValue={"1"}
                 />
                 <Ficon name="circle" style={{marginHorizontal: 10}} size={5} />
                 <TextInput
@@ -62,6 +63,7 @@ export default function Height({navigation}) {
                     keyboardType="numeric"
                     maxLength={2}
                     onChangeText={e => setHeightY(e)}
+                    defaultValue={"00"}
                 />
                 <Text style={{marginLeft: 10, fontSize: 20}}> meter </Text>
             </>

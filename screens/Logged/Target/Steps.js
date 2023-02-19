@@ -6,7 +6,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import Statusbar from '../../../Components/Statusbar'
 
 import { Video, AVPlaybackStatus } from 'expo-av';
-import { Button } from 'react-native'
 
 export default function Steps({navigation}) {
   const [steps, setSteps] = useState("null")
@@ -39,6 +38,7 @@ export default function Steps({navigation}) {
             source={require('../../../assets/videos/steps2.mp4')}
             resizeMode="contain"
             isLooping
+            isMuted
             shouldPlay= {true}
           />
         </View>

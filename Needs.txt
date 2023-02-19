@@ -3,3 +3,6 @@ react native progress
 
 react native navigation tab
 react-native-bouncy-checkbox
+
+
+===>  eas build -p android --profile preview

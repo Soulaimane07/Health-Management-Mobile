@@ -6,6 +6,7 @@ import * as Progress from 'react-native-progress';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Calories} from '../../../Components/Calcules';
 import { Video } from 'expo-av';
+import StatusBar from '../../../Components/Statusbar';
 
 export default function Finish({route, navigation}) {
     const [show, setShow] = useState(false)
@@ -135,7 +136,8 @@ export default function Finish({route, navigation}) {
   return (
     !show 
     ?
-        <ImageBackground source={require("../../../assets/finish/finish.png")} style={styles.container}>
+        <ImageBackground source={require("../../../assets/finish/image1.jpg")} style={styles.container}>
+            <StatusBar color="transparent" style="dark-content" />
             <Text style={styles.text1}>We're setting everything up for you</Text>
             <Text style={styles.text2}>Creating your personal recommendations...</Text>
             <ActivityIndicator style={styles.spinner} size="large" color="#3FC495" />
@@ -153,6 +155,7 @@ export default function Finish({route, navigation}) {
                         source={require('../../../assets/finish/verification.mp4')}
                         resizeMode="contain"
                         shouldPlay= {true}
+                        isMuted
                     />
                 </View>
 
@@ -232,17 +235,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "flex-end",
-        bottom: 60,  
+        paddingBottom: 60,  
     },
     text1: {
         fontSize: 28,
         paddingHorizontal: 50, 
-        textAlign: 'center'
+        textAlign: 'center',
+        color: "white",
     },
     text2: {
         textAlign: 'center',
         marginVertical: 20,
         marginBottom: 30,
+        color: "white",
     },
 
     started: {
