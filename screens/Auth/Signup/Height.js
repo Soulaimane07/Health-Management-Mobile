@@ -21,7 +21,7 @@ export default function Height({navigation}) {
         getUser();
     }, []) 
 
-    const [heightX, setHeightX] = useState(0)
+    const [heightX, setHeightX] = useState(1)
     const [heightY, setHeightY] = useState(0)
 
     const condittion = heightX > 0 && heightY > 0

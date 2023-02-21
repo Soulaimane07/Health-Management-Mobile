@@ -3,48 +3,47 @@ import React from 'react'
 import { SafeAreaView } from 'react-native'
 import { MyButton } from '../../../Components/Buttons'
 import Aicon from 'react-native-vector-icons/AntDesign'
+import { calorie } from '../../../Components/cal'
 
 export default function Breakfast(props) {
-
     const calories = [
         {
           "logo": require('../../../assets/calories/carbs1.png'),
           "title":"Carbs",
-          "val": props.carbs,
+          "val": calorie(props.data).carbs,
           "unit":"g"
         },
         {
           "logo": require('../../../assets/calories/eggs.png'),
           "title":"Protein",
-          "val": props.protein,
+          "val": calorie(props.data).protein,
           "unit":"g"
         },
         {
           "logo": require('../../../assets/calories/fat1.png'),
           "title":"Fat",
-          "val": props.fat,
+          "val": calorie(props.data).fat?.toFixed(2),
           "unit":"g"
         },
     ]
 
-      const icon = <Aicon name="pluscircleo" size={20} style={{marginRight: 40}} />
+    const icon = <Aicon name="pluscircleo" size={20} style={{marginRight: 40}} />
 
   return (
     <SafeAreaView style={{flex: 1}}>
         <StatusBar
-            style="light-content"
-            hidden = {false} 
             backgroundColor="transparent" 
             translucent={true}
+            barStyle="light-content"
         />
-        <Image resizeMode="cover" source={props.image} style={[styles.image, {width:"100%", height: 240}]}>
+        <Image resizeMode="cover" source={props.image} style={[styles.image, {width:"100%", height: 220}]}>
         </Image>
 
         <ScrollView vertival style={{flex: 1}}>
             <View style={styles.container}>
                 <View style={styles.box}>
                     <Text style={styles.h1}> Calories </Text>
-                    <Text style={styles.h2}> {props.kal} Kcal </Text>
+                    <Text style={styles.h2}> {calorie(props.data).cal} Kcal </Text>
                 </View>
 
                 <View style={styles.box}>
@@ -62,13 +61,13 @@ export default function Breakfast(props) {
                 <View style={styles.box}>
                     <Text style={{marginHorizontal:20, fontSize:17, marginBottom: 20, fontWeight: 'bold'}}>{props.title} :</Text>
                     <View style={styles.list}>
-                        {calories.map((item,key)=>(
+                        {props.data?.map((item,key)=>(
                             <View key={key} style={styles.row}>
                                 <View style={{flexDirection: 'row', alignItems: 'center',}}>
-                                    <Image style={{marginRight: 16}} source={item.logo} />
+                                    <Image style={{marginRight: 16, width: 30, height: 30,}} source={item.image} />
                                     <Text> {item.title} </Text>
                                 </View>
-                                <Text> {item.val} Kcal </Text>
+                                <Text> {item.cal} Kcal </Text>
                             </View>
                         ))}
                     </View>
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
     },
     BtnBox: {
         marginHorizontal: 20,
-        marginBottom: 20
+        paddingTop: 10,
     },
 
     list: {
@@ -138,4 +137,4 @@ const styles = StyleSheet.create({
     }
     
     
-  })
+})

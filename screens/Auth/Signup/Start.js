@@ -6,7 +6,7 @@ function Start({navigation}) {
   return (
     <View style={styles.container}>
         <Text style={styles.header}> Welcome! Let's customize HealthManager for your goals.</Text>
-        {MyButton({navigation}, "Continue", "signup")}
+        {MyButton(navigation, "Continue", "signup")}
     </View>
   )
 }

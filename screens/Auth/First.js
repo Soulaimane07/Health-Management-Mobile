@@ -23,8 +23,7 @@ export default function First({route, navigation}) {
         } catch (e) {
             console.log("Language is not stored");
         }
-      }
-      
+    }
 
     const langs = LangFun(language)
 
@@ -68,11 +67,10 @@ export default function First({route, navigation}) {
             source={require('../../assets/logoPng.png')}
         />
 
-
         <View style={styles.buttons}>
             {buttons.map((item,key)=>(
                 <View key={key}>
-                    {MyButton({navigation}, item.title, item.link)}
+                    {MyButton(navigation, item.title, item.link)}
                 </View>
             ))}
 

@@ -108,7 +108,6 @@ const styles = StyleSheet.create({
   },
   BtnBox: {
     marginHorizontal: 20,
-    marginBottom: 20
   },
   error: {
     color: "red",

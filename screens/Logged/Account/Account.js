@@ -20,7 +20,7 @@ export function Account({route,navigation}) {
       }
     }
     getUser();
-  }, []) 
+  }, [user]) 
 
   const unit = user?.system === "eu" ? "Kg" : "Lbs"
 
