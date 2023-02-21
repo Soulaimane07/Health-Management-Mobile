@@ -43,9 +43,6 @@ export default function Login({route, navigation}) {
         }
     }
 
-    
-      
-
     const langs = LangFun(language)
     
   return (

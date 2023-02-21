@@ -64,7 +64,7 @@ export default function Home({route, navigation}) {
           }
         }
         getUser();
-    }, []) 
+    }, [user]) 
 
   const header = () => {
     const date = new Date().getHours()
@@ -94,25 +94,25 @@ export default function Home({route, navigation}) {
         "image":require(`../../assets/breakfast.webp`),
         "title":"Breakfast",
         "text":"Recommended 830 - 1170Cal",
-        "path":""
+        "path":"breakfast"
     },
     {
         "image":require(`../../assets/lunch.webp`),
         "title":"Lunch",
         "text":"Recommended 255 - 370Cal",
-        "path":""
+        "path":"lunch"
     },
     {
         "image":require(`../../assets/snacks.jpg`),
         "title":"Snack",
         "text":"Recommended 830 - 1170Cal",
-        "path":""
+        "path":"snack"
     },
     {
         "image":require(`../../assets/dinner.jpg`),
         "title":"Dinner",
         "text":"Recommended 255 - 370Cal",
-        "path":""
+        "path":"dinner"
     },
   ]
 
@@ -191,7 +191,7 @@ export default function Home({route, navigation}) {
         "unit":"ml",
         "icon": <Micon name='cup-water' color="#5390d9" size={50} />,
         "rightTitle": "Water consumed",
-        "rightValue": 0,
+        "rightValue": user?.water ? user?.water : 0,
         "path":"water"
     }
   ]
@@ -237,11 +237,13 @@ export default function Home({route, navigation}) {
           <Text style={styles.Mtext}> Today's Meals </Text>
           <ScrollView contentOffset={{ x: scroll() }}  horizontal={true} style={styles.boxs}>
               {meals.map((item,key)=>(
+                <TouchableOpacity onPress={()=> navigation.navigate(item.path)}>
                   <ImageBackground source={item.image} resizeMode="cover" style={[styles.box, key+1 === meals.length && styles.lastBox]} key={key}>
                       <View style={styles.textBox}>
                           <Text style={styles.title}> {item.title} </Text>
                       </View>
                   </ImageBackground>
+                </TouchableOpacity>
               ))}
           </ScrollView>
         </View>

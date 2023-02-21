@@ -38,10 +38,10 @@ const styles = StyleSheet.create({
     },
 })
 
-export const MyButton = ({navigation}, text, link) => {
+export const MyButton = (navigation, text, link, icon) => {
     return (
         <TouchableOpacity onPress={()=> navigation.navigate(link)} style={ButtonStyle.button}>
-            <Text style={ButtonStyle.buttonText}> {text} </Text>
+            <Text style={ButtonStyle.buttonText}> {icon && icon} {text} </Text>
         </TouchableOpacity>
     )
 }
