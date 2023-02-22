@@ -67,7 +67,7 @@ export default function Profile() {
     },
     {
       "label":"Password",
-      "value": user.pass,
+      "value": user?.pass?.replace(/./g, '*'),
       "change": <ChangePass getUser={getUser} pass={user?.pass} CloseModal={CloseModal} />,
     },
   ]

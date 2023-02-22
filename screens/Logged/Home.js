@@ -171,17 +171,17 @@ export default function Home({route, navigation}) {
         "leftValue": calories?.toFixed(0),
         "unit":"Kcal",
         "icon": <Ficon name='fire' color="#e71d36" size={40} /> ,
-        "rightTitle": "Calories consumed",
-        "rightValue": 0,
+        "rightTitle": "Remaining Calories",
+        "rightValue": user?.calories ? calories - user?.calories : calories?.toFixed(0),
         "path":"calories"
     },
     {
         "color":"#fff2b2",
         "leftTitle": "Target Steps",
-        "leftValue": Steps(user?.goal) ,
+        "leftValue": Steps(user?.goal),
         "icon": <Foicon name='foot' color="#fdb833" size={50} />,
-        "rightTitle": "Finished Steps",
-        "rightValue": user?.steps ? user?.steps : 0,
+        "rightTitle": "Remaining Steps",
+        "rightValue": user?.steps ? Steps(user?.goal) - user?.steps : Steps(user?.goal),
         "path":"steps"
     },
     {
@@ -190,8 +190,8 @@ export default function Home({route, navigation}) {
         "leftValue": water,
         "unit":"ml",
         "icon": <Micon name='cup-water' color="#5390d9" size={50} />,
-        "rightTitle": "Water consumed",
-        "rightValue": user?.water ? user?.water : 0,
+        "rightTitle": "Remaining Water",
+        "rightValue": user?.water ? water - user?.water  : water,
         "path":"water"
     }
   ]

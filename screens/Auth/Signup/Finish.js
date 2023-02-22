@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/Feather';
 import * as Progress from 'react-native-progress';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Calories} from '../../../Components/Calcules';
+import {Calories, IMC} from '../../../Components/Calcules';
 import { Video } from 'expo-av';
 import StatusBar from '../../../Components/Statusbar';
 
@@ -92,45 +91,6 @@ export default function Finish({route, navigation}) {
         navigation.navigate('home')
     }
 
-    const Indic = () => {
-        const height = Number(user?.height?.x) * 100 + Number(user?.height?.y)
-        const imc = (user?.weight)*10000 / Math.pow(height, 2)
-        return imc
-    }
-
-    const IMCData = [
-        {
-            "title":"Maigreur",
-            "from": 0,
-            "to": 18.5,
-            "color":"#219ebc"
-        },
-        {
-            "title":"Normal",
-            "from": 18.5,
-            "to": 25.5,
-            "color":"#25a244"
-        },
-        {
-            "title":"Surpoids",
-            "from": 25,
-            "to": 30,
-            "color":"#ff9914"
-        },
-        {
-            "title":"Obisité Moderee",
-            "from": 30,
-            "to": 40,
-            "color":"#fb6107"
-        },
-        {
-            "title":"Obesite Severe",
-            "from": 40,
-            "to": 100,
-            "color":"red"
-        },
-    ]
-
     const video = React.useRef(null);
 
   return (
@@ -146,9 +106,6 @@ export default function Finish({route, navigation}) {
         <>
             <ScrollView vertical={true} style={styles.started}>
                 <View style={styles.header}>
-                    {/* <View style={styles.iconbtn}>
-                        <Icon style={styles.icon} name="check" size={24} color="white" />
-                    </View> */}
                     <Video
                         ref={video}
                         style={styles.video}
@@ -177,13 +134,10 @@ export default function Finish({route, navigation}) {
 
                 <View style={styles.box}>
                     <Text style={styles.boxHeader}>Indice de masse corporelle (IMC)  </Text>
-                    {IMCData.map((item,key)=>(
-                        Indic()<= item.to && Indic() >= item.from &&
-                            <View key={key} style={{flexDirection: 'row', justifyContent: 'center'}}>
-                                <Text style={{color: item.color, marginRight: 10, fontWeight: 'bold'}}>{(Indic()).toFixed(2)}</Text>
-                                <Text style={{color: item.color, fontWeight: 'bold'}}> {item.title} </Text>
-                            </View>
-                    ))}
+                    <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                        <Text style={{color: IMC(user).color, marginRight: 10, fontWeight: 'bold'}}>{IMC(user).imc}</Text>
+                        <Text style={{color: IMC(user).color, fontWeight: 'bold'}}> {IMC(user).title} </Text>
+                    </View>
                 </View>
                 
                 <View style={styles.box}>

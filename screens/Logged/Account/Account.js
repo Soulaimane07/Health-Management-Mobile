@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
 import { Alert, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Icon from 'react-native-vector-icons/Feather'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
 import IosIcon from 'react-native-vector-icons/Ionicons'
+import { IMC } from '../../../Components/Calcules'
 import Statusbar from '../../../Components/Statusbar'
 
 export function Account({route,navigation}) {
@@ -38,8 +38,9 @@ export function Account({route,navigation}) {
       "value": `${user.Gweight} ${unit}`,
     },
     {
-      "label":"Active Diet",
-      "value":"Standard",
+      "label":"IMC",
+      "value": IMC(user).title,
+      "color": IMC(user).color,
     },
   ]
 
@@ -141,7 +142,7 @@ export function Account({route,navigation}) {
           {profile.map((item,key)=>(
             <View key={key} style={styles.row}>
               <Text style={styles.label}> {item.label} </Text>
-              <Text style={styles.content}> {item.value} </Text>
+              <Text style={[styles.content, item.color && {color: item.color}]}> {item.value} </Text>
             </View>
           ))}
         </View>

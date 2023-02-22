@@ -18,6 +18,7 @@ import Lunch from './screens/Logged/meals/Lunch';
 import Snack from './screens/Logged/meals/Snack';
 import Dinner from './screens/Logged/meals/Dinner';
 import Info from './screens/Logged/meals/Info';
+import StepsPage from './screens/Logged/Target/Steps';
 
 const Stack = createNativeStackNavigator();
 
@@ -69,7 +70,7 @@ export default function App() {
                   headerStyle: {backgroundColor: '#fdb833'}, 
                   headerTintColor:"white", title:"Steps"
                 }}  
-                component={Steps} 
+                component={StepsPage} 
               />
               <Stack.Screen name="water" 
                 options={{

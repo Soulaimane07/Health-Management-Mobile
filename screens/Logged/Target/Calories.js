@@ -4,6 +4,7 @@ import { Image } from 'react-native'
 import { StyleSheet, Text, View } from 'react-native'
 import { Calories } from '../../../Components/Calcules'
 import Statusbar from '../../../Components/Statusbar'
+import TargetLeftTaken from '../../../Components/TargetLeftTaken'
 
 export default function CaloriesPage() {
 
@@ -23,23 +24,6 @@ export default function CaloriesPage() {
 
   const calorieSTarget = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
   const caloriesTaken = 0
-
-  const options = [
-    {
-      "title":"Taken",
-      "val": caloriesTaken
-    },
-    {
-      "title":"Target",
-      "val": calorieSTarget?.toFixed(0),
-      "unit":"Kcal"
-    },
-    {
-      "title":"Left",
-      "val":  calorieSTarget?.toFixed(0)-caloriesTaken,
-      "color":"#e71d36"
-    },
-  ]
 
   const caloriesFun = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
 
@@ -69,15 +53,7 @@ export default function CaloriesPage() {
     <View style={styles.container}>
       <Statusbar color="#e71d36" style="light" />
       <View style={styles.box}>
-        <Text style={styles.h1}> Calories </Text>
-        <View style={styles.boxContent}>
-          {options.map((item,key)=>(
-            <View key={key} style={[styles.boxx, key == 1 && {borderLeftWidth: 0.4, borderRightWidth: 0.4,}]}>
-              <Text style={{fontWeight: 'bold', marginBottom: 10}}> {item.title} </Text>
-              <Text style={{color: item.color}}> {item.val} {item.unit} </Text>
-            </View>
-          ))}
-        </View>
+          <TargetLeftTaken title={"Calories"} taken={caloriesTaken} target={calorieSTarget} unit={"Kcal"} color="#e71d36" />
       </View>
       
       <View style={styles.box}>
@@ -106,12 +82,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 16,
     marginBottom: 20,
-  },
-  h1: {
-    fontSize: 26,
-    textAlign: 'center',
-    marginBottom: 10,
-    fontWeight: "bold",
   },
   boxContent: {
     flexDirection: 'row',

@@ -1,3 +1,58 @@
+export const IMC = (user) => {
+    const IMCData = [
+        {
+            "title":"Maigreur",
+            "from": 0,
+            "to": 18.5,
+            "color":"#219ebc"
+        },
+        {
+            "title":"Normal",
+            "from": 18.5,
+            "to": 25.5,
+            "color":"#25a244"
+        },
+        {
+            "title":"Surpoids",
+            "from": 25,
+            "to": 30,
+            "color":"#ff9914"
+        },
+        {
+            "title":"Obisité Moderee",
+            "from": 30,
+            "to": 40,
+            "color":"#fb6107"
+        },
+        {
+            "title":"Obesite Severe",
+            "from": 40,
+            "to": 100,
+            "color":"red"
+        },
+    ]
+
+    let title
+    let imc
+    let color
+
+    const Indic = () => {
+        const height = Number(user?.height?.x) * 100 + Number(user?.height?.y)
+        const imc = (user?.weight)*10000 / Math.pow(height, 2)
+        return imc
+    }
+
+    IMCData.map(item=>(
+        Indic() <= item.to && Indic() >= item.from && (
+            title = item.title,
+            color = item.color,
+            imc = (Indic())?.toFixed(2)
+        )
+    ))
+
+    return {title, imc, color}
+}
+
 export const Calories = (weight, height, age, sex, goal, active) => {
     let malecalories
     let womencalories
