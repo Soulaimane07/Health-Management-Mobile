@@ -7,7 +7,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function First({route, navigation}) {
     const [language, setLanguage] = useState("fr")
-
     
     const SelectLang = async (val) => {
         try {

@@ -13,9 +13,11 @@ export function Account({route,navigation}) {
   useEffect(() => {
     async function getUser(){
       const value = await AsyncStorage.getItem('user')
+      const b = await AsyncStorage.getItem('breakfast')
       const val = JSON.parse(value)
       if(value !== null) {
           console.log(value);
+          console.log(b);
           setUser(val)
       }
     }
@@ -58,22 +60,23 @@ export function Account({route,navigation}) {
       "path":"dietary",
     },
     {
-      "icon":<IosIcon style={styles.icon1} name="water" size={20} color="#3FC495" />,
-      "title":"Set habits",
-      "path":"",
+      "icon":<IosIcon style={styles.icon1} name="calendar" size={20} color="#3FC495" />,
+      "title":"Calendar",
+      "path":"calendar",
     },
   ]
 
   const Logout = async () => {
-        try {
-          await AsyncStorage.removeItem("user");
-          route.params.setLogged(false)
-          console.log("user logged out");
-          navigation.navigate('first')
-        }
-        catch(exception) {
-          console.log("user didn't log out");
-        }
+      try {
+        await AsyncStorage.removeItem("user");
+        await AsyncStorage.removeItem("breakfast");
+        route.params.setLogged(false)
+        console.log("user logged out");
+        navigation.navigate('first')
+      }
+      catch(exception) {
+        console.log("user didn't log out");
+      }
     }
 
   const LogoutAlert = () => {

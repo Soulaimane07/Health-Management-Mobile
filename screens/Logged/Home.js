@@ -51,7 +51,6 @@ const months = [
 ]
 
 export default function Home({route, navigation}) {
-
     const [user, setUser] = useState("null")
 
     useEffect(() => {

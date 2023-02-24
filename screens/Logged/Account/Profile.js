@@ -110,7 +110,7 @@ export default function Profile() {
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
-      <Statusbar color="#3FC495" style="light" />
+    <Statusbar color="#3FC495" style="light" />
     <BottomSheetModalProvider>
     <View style={[styles.container, IsOpen && {backgroundColor: "#2C3333"}]}>
       <View style={[styles.box, IsOpen ? {backgroundColor: "#374040"} : {backgroundColor:"white"}]}>

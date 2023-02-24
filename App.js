@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import 'react-native-gesture-handler';
 
 import First from './screens/Auth/First';
@@ -9,16 +11,13 @@ import SignStack from './Routes/SignStack';
 import HomeStack from './Routes/HomeStack';
 import AccountStack from './Routes/AccountStack';
 import Calories from './screens/Logged/Target/Calories';
-import Steps from './screens/Logged/Target/Steps';
+import StepsPage from './screens/Logged/Target/Steps';
 import Water from './screens/Logged/Target/Water';
-import { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Breakfast from './screens/Logged/meals/Breakfast';
 import Lunch from './screens/Logged/meals/Lunch';
 import Snack from './screens/Logged/meals/Snack';
 import Dinner from './screens/Logged/meals/Dinner';
 import Info from './screens/Logged/meals/Info';
-import StepsPage from './screens/Logged/Target/Steps';
 
 const Stack = createNativeStackNavigator();
 

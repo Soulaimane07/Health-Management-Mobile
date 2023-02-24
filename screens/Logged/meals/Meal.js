@@ -1,7 +1,7 @@
 import { View, Text, Image, StatusBar, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native'
-import { MyButton } from '../../../Components/Buttons'
+import { MyButton, NavigateBtn } from '../../../Components/Buttons'
 import Aicon from 'react-native-vector-icons/AntDesign'
 import { calorie } from '../../../Components/cal'
 
@@ -10,13 +10,13 @@ export default function Breakfast(props) {
         {
           "logo": require('../../../assets/calories/carbs1.png'),
           "title":"Carbs",
-          "val": calorie(props.data).carbs,
+          "val": calorie(props.data).carbs?.toFixed(2),
           "unit":"g"
         },
         {
           "logo": require('../../../assets/calories/eggs.png'),
           "title":"Protein",
-          "val": calorie(props.data).protein,
+          "val": calorie(props.data).protein?.toFixed(2),
           "unit":"g"
         },
         {
@@ -26,6 +26,16 @@ export default function Breakfast(props) {
           "unit":"g"
         },
     ]
+
+    const Submit = async () => {
+        try {
+            // await AsyncStorage.setItem("breakfast", JSON.stringify([""]))
+            console.log("breakfast is created");
+            props.navigation.navigate('info')
+        } catch (e) {
+            console.log("Breakfast is not created");
+        }
+    }
 
     const icon = <Aicon name="pluscircleo" size={20} style={{marginRight: 40}} />
 
@@ -61,22 +71,24 @@ export default function Breakfast(props) {
                 <View style={styles.box}>
                     <Text style={{marginHorizontal:20, fontSize:17, marginBottom: 20, fontWeight: 'bold'}}>{props.title} :</Text>
                     <View style={styles.list}>
-                        {props.data?.map((item,key)=>(
-                            <View key={key} style={styles.row}>
-                                <View style={{flexDirection: 'row', alignItems: 'center',}}>
-                                    <Image style={{marginRight: 16, width: 30, height: 30,}} source={item.image} />
-                                    <Text> {item.title} </Text>
+                        {
+                            props.data?.map((item,key)=>(
+                                <View key={key} style={styles.row}>
+                                    <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                                        <Image style={{marginRight: 16, width: 30, height: 30,}} source={item.image} />
+                                        <Text> {item.title} </Text>
+                                    </View>
+                                    <Text> {item.cal} Kcal </Text>
                                 </View>
-                                <Text> {item.cal} Kcal </Text>
-                            </View>
-                        ))}
+                            ))
+                        }
                     </View>
                 </View>
             </View>
         </ScrollView>
 
         <View style={styles.BtnBox}>
-            {MyButton(props.navigation, `Add`, 'info', icon)}
+            {NavigateBtn(`Add`, Submit, true)}
         </View>
     </SafeAreaView>
   )
