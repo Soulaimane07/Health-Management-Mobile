@@ -14,17 +14,18 @@ export default function StepsPage() {
   const [user, setUser] = useState("null")
   const [visible, setVisible] = useState(false)
 
-  useEffect(() => {
-    async function getUser(){
-      const value = await AsyncStorage.getItem('user')
-      const val = JSON.parse(value)
-      if(value !== null) {
-          console.log(value);
-          setUser(val)
-      }
+  async function getUser(){
+    const value = await AsyncStorage.getItem('user')
+    const val = JSON.parse(value)
+    if(value !== null) {
+      console.log(value);
+      setUser(val)
     }
+  }
+
+  useEffect(() => {
     getUser();
-  }, [user]) 
+  }, []) 
 
   const condittion = steps > 0
   const oldStep = user?.steps ? Number(user?.steps) : 0
@@ -39,6 +40,7 @@ export default function StepsPage() {
       console.log("User's steps is stored!")
       setVisible(true)
       setSteps(null)
+      getUser()
     } catch (e) {
       console.log("not stored");
     }

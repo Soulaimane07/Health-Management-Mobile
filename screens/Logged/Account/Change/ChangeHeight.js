@@ -40,7 +40,7 @@ export default function ChangeHeight(props) {
                 maxLength={props.system === "eu" ? 1 : 2} 
                 style={[styles.NumInput, {width: 50}]}
                 onChangeText={e => setNewHeightX(e)}
-                defaultValue={props.height?.x}
+                defaultValue={JSON.stringify(props.height?.x)}
             />
             {props.system === "eu" 
                 ?   <Ficon name="circle" style={{marginHorizontal: 10}} size={5} />

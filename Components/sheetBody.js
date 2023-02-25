@@ -5,23 +5,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SheetBody(props) {
     const data = [props.data]
+    let val
+    let mealData
 
     const Submit = async () => {
         try {
-            // await AsyncStorage.removeItem('breakfast')
-            // console.log("breakfast is deleted");
-            const val = await AsyncStorage.getItem('breakfast')
-            let breakfast
-            breakfast !== null && ( breakfast =  JSON.parse(val))
-            breakfast !== null && breakfast.push(props.data)
-            breakfast == null && (breakfast = data)
-            // console.log(breakfast)
-            await AsyncStorage.setItem("breakfast", JSON.stringify(breakfast))
-            console.log("Breakfast is Updated!")
-            props.CloseModal()
-            console.log(val);
+            val = await AsyncStorage.getItem(props.meal),
+            val !== null ? (
+                mealData = JSON.parse(val),
+                mealData.push(props.data)
+            ) : (
+                mealData = data
+            ),
+            console.log(mealData),
+            await AsyncStorage.setItem(props.meal, JSON.stringify(mealData)),
+            console.log(`${props.meal} is Updated!`),
+            props.CloseModal(),
+            console.log(val)
         } catch (e) {
-            console.log("Breakfast is not updated");
+            console.log(`${props.meal} is not Updated!`);
         }
     }
 

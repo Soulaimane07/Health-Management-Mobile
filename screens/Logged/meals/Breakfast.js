@@ -5,19 +5,22 @@ import Meal from './Meal'
 export default function Breakfast({navigation}) {
   const [data, setData] = useState([])
   
-  useEffect(() => {
-    async function getUser(){
+  async function getUser(){
       const breakfast = await AsyncStorage.getItem('breakfast')
       const val = JSON.parse(breakfast)
-      if(breakfast !== null) {
-          console.log(breakfast);
+      breakfast !== null ? (
+          console.log(breakfast),
           setData(val)
-      }
-    }
-    getUser();
+      ) : (
+          setData([])
+      )
+  }
+  
+  useEffect(() => {
+      getUser();
   }, [data]) 
 
   return (
-    <Meal image={require("../../../assets/meals/image1.jpg")} kal={0} carbs={50} protein={100} fat={30} title={"My Breakfast"} data={data} navigation={navigation} />
+    <Meal meal={'breakfast'} image={require("../../../assets/meals/image1.jpg")} kal={0} carbs={50} protein={100} fat={30} title={"My Breakfast"} data={data} navigation={navigation} />
   )
 }

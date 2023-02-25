@@ -1,10 +1,26 @@
-import React, { useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import React, { useEffect, useState } from 'react'
 import Meal from './Meal'
 
 export default function Snack({navigation}) {
   const [data, setData] = useState([])
+  
+  async function getUser(){
+      const snacks = await AsyncStorage.getItem('snacks')
+      const val = JSON.parse(snacks)
+      snacks !== null ? (
+          console.log(snacks),
+          setData(val)
+      ) : (
+          setData([])
+      )
+  }
+  
+  useEffect(() => {
+      getUser();
+  }, [data])
 
   return (
-    <Meal image={require("../../../assets/meals/snacks/image6.jpg")} kal={320} carbs={50} protein={100} fat={30} title={"My Snacks"} data={data} navigation={navigation} />
+    <Meal meal={"snacks"} image={require("../../../assets/meals/snacks/image6.jpg")} kal={320} carbs={50} protein={100} fat={30} title={"My Snacks"} data={data} navigation={navigation} />
   )
 }

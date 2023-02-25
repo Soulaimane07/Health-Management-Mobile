@@ -6,7 +6,7 @@ import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import SheetBody from '../../../Components/sheetBody'
 
-export default function Info({navigation}) {
+export default function Info({route, navigation}) {
     const data = [
        { 
             "title":"Orange",
@@ -223,7 +223,7 @@ export default function Info({navigation}) {
             onDismiss={()=> setIsOpen(false)}
         >
             <View style={styles.modalView}>
-            <SheetBody data={data[selected]} CloseModal={CloseModal} />
+            <SheetBody meal={route.params.meal} data={data[selected]} CloseModal={CloseModal} />
             </View>
         </BottomSheetModal>
     </BottomSheetModalProvider>

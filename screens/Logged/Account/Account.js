@@ -70,6 +70,9 @@ export function Account({route,navigation}) {
       try {
         await AsyncStorage.removeItem("user");
         await AsyncStorage.removeItem("breakfast");
+        await AsyncStorage.removeItem("lunch");
+        await AsyncStorage.removeItem("snacks");
+        await AsyncStorage.removeItem("dinner");
         route.params.setLogged(false)
         console.log("user logged out");
         navigation.navigate('first')
