@@ -25,7 +25,8 @@ export default function HomeStack({route}) {
             <Micon name="home" color={color} size={size} />
             ),
           }}
-          component={Home} 
+          initialParams={{profiles: route.params.profiles, user: route.params.user}}
+        component={Home} 
       />
       <Tab.Screen 
         name="todo" 
@@ -35,8 +36,8 @@ export default function HomeStack({route}) {
           tabBarIcon: ({color, size}) => (
             <Aicon name="edit" color={color} size={size} />
             ),
-          }}
-          component={TodoPage} 
+        }}
+        component={TodoPage} 
       />
     </Tab.Navigator>  
   )

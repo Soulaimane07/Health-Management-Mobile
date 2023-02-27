@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import { DateHeader } from '../../Components/Date'
@@ -7,9 +6,9 @@ import Statusbar from '../../Components/Statusbar'
 import Ficon from 'react-native-vector-icons/Fontisto'
 import Foicon from 'react-native-vector-icons/Foundation'
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import {Calories, Steps, Water} from '../../Components/Calcules'
+import { GetUser } from '../../Components/GetData'
 
 const months = [
   {
@@ -51,157 +50,113 @@ const months = [
 ]
 
 export default function Home({route, navigation}) {
-    const [user, setUser] = useState("null")
+    const user = GetUser().user
 
-    useEffect(() => {
-        async function getUser(){
-          const value = await AsyncStorage.getItem('user')
-          const val = JSON.parse(value)
-          if(value !== null) {
-              console.log(value);
-              setUser(val)
-          }
-        }
-        getUser();
-    }, [user]) 
+    const header = () => {
+        const date = new Date().getHours()
+        let datee = 0
 
-  const header = () => {
-    const date = new Date().getHours()
-    let datee = 0
+        date >= 4 && date < 12 ? datee = "Morning" : ""
+        date >= 12 && date < 18 ? datee = "Afternoon" : ""
+        date >= 18 && date < 22 ? datee = "Evening" : ""
+        date >= 22 || date < 4 ? datee = "Night" : ""
 
-    date >= 4 && date < 12 ? datee = "Morning" : ""
-    date >= 12 && date < 18 ? datee = "Afternoon" : ""
-    date >= 18 && date < 22 ? datee = "Evening" : ""
-    date >= 22 || date < 4 ? datee = "Night" : ""
-
-    return datee
-  }
-
-  const date = new Date()
-  const getMonth = () => {
-    let month
-
-    months.map((item,key)=>(
-        key === date.getMonth() ? month = item.title : ""
-    ))
-
-    return month
-  }
-
-  const meals = [
-    {
-        "image":require(`../../assets/breakfast.webp`),
-        "title":"Breakfast",
-        "text":"Recommended 830 - 1170Cal",
-        "path":"breakfast"
-    },
-    {
-        "image":require(`../../assets/lunch.webp`),
-        "title":"Lunch",
-        "text":"Recommended 255 - 370Cal",
-        "path":"lunch"
-    },
-    {
-        "image":require(`../../assets/snacks.jpg`),
-        "title":"Snack",
-        "text":"Recommended 830 - 1170Cal",
-        "path":"snack"
-    },
-    {
-        "image":require(`../../assets/dinner.jpg`),
-        "title":"Dinner",
-        "text":"Recommended 255 - 370Cal",
-        "path":"dinner"
-    },
-  ]
-
-  const scroll = () => {
-    let x
-    header() === "Morning" ? x = 0 : ""
-    header() === "Afternoon" ? x = 305 : ""
-    header() === "Evening" ? x = 625 : ""
-    header() === "Night" ? x = 1000 : ""
-
-    return x
-  }
-
-  const profileNbr = user?.profile ? user?.profile : 0
-
-  const profiles = [
-    {
-      image: require("../../assets/profiles/1.png"),
-      width: 90,
-      height: 90,
-    },
-    {
-      image: require("../../assets/profiles/2.png"),
-      width: 88,
-      height: 60,
-    },
-    {
-      image: require("../../assets/profiles/3.png"),
-      width: 76,
-      height: 80,
-    },
-    {
-      image: require("../../assets/profiles/4.png"),
-      width: 90,
-      height: 80,
-    },
-    {
-      image: require("../../assets/profiles/5.png"),
-      width: 90,
-      height: 80,
-    },
-    {
-      image: require("../../assets/profiles/6.png"),
-      width: 80,
-      height: 70,
-    },
-  ]
-
-  const calories = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
-  const water = Water(user?.weight)
-
-  const target = [
-    {
-        "color":"#fff0f3",
-        "leftTitle": "Target Calories",
-        "leftValue": calories?.toFixed(0),
-        "unit":"Kcal",
-        "icon": <Ficon name='fire' color="#e71d36" size={40} /> ,
-        "rightTitle": "Remaining Calories",
-        "rightValue": user?.calories ? calories - user?.calories : calories?.toFixed(0),
-        "path":"calories"
-    },
-    {
-        "color":"#fff2b2",
-        "leftTitle": "Target Steps",
-        "leftValue": Steps(user?.goal),
-        "icon": <Foicon name='foot' color="#fdb833" size={50} />,
-        "rightTitle": "Remaining Steps",
-        "rightValue": user?.steps ? Steps(user?.goal) - user?.steps : Steps(user?.goal),
-        "path":"steps"
-    },
-    {
-        "color":"#caf0f8",
-        "leftTitle": "Target Water",
-        "leftValue": water,
-        "unit":"ml",
-        "icon": <Micon name='cup-water' color="#5390d9" size={50} />,
-        "rightTitle": "Remaining Water",
-        "rightValue": user?.water ? water - user?.water  : water,
-        "path":"water"
+        return datee
     }
-  ]
+
+    const date = new Date()
+    const getMonth = () => {
+        let month
+
+        months.map((item,key)=>(
+            key === date.getMonth() ? month = item.title : ""
+        ))
+
+        return month
+    }
+
+    const meals = [
+        {
+            "image":require(`../../assets/breakfast.webp`),
+            "title":"Breakfast",
+            "text":"Recommended 830 - 1170Cal",
+            "path":"breakfast"
+        },
+        {
+            "image":require(`../../assets/lunch.webp`),
+            "title":"Lunch",
+            "text":"Recommended 255 - 370Cal",
+            "path":"lunch"
+        },
+        {
+            "image":require(`../../assets/snacks.jpg`),
+            "title":"Snack",
+            "text":"Recommended 830 - 1170Cal",
+            "path":"snack"
+        },
+        {
+            "image":require(`../../assets/dinner.jpg`),
+            "title":"Dinner",
+            "text":"Recommended 255 - 370Cal",
+            "path":"dinner"
+        },
+    ]
+
+    const scroll = () => {
+        let x
+        header() === "Morning" ? x = 0 : ""
+        header() === "Afternoon" ? x = 305 : ""
+        header() === "Evening" ? x = 625 : ""
+        header() === "Night" ? x = 1000 : ""
+
+        return x
+    }
+
+    const profileNbr = user?.profile ? user?.profile : 0
+
+    const profiles = route.params.profiles
+
+    const calories = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
+    const water = Water(user?.weight)
+
+    const target = [
+        {
+            "color":"#fff0f3",
+            "leftTitle": "Target Calories",
+            "leftValue": calories?.toFixed(0),
+            "unit":"Kcal",
+            "icon": <Ficon name='fire' color="#e71d36" size={40} /> ,
+            "rightTitle": "Remaining Calories",
+            "rightValue": user?.calories ? calories - user?.calories : calories?.toFixed(0),
+            "path":"calories"
+        },
+        {
+            "color":"#fff2b2",
+            "leftTitle": "Target Steps",
+            "leftValue": Steps(user?.goal),
+            "icon": <Foicon name='foot' color="#fdb833" size={50} />,
+            "rightTitle": "Remaining Steps",
+            "rightValue": user?.steps ? Steps(user?.goal) - user?.steps : Steps(user?.goal),
+            "path":"steps"
+        },
+        {
+            "color":"#caf0f8",
+            "leftTitle": "Target Water",
+            "leftValue": water,
+            "unit":"ml",
+            "icon": <Micon name='cup-water' color="#5390d9" size={50} />,
+            "rightTitle": "Remaining Water",
+            "rightValue": user?.water ? water - user?.water  : water,
+            "path":"water"
+        }
+    ]
 
   return (
     <View style={styles.container}>
       <Statusbar color="white" style="dark-content" />
       <SafeAreaView style={styles.header}>
-        <TouchableOpacity style={styles.profile} onPress={()=> navigation.navigate("accountStack")}>
-            <ImageBackground source={profiles[profileNbr].image}  style={[styles.logo ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]}>
-            </ImageBackground>
+        <TouchableOpacity style={styles.profile} onPress={()=> navigation.navigate("accountStack", {screen: 'account'})}>
+            <Image source={profiles[profileNbr].image}  style={[styles.logo ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]} />
             <Text style={styles.text}>Good {header()} {user && user.fname} </Text>
         </TouchableOpacity>
       </SafeAreaView>
@@ -216,7 +171,7 @@ export default function Home({route, navigation}) {
         </View>
 
         <View style={styles.target}>
-          <Text style={styles.targetText}> Today's Target </Text>
+          <Text style={styles.targetText}> Today's Targets </Text>
           {target.map((item,key)=>(
               <TouchableOpacity key={key} onPress={()=> navigation.navigate(item.path)} style={{ marginVertical: 6, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', borderRadius: 16, padding: 20, backgroundColor: item.color}}>
                   <View>
@@ -236,8 +191,8 @@ export default function Home({route, navigation}) {
           <Text style={styles.Mtext}> Today's Meals </Text>
           <ScrollView contentOffset={{ x: scroll() }}  horizontal={true} style={styles.boxs}>
               {meals.map((item,key)=>(
-                <TouchableOpacity onPress={()=> navigation.navigate(item.path)}>
-                  <ImageBackground source={item.image} resizeMode="cover" style={[styles.box, key+1 === meals.length && styles.lastBox]} key={key}>
+                <TouchableOpacity key={key} onPress={()=> navigation.navigate(item.path)}>
+                  <ImageBackground source={item.image} resizeMode="cover" style={[styles.box, key+1 === meals.length && styles.lastBox]}>
                       <View style={styles.textBox}>
                           <Text style={styles.title}> {item.title} </Text>
                       </View>

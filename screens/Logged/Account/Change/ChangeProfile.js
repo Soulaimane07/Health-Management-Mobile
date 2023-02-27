@@ -9,18 +9,18 @@ export default function ChangeProfile(props) {
     const [click, setClick] = useState(props.profile)
     const condittion1 = click === props.profile
     const val = {
-        profile: click,
+      profile: click,
     }
 
     const Submit = async () => {
-        try {
+      try {
         await AsyncStorage.mergeItem('user', JSON.stringify(val))
         props.CloseModal()
         props.getUser()
-        console.log("User Profile is updated!");
-        } catch (e) {
-        console.log("User Profile is not updated!");
-        }
+        console.log("==> User Profile is updated!");
+      } catch (e) {
+        console.log("==> User Profile is not updated! "+e);
+      }
     }
 
   return (
@@ -35,11 +35,11 @@ export default function ChangeProfile(props) {
       </View>
 
       <BottomSheetScrollView contentContainerStyle={{paddingBottom: "60%", justifyContent: 'center', flexDirection:'row', flexWrap:'wrap', alignItems: 'flex-start'}}> 
-          {props.profiles?.map((item,key)=>( 
-              <TouchableOpacity key={key} onPress={()=> setClick(key)} style={[key == click && {backgroundColor: "#3FC495"}, styles.profile1]}>
-                  <Image source={item.image} style={{width: "100%", height: "100%"}} />
-              </TouchableOpacity>
-          ))}
+        {props.profiles?.map((item,key)=>( 
+          <TouchableOpacity key={key} onPress={()=> setClick(key)} style={[key == click && {backgroundColor: "#3FC495"}, styles.profile1]}>
+            <Image source={item.image} style={{width: "100%", height: "100%"}} />
+          </TouchableOpacity>
+        ))}
       </BottomSheetScrollView>
 
       {click !== props.profile &&

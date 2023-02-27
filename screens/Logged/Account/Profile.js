@@ -10,8 +10,9 @@ import ChangeLname from './Change/ChangeLname'
 import ChangePass from './Change/ChangePass'
 import DeleteAccount from './Change/DeleteAccount'
 import Statusbar from '../../../Components/Statusbar'
+import FaIcon from 'react-native-vector-icons/FontAwesome'
 
-export default function Profile() {
+export default function Profile({route}) {
   const [user, setUser] = useState("null")
 
   async function getUser(){
@@ -28,6 +29,8 @@ export default function Profile() {
   }, []) 
 
 
+
+  /* ************* Bottom Sheet ************* */
   const [SheetBody, setSheetBody] = useState(null)
   const [sheet, setSheet] = useState(false)
   
@@ -48,7 +51,7 @@ export default function Profile() {
   }
 
 
-  /* ******************* */
+  /* ************* Profile ************* */
 
   const profile = [
     {
@@ -58,7 +61,7 @@ export default function Profile() {
     {
       "label":"First name",
       "value": user.fname,
-      "change": <ChangeFname getUser={getUser} fname={user?.fname} CloseModal={CloseModal} />,
+      "change": <ChangeFname getUser1={route.params.getUser} getUser={getUser} fname={user?.fname} CloseModal={CloseModal} />,
     },
     {
       "label":"Last name",
@@ -72,39 +75,7 @@ export default function Profile() {
     },
   ]
   const profileNbr = user?.profile ? user?.profile : 0
-
-  const profiles = [
-    {
-      image: require("../../../assets/profiles/1.png"),
-      width: 200,
-      height: 200,
-    },
-    {
-      image: require("../../../assets/profiles/2.png"),
-      width: 240,
-      height: 170,
-    },
-    {
-      image: require("../../../assets/profiles/3.png"),
-      width: 186,
-      height: 190,
-    },
-    {
-      image: require("../../../assets/profiles/4.png"),
-      width: 200,
-      height: 190,
-    },
-    {
-      image: require("../../../assets/profiles/5.png"),
-      width: 210,
-      height: 180,
-    },
-    {
-      image: require("../../../assets/profiles/6.png"),
-      width: 210,
-      height: 180,
-    },
-  ]
+  const profiles = route.params.profiles
 
 
 
@@ -112,49 +83,52 @@ export default function Profile() {
     <GestureHandlerRootView style={{flex: 1}}>
     <Statusbar color="#3FC495" style="light" />
     <BottomSheetModalProvider>
-    <View style={[styles.container, IsOpen && {backgroundColor: "#2C3333"}]}>
-      <View style={[styles.box, IsOpen ? {backgroundColor: "#374040"} : {backgroundColor:"white"}]}>
-        <TouchableOpacity onPress={()=> setSheet(true) & setSheetBody(<ChangeProfile getUser={getUser} profile={user?.profile} profiles={profiles} CloseModal={CloseModal} />) & OpenModal()} style={styles.profile}>
-          <Image source={profiles[profileNbr].image} style={[styles.icon ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]} />
-          <Text style={{marginTop: 20, color: "#E8E2E2"}}> Click to Change Profile Image ? </Text>
-        </TouchableOpacity>
+      <View style={[styles.container, IsOpen && {backgroundColor: "#2C3333"}]}>
+        <View style={[styles.box, IsOpen ? {backgroundColor: "#374040"} : {backgroundColor:"white"}]}>
+          <TouchableOpacity onPress={()=> setSheet(true) & setSheetBody(<ChangeProfile getUser={getUser} profile={user?.profile} profiles={profiles} CloseModal={CloseModal} />) & OpenModal()} style={styles.profile}>
+            <Image source={profiles[profileNbr].image} style={[styles.icon ,{ width: 160, height: 150}]} />
+            <Text style={{marginTop: 20, color: "#E8E2E2"}}> Click to Change Profile Image ? </Text>
+          </TouchableOpacity>
 
-        {profile.map((item,key)=>(
-          key === 0 ?
-            <View key={key} style={styles.row}>
-              <Text style={styles.text1}> {item.label} </Text>
-              <Text style={styles.text2}> {item.value} </Text>
-            </View>
-          :
-            <TouchableOpacity onPress={()=> setSheet(false) & setSheetBody(item.change) & OpenModal()} key={key}>
-              <View style={styles.row}>
+          {profile.map((item,key)=>(
+            key === 0 ?
+              <View key={key} style={styles.row}>
                 <Text style={styles.text1}> {item.label} </Text>
                 <Text style={styles.text2}> {item.value} </Text>
               </View>
-            </TouchableOpacity>
-        ))}
-      </View>
-
-      <View style={styles.Btnbox}>
-        <TouchableOpacity 
-          onPress={()=> setSheet(false) & setSheetBody(<DeleteAccount CloseModal={CloseModal} />) & OpenModal()}
-          style={styles.delete}
-        >
-            <Text style={styles.DeleteText}> Delete account </Text>
-        </TouchableOpacity>
-      </View>
-
-      <BottomSheetModal 
-        ref={refB}
-        index={0}
-        snapPoints={snapPoints}
-        onDismiss={()=> setIsOpen(false)}
-      >
-        <View style={styles.modalView}>
-          {SheetBody}
+            :
+              <TouchableOpacity onPress={()=> setSheet(false) & setSheetBody(item.change) & OpenModal()} key={key}>
+                <View style={styles.row}>
+                  <Text style={styles.text1}> {item.label} </Text>
+                  <View style={{alignItems: 'center', flexDirection: 'row'}}>
+                    <Text style={styles.text2}> {item.value} </Text>
+                    <FaIcon style={{marginLeft: 10}} name="angle-right" size={26} color="#adb5bd" />
+                  </View>
+                </View>
+              </TouchableOpacity>
+          ))}
         </View>
-      </BottomSheetModal>
-    </View>
+
+        <View style={styles.Btnbox}>
+          <TouchableOpacity 
+            onPress={()=> setSheet(false) & setSheetBody(<DeleteAccount CloseModal={CloseModal} />) & OpenModal()}
+            style={styles.delete}
+          >
+              <Text style={styles.DeleteText}> Delete account </Text>
+          </TouchableOpacity>
+        </View>
+
+        <BottomSheetModal 
+          ref={refB}
+          index={0}
+          snapPoints={snapPoints}
+          onDismiss={()=> setIsOpen(false)}
+        >
+          <View style={styles.modalView}>
+            {SheetBody}
+          </View>
+        </BottomSheetModal>
+      </View>
     </BottomSheetModalProvider>
     </GestureHandlerRootView>
   )

@@ -5,7 +5,7 @@ import Error from '../../../../Components/Error'
 import { NavigateBtn } from '../../../../Components/Buttons'
 
 export default function Age(props) {
-    const [newAge, setNewAge] = useState(0)
+    const [newAge, setNewAge] = useState(null)
     const condition = newAge <= Number(props.age)
 
     const age = {
@@ -17,9 +17,9 @@ export default function Age(props) {
           await AsyncStorage.mergeItem("user", JSON.stringify(age))
           props.CloseModal()
           props.getUser()
-          console.log("User's age is Updated!")
+          console.log("==> User age is Updated!")
         } catch (e) {
-          console.log("User age is not updated");
+          console.log("==> User age is not updated! "+e);
         }
     }
 
@@ -27,10 +27,14 @@ export default function Age(props) {
     <>
         <View>
             <Text style={{textAlign: "center", fontSize: 18, fontWeight: 'bold'}}> Change Your Age </Text>
+            {newAge == props.age && 
+                <View style={{marginTop: 10}}>
+                    <Error text={`${props.age} is your current Age`} />
+                </View>
+            }
         </View>
 
         <View>
-            {newAge == props.age && <Error text={`${props.age} is your current Age`} />}
             <TextInput
                 keyboardType="numeric" 
                 maxLength={3} 

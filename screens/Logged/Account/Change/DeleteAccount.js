@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NavigateBtn } from '../../../../Components/Buttons'
 import Error from '../../../../Components/Error'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function DeleteAccount(props) {
     const [number, setNumber] = useState(0)
@@ -15,9 +16,11 @@ export default function DeleteAccount(props) {
 
     const Submit = async () => {
         try {
+            await AsyncStorage.clear();
+            console.log("==> User account is deleted!");
             props.CloseModal()
         } catch (e) {
-            console.log("User Profile is not updated!");
+            console.log("==> User Logout fun is not working! "+e);
         }
     }
 

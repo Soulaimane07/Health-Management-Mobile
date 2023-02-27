@@ -6,8 +6,8 @@ import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { NavigateBtn } from '../../../../Components/Buttons'
 
 export default function ChangeHeight(props) {
-    const [newHeightX, setNewHeightX] = useState(props.height?.x)
-    const [newHeightY, setNewHeightY] = useState(props.height?.y)
+    const [newHeightX, setNewHeightX] = useState(null)
+    const [newHeightY, setNewHeightY] = useState(null)
     const condition = newHeightX < Number(props.height?.x) | newHeightY == Number(props.height?.y)
 
     const height = {
@@ -22,9 +22,9 @@ export default function ChangeHeight(props) {
           await AsyncStorage.mergeItem("user", JSON.stringify(height))
           props.CloseModal()
           props.getUser()
-          console.log("User's age is Updated!")
+          console.log("==> User age is Updated!")
         } catch (e) {
-          console.log("User age is not updated");
+          console.log("==> User age is not updated! "+e);
         }
     }
 

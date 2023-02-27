@@ -10,7 +10,21 @@ export default function AccountStack({route}) {
 
   return (
     <Stack.Navigator initialRouteName='account' screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="account" initialParams={{setLogged: route.params.setLogged}} component={Account} />
+      <Stack.Screen 
+        name="account" 
+        initialParams={{setLogged: route.params.setLogged, profiles: route.params.profiles}} 
+        component={Account} 
+      />
+      <Stack.Screen 
+        name="profile" 
+        options={{
+          headerShown: true, 
+          headerStyle: {backgroundColor: '#3FC495'}, 
+          headerTintColor:"white", title:"ACCOUNT"
+        }} 
+        initialParams={{profiles: route.params.profiles}} 
+        component={Profile} 
+      /> 
       <Stack.Screen 
         name="personal" 
         options={{
@@ -29,15 +43,6 @@ export default function AccountStack({route}) {
         }} 
         component={Dietary} 
       />
-      <Stack.Screen 
-        name="profile" 
-        options={{
-          headerShown: true, 
-          headerStyle: {backgroundColor: '#3FC495'}, 
-          headerTintColor:"white", title:"ACCOUNT"
-        }} 
-        component={Profile} 
-      /> 
     </Stack.Navigator>
   )
 }

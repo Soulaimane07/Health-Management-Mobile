@@ -1,135 +1,89 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useEffect, useState } from 'react'
 import { Alert, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
 import IosIcon from 'react-native-vector-icons/Ionicons'
 import { IMC } from '../../../Components/Calcules'
+import { GetUser } from '../../../Components/GetData'
 import Statusbar from '../../../Components/Statusbar'
 
-export function Account({route,navigation}) {
-  const [user, setUser] = useState("null")
+export function Account({route, navigation}) {
+    const user = GetUser().user
 
-  useEffect(() => {
-    async function getUser(){
-      const value = await AsyncStorage.getItem('user')
-      const b = await AsyncStorage.getItem('breakfast')
-      const val = JSON.parse(value)
-      if(value !== null) {
-          console.log(value);
-          console.log(b);
-          setUser(val)
-      }
-    }
-    getUser();
-  }, [user]) 
+    const unit = user?.system === "eu" ? "Kg" : "Lbs"
 
-  const unit = user?.system === "eu" ? "Kg" : "Lbs"
-
-  const profile = [
-    {
-      "label":"Goal",
-      "value": user.goal,
-    },
-    {
-      "label":"Current Weight",
-      "value": `${user.weight} ${unit}`,
-    },
-    {
-      "label":"Goal Weight",
-      "value": `${user.Gweight} ${unit}`,
-    },
-    {
-      "label":"IMC",
-      "value": IMC(user).title,
-      "color": IMC(user).color,
-    },
-  ]
-
-  user?.goal === "Maintain Weight" && profile.splice(2, 1);
-
-  const customization = [
-    {
-      "icon": <Fa5Icon style={styles.icon1} name="user-alt" size={20} color="#3FC495" />,
-      "title":"Personal details",
-      "path":"personal",
-    },
-    {
-      "icon": <Fa5Icon style={styles.icon1} name="concierge-bell" size={20} color="#3FC495" />,
-      "title":"Dietary needs & preferences",
-      "path":"dietary",
-    },
-    {
-      "icon":<IosIcon style={styles.icon1} name="calendar" size={20} color="#3FC495" />,
-      "title":"Calendar",
-      "path":"calendar",
-    },
-  ]
-
-  const Logout = async () => {
-      try {
-        await AsyncStorage.removeItem("user");
-        await AsyncStorage.removeItem("breakfast");
-        await AsyncStorage.removeItem("lunch");
-        await AsyncStorage.removeItem("snacks");
-        await AsyncStorage.removeItem("dinner");
-        route.params.setLogged(false)
-        console.log("user logged out");
-        navigation.navigate('first')
-      }
-      catch(exception) {
-        console.log("user didn't log out");
-      }
-    }
-
-  const LogoutAlert = () => {
-    Alert.alert('Log out', 'Are you sure you want to log out ?', [
+    const profile = [
       {
-        text: 'Cancel',
-        style: 'cancel',
+        "label":"Goal",
+        "value": user?.goal,
       },
-      {text: 'LOG OUT', onPress: () => Logout()},
-    ],{
-      cancelable: true
+      {
+        "label":"Current Weight",
+        "value": `${user?.weight} ${unit}`,
+      },
+      {
+        "label":"Goal Weight",
+        "value": `${user?.Gweight} ${unit}`,
+      },
+      {
+        "label":"IMC",
+        "value": IMC(user).title,
+        "color": IMC(user).color,
+      },
+    ]
+
+    user?.goal === "Maintain Weight" && profile.splice(2, 1);
+
+    const customization = [
+      {
+        "icon": <Fa5Icon style={styles.icon1} name="user-alt" size={20} color="#3FC495" />,
+        "title":"Personal details",
+        "path":"personal",
+      },
+      {
+        "icon": <Fa5Icon style={styles.icon1} name="concierge-bell" size={20} color="#3FC495" />,
+        "title":"Dietary needs & preferences",
+        "path":"dietary",
+      },
+      {
+        "icon":<IosIcon style={styles.icon1} name="calendar" size={20} color="#3FC495" />,
+        "title":"Calendar",
+        "path":"calendar",
+      },
+    ]
+
+    const Logout = async () => {
+        try {
+          await AsyncStorage.removeItem("user");
+          await AsyncStorage.removeItem("breakfast");
+          await AsyncStorage.removeItem("lunch");
+          await AsyncStorage.removeItem("snacks");
+          await AsyncStorage.removeItem("dinner");
+          route.params.setLogged(false)
+          console.log("user logged out");
+          navigation.navigate('first')
+        }
+        catch(exception) {
+          console.log("user didn't log out");
+        }
+      }
+
+    const LogoutAlert = () => {
+      Alert.alert('Log out', 'Are you sure you want to log out ?', [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {text: 'LOG OUT', onPress: () => Logout()},
+      ],{
+        cancelable: true
+      }
+      );
     }
-    );
-    
-  }
 
   const profileNbr = user?.profile ? user?.profile : 0
 
-  const profiles = [
-    {
-      image: require("../../../assets/profiles/1.png"),
-      width: 100,
-      height: 100,
-    },
-    {
-      image: require("../../../assets/profiles/2.png"),
-      width: 98,
-      height: 70,
-    },
-    {
-      image: require("../../../assets/profiles/3.png"),
-      width: 86,
-      height: 90,
-    },
-    {
-      image: require("../../../assets/profiles/4.png"),
-      width: 100,
-      height: 90,
-    },
-    {
-      image: require("../../../assets/profiles/5.png"),
-      width: 100,
-      height: 90,
-    },
-    {
-      image: require("../../../assets/profiles/6.png"),
-      width: 90,
-      height: 80,
-    },
-  ]
+  const profiles = route.params.profiles
   
 
   return (
@@ -139,7 +93,7 @@ export function Account({route,navigation}) {
         <TouchableOpacity onPress={()=> navigation.navigate("profile")} style={styles.profile}>
           <ImageBackground source={profiles[profileNbr].image}  style={[styles.icon ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]}>
           </ImageBackground>
-          <Text style={styles.name}> {user.fname} {user.lname} </Text>
+          <Text style={styles.name}> {user?.fname} {user?.lname} </Text>
         </TouchableOpacity>
 
         <View style={styles.hr}></View>

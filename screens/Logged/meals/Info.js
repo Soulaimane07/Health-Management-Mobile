@@ -223,7 +223,7 @@ export default function Info({route, navigation}) {
             onDismiss={()=> setIsOpen(false)}
         >
             <View style={styles.modalView}>
-            <SheetBody meal={route.params.meal} data={data[selected]} CloseModal={CloseModal} />
+                <SheetBody meal={route.params.meal} data={data[selected]} CloseModal={CloseModal} />
             </View>
         </BottomSheetModal>
     </BottomSheetModalProvider>

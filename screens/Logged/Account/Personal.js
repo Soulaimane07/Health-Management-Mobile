@@ -14,8 +14,7 @@ import ChangeHeight from './Change/ChangeHeight'
 import Statusbar from '../../../Components/Statusbar'
 
 export function Personal() {
-    const [user, setUser] = useState("null")
-    const [SheetBody, setSheetBody] = useState(null)
+    const [user, setUser] = useState({})
 
     async function getUser(){
         const value = await AsyncStorage.getItem('user')
@@ -30,9 +29,16 @@ export function Personal() {
         getUser();
     }, []) 
 
-    const Hunit = user?.system === "eu" ? "m" : "f/in"
-    const Wunit = user?.system === "eu" ? "Kg" : "Lbs"
 
+    let Hunit, Wunit, separator, height, Cweight, Gweight
+    user?.system === "eu" && (Hunit= "m", separator=".", Wunit="Kg")
+    user?.system === "us" && (Hunit= "f/in", separator="/", Wunit="Lbs")
+
+    user?.height && (height = `${user?.height?.x}${separator}${user?.height?.y} ${Hunit}`)
+    user?.weight && (Cweight = `${user?.weight} ${Wunit}`)
+    user?.Gweight && (Gweight = `${user?.Gweight} ${Wunit}`)
+
+    const [SheetBody, setSheetBody] = useState(null)
     const refB = useRef(null)
     const snapPoints = useMemo(()=> ["50%"], [])
     const [IsOpen, setIsOpen] = useState(false)
@@ -52,12 +58,12 @@ export function Personal() {
     const Goals = [
         {
             "label":"Goal",
-            "value": user.goal,
+            "value": user?.goal,
             "change": <GoalChange goal={user?.goal} CloseModal={CloseModal} getUser={getUser} />
         },
         {
             "label":"Goal Weight",
-            "value": `${user.Gweight} ${Wunit}`,
+            "value": Gweight,
             "change": <GoalWeight Gweight={user?.Gweight} CloseModal={CloseModal} getUser={getUser} />
         },
     ]
@@ -65,23 +71,23 @@ export function Personal() {
     const Details = [
         {
             "label":"Current Weight",
-            "value": `${user.weight} ${Wunit}`,
+            "value": Cweight,
             "change": <CurrentWeight weight={user?.weight} CloseModal={CloseModal} getUser={getUser} />,
         },
         {
             "label":"Height",
-            "value": `${user?.height?.x}${user?.system === "eu" ? "." : "/"}${user?.height?.y} ${Hunit}`,
+            "value": height,
             "change": <ChangeHeight height={user?.height} system={user?.system} CloseModal={CloseModal} getUser={getUser} />,
         },
         {
             "label":"Age",
-            "value": user.age ,
+            "value": user?.age && `${user?.age} years`,
             "change": <Age age={user?.age} CloseModal={CloseModal} getUser={getUser} />,
         },
         {
             "label":"Gender",
-            "value": user.sex,
-            "change": <Gender sex={user?.sex} CloseModal={CloseModal} getUser={getUser} /> ,
+            "value": user?.sex,
+            // "change": <Gender sex={user?.sex} CloseModal={CloseModal} getUser={getUser} /> ,
         },
     ]
 
@@ -111,16 +117,26 @@ export function Personal() {
             <Text style={styles.text}> DETAILS </Text>
             <View style={[styles.box, IsOpen ? {backgroundColor:"#374040"} : {backgroundColor: "white"}]}>
                 {Details.map((item,key)=>(
-                    <TouchableOpacity key={key} onPress={()=> OpenModal() & setSheetBody(item.change)}>
-                        <View style={styles.row1}>
-                            <Text style={[styles.row1key, IsOpen && {color: "#adb5bd"}]}> {item.label} </Text>
-                            <View style={styles.row1value}>
-                                <Text style={styles.rowText}> {item.value} </Text>
-                                <FaIcon style={styles.rowicon} name="angle-right" size={26} color="#adb5bd" />
+                    item.change ?
+                        <TouchableOpacity key={key} onPress={()=> OpenModal() & setSheetBody(item.change)}>
+                            <View style={styles.row1}>
+                                <Text style={[styles.row1key, IsOpen && {color: "#adb5bd"}]}> {item.label} </Text>
+                                <View style={styles.row1value}>
+                                    <Text style={styles.rowText}> {item.value} </Text>
+                                    <FaIcon style={styles.rowicon} name="angle-right" size={26} color="#adb5bd" />
+                                </View>
+                            </View>
+                            <View style={[styles.hr1, IsOpen ? {backgroundColor: "#4F5C5C"} : {backgroundColor: "#e9ecef",}]}></View>
+                        </TouchableOpacity>
+                    :
+                        <View key={key}>
+                            <View style={styles.row1}>
+                                <Text style={[styles.row1key, IsOpen && {color: "#adb5bd"}]}> {item.label} </Text>
+                                <View style={styles.row1value}>
+                                    <Text style={styles.rowText}> {item.value} </Text>
+                                </View>
                             </View>
                         </View>
-                    {key+1 !== Details.length && <View style={[styles.hr1, IsOpen ? {backgroundColor: "#4F5C5C"} : {backgroundColor: "#e9ecef",}]}></View>}
-                    </TouchableOpacity>
                 ))}
             </View>
         </View>

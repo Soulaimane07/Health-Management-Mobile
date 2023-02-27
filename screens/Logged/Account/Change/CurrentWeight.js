@@ -17,9 +17,9 @@ export default function CurrentWeight(props) {
           await AsyncStorage.mergeItem("user", JSON.stringify(weight))
           props.CloseModal()
           props.getUser()
-          console.log("User's Weight is Updated!")
+          console.log("==> User Weight is Updated!")
         } catch (e) {
-          console.log("User Weight is not updated");
+          console.log("==> User Weight is not updated! "+e);
         }
     }
 
@@ -27,10 +27,14 @@ export default function CurrentWeight(props) {
     <>
         <View>
             <Text style={{textAlign: "center", fontSize: 18, fontWeight: 'bold'}}> Change Your Current Weight </Text>
+            {newWeight == props.weight && 
+                <View style={{marginTop: 10}}>
+                    <Error text={`${props.weight} is your current Weight !`} />
+                </View>
+            }
         </View>
 
         <View>
-            {newWeight == props.weight && <Error text={`${props.weight} is your current Weight`} />}
             <TextInput
                 keyboardType="numeric" 
                 maxLength={3} 
