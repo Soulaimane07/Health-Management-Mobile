@@ -212,7 +212,9 @@ export default function Info({route, navigation}) {
             </ScrollView>
 
             <View style={styles.BtnBox}>
-                {MyButton(navigation, "Finish", 'breakfast', null)}
+                <TouchableOpacity style={styles.button} onPress={()=> navigation.goBack()}>
+                    <Text style={styles.buttonText}> Finish </Text>
+                </TouchableOpacity>
             </View>
         </View>
 
@@ -259,6 +261,21 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         justifyContent: 'space-between',
         marginVertical: 20,
-    }
+    },
+
+    button: {
+        borderRadius: 16,
+        padding: 15,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "#3FC495",
+        marginBottom: 10,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 18,
+        fontWeight: "bold",
+    },
     
 })
