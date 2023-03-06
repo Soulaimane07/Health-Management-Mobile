@@ -1,16 +1,16 @@
 import { View, Text, StyleSheet, Image, ImageBackground, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { MyButton } from '../../Components/Buttons'
-import { LangFun } from "../../Components/Language"
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { PracticeContext } from '../../Components/Context'
 
 export default function First({route, navigation}) {
-    const [language, setLanguage] = useState("fr")
+    const {lang, setLang, languageObj} = useContext(PracticeContext)
     
     const SelectLang = async (val) => {
         try {
-            setLanguage(val)
+            setLang(val)
             const langobj = {
                 lang: val,
             }
@@ -24,7 +24,7 @@ export default function First({route, navigation}) {
         }
     }
 
-    const langs = LangFun(language)
+    const langs = languageObj
 
     const buttons = [
         {
@@ -64,7 +64,8 @@ export default function First({route, navigation}) {
         <Image 
             style={{width: 240, height: 240, marginTop: 60}}
             source={require('../../assets/logoPng.png')}
-        />
+        /> 
+
 
         <View style={styles.buttons}>
             {buttons.map((item,key)=>(
@@ -75,8 +76,8 @@ export default function First({route, navigation}) {
 
             <View style={{marginTop: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
                 {langsObj.map((item,key)=>(
-                    <TouchableOpacity onPress={()=> SelectLang(item.val)} key={key} style={[item.val == language && {borderBottomColor:"#3FC495", borderBottomWidth: 2}, {padding: 10, paddingHorizontal: 20}]}>
-                        <Text style={[item.val == language && {fontWeight: 'bold'}, {color: "white"}]}> {item.title} </Text>
+                    <TouchableOpacity onPress={()=> SelectLang(item.val)} key={key} style={[item.val == lang && {borderBottomColor:"#3FC495", borderBottomWidth: 2}, {padding: 10, paddingHorizontal: 20}]}>
+                        <Text style={[item.val == lang && {fontWeight: 'bold'}, {color: "white"}]}> {item.title} </Text>
                     </TouchableOpacity>
                 ))}
             </View>

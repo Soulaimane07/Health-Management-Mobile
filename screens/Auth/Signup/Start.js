@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { MyButton } from '../../../Components/Buttons'
+import { PracticeContext } from '../../../Components/Context'
 
 function Start({navigation}) {
+  const {languageObj} = useContext(PracticeContext)
+
   return (
     <View style={styles.container}>
-        <Text style={styles.header}> Welcome! Let's customize HealthManager for your goals.</Text>
-        {MyButton(navigation, "Continue", "signup")}
+        <Text style={styles.header}> {languageObj?.signup.welcome} </Text>
+        {MyButton(navigation, languageObj?.signup.continue, "signup")}
     </View>
   )
 }

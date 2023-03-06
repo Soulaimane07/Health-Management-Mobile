@@ -1,26 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image} from 'react-native';
 import { NavigateBtn } from '../../../Components/Buttons';
-import { LangFun } from '../../../Components/Language';
+import { PracticeContext } from '../../../Components/Context';
 
 export default function Login({route, navigation}) {
-    const [language, setLanguage] = useState()
-
-    useEffect(() => {
-        async function getLang(){
-            const value = await AsyncStorage.getItem('lang')
-            const val = JSON.parse(value)
-            if(value !== null) {
-                console.log(value);
-                setLanguage(val.lang)
-            }else {
-            }
-        }
-  
-        getLang();
-    }, [])
-
+    const {languageObj} = useContext(PracticeContext)
 
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
@@ -43,8 +28,6 @@ export default function Login({route, navigation}) {
         }
     }
 
-    const langs = LangFun(language)
-    
   return (
 
     <View style={styles.container}>
@@ -52,9 +35,9 @@ export default function Login({route, navigation}) {
             <Image source={require("../../../assets/logoPng.png")} style={{width: 120, height: 120}} />
         </View>
         <View style={{paddingHorizontal: 20}}>
-            <Text style={styles.welcome}> {langs?.login.title}  </Text>
+            <Text style={styles.welcome}> {languageObj?.login.title}  </Text>
             <View style={styles.info}>
-                <Text style={styles.label}> Email Adress </Text>
+                <Text style={styles.label}> {languageObj?.login.email} </Text>
                 <TextInput 
                     email
                     autoComplete='email'
@@ -64,7 +47,7 @@ export default function Login({route, navigation}) {
                 />
             </View>
             <View style={styles.info}>
-                <Text style={styles.label}> Password </Text>
+                <Text style={styles.label}> {languageObj?.login.password} </Text>
                 <TextInput 
                     autoComplete='password'
                     secureTextEntry={true}
@@ -75,15 +58,15 @@ export default function Login({route, navigation}) {
                 />
             </View>
             <View style={[styles.info]}>
-                {NavigateBtn("Login", fun, !condition)}
+                {NavigateBtn(languageObj?.login.login, fun, !condition)}
             </View>
             <View style={styles.signPara}>
-                <Text> Don't have an account? </Text>
+                <Text> {languageObj?.login.dontHave} </Text>
                 <TouchableOpacity
                     style={styles.sign}
                     onPress={()=> navigation.navigate('signStack')} 
                 >
-                    <Text style={styles.signText}> Create Account </Text>
+                    <Text style={styles.signText}> {languageObj?.login.createAccount} </Text>
                 </TouchableOpacity>
             </View>
         </View>

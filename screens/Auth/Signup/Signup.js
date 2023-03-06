@@ -1,9 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, ScrollView} from 'react-native';
 import { NavigateBtn } from '../../../Components/Buttons';
+import { PracticeContext } from '../../../Components/Context';
 
 export default function Signup({navigation}) {
+    const {languageObj} = useContext(PracticeContext)
+
     const [email, setEmail] = useState(null)
     const [fname, setFname] = useState(null)
     const [lname, setLname] = useState(null)
@@ -33,9 +36,9 @@ export default function Signup({navigation}) {
         <View style={{alignItems:"center"}}>
             <Image source={require("../../../assets/logoPng.png")} style={{marginBottom: 30, width: 120, height: 120}} />
         </View>
-        <Text style={styles.welcome}> Create your Account </Text>
+        <Text style={styles.welcome}> {languageObj?.signup.title} </Text>
         <View style={styles.info}>
-            <Text style={styles.label}> Email Adress </Text>
+            <Text style={styles.label}> {languageObj?.login.email} </Text>
             <TextInput 
                 autoComplete='email'
                 style={styles.textInput} 
@@ -44,7 +47,7 @@ export default function Signup({navigation}) {
             />
         </View>
         <View style={styles.info}>
-            <Text style={styles.label}> First Name </Text>
+            <Text style={styles.label}> {languageObj?.signup.fname} </Text>
             <TextInput 
                 autoComplete="name"
                 style={styles.textInput} 
@@ -53,7 +56,7 @@ export default function Signup({navigation}) {
             />
         </View>
         <View style={styles.info}>
-            <Text style={styles.label}> Last Name </Text>
+            <Text style={styles.label}> {languageObj?.signup.lname} </Text>
             <TextInput 
                 autoComplete='name-family'
                 style={styles.textInput} 
@@ -62,7 +65,7 @@ export default function Signup({navigation}) {
             />
         </View>
         <View style={styles.info}>
-            <Text style={styles.label}> Password </Text>
+            <Text style={styles.label}> {languageObj?.login.password} </Text>
             <TextInput 
                 autoComplete='password'
                 secureTextEntry={true}
@@ -73,7 +76,7 @@ export default function Signup({navigation}) {
             />
         </View>
         <View style={[styles.info, {marginBottom: 160}]}>
-            {NavigateBtn("Create", Submit, condittion )}
+            {NavigateBtn(languageObj?.signup.create, Submit, condittion )}
         </View>
     </ScrollView>
   )

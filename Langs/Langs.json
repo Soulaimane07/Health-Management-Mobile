@@ -5,7 +5,20 @@
             "continue":"Continue without account"
         },
         "login":{
-            "title":"Log in your Account"
+            "title":"Log in your Account",
+            "email":"Email Address",
+            "password":"Password",
+            "login":"Login",
+            "dontHave":"don't have an account ?",
+            "createAccount":"Create Account"
+        },
+        "signup":{
+            "welcome":"Welcome! Let us customize HealthManager for your goals.",
+            "continue":"Continue",
+            "title":"Create your Account",
+            "fname":"First Name",
+            "lname":"Last Name",
+            "create":"Create"
         }
     },
     "frensh":{
@@ -14,7 +27,20 @@
             "continue":"Continuer sans compte"
         },
         "login":{
-            "title":"connectez-vous à votre compte"
+            "title":"connectez-vous à votre compte",
+            "email":"Adresse e-mail",
+            "password":"Mot de passe",
+            "login":"Connexion",
+            "dontHave":"vous n'avez pas de compte ?",
+            "createAccount":"Créer un compte"
+        },
+        "signup":{
+            "welcome":"Accueillir! Laissez-nous personnaliser HealthManager pour vos objectifs.",
+            "continue":"Continuer",
+            "title":"Créez votre compte",
+            "fname":"Prénom",
+            "lname":"Nom de famille",
+            "create":"Créer"
         }
     },
     "arabic":{
@@ -23,7 +49,20 @@
             "continue":"تواصل بدون حساب"
         },
         "login":{
-            "title":"تسجيل الدخول إلى حسابك"
-        }    
+            "title":"تسجيل الدخول إلى حسابك",
+            "email":"عنوان البريد الإلكتروني",
+            "password":"كلمة المرور",
+            "login":"تسجيل الدخول",
+            "dontHave":"لا يوجد لديك حساب ؟",
+            "createAccount":"إنشاء حساب"
+        },
+        "signup":{
+            "welcome":"مرحباً! دعونا نخصص HealthManager لأهدافك.",
+            "continue":"إستمر",
+            "title":"أنشئ حسابك",
+            "fname":"الأسم الأول",
+            "lname":"إسم العائلة",
+            "create":"إنشاء"
+        }  
     }
 }
