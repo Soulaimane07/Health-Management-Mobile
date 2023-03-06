@@ -26,7 +26,6 @@ export default function Gender(props) {
         try {
           await AsyncStorage.mergeItem("user", JSON.stringify(sex))
           props.CloseModal()
-          props.getUser()
           console.log("User's Sex is Updated!")
         } catch (e) {
           console.log("User Sex is not updated");

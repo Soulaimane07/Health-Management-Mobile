@@ -18,6 +18,7 @@ import Lunch from './screens/Logged/meals/Lunch';
 import Snack from './screens/Logged/meals/Snack';
 import Dinner from './screens/Logged/meals/Dinner';
 import Info from './screens/Logged/meals/Info';
+import { ContextProvider } from './Components/Context';
 
 const Stack = createNativeStackNavigator();
 
@@ -73,6 +74,7 @@ export default function App() {
     // console.log(user);
 
   return (
+    <ContextProvider>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!logged ?
@@ -124,5 +126,6 @@ export default function App() {
         }
       </Stack.Navigator>
     </NavigationContainer>
+    </ContextProvider>
   );
 }

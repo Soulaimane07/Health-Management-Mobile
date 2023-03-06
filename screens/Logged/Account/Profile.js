@@ -1,5 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useContext, useMemo, useRef, useState } from 'react'
 import {Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -11,22 +10,10 @@ import ChangePass from './Change/ChangePass'
 import DeleteAccount from './Change/DeleteAccount'
 import Statusbar from '../../../Components/Statusbar'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
+import { PracticeContext } from '../../../Components/Context'
 
 export default function Profile({route}) {
-  const [user, setUser] = useState("null")
-
-  async function getUser(){
-    const value = await AsyncStorage.getItem('user')
-    const val = JSON.parse(value)
-    if(value !== null) {
-        console.log(value);
-        setUser(val)
-    }
-  }
-
-  useEffect(() => {
-    getUser();
-  }, []) 
+  const {user} = useContext(PracticeContext)
 
 
 
@@ -61,17 +48,17 @@ export default function Profile({route}) {
     {
       "label":"First name",
       "value": user.fname,
-      "change": <ChangeFname getUser1={route.params.getUser} getUser={getUser} fname={user?.fname} CloseModal={CloseModal} />,
+      "change": <ChangeFname fname={user?.fname} CloseModal={CloseModal} />,
     },
     {
       "label":"Last name",
       "value": user.lname,
-      "change": <ChangeLname getUser={getUser} lname={user?.lname} CloseModal={CloseModal} /> ,
+      "change": <ChangeLname lname={user?.lname} CloseModal={CloseModal} /> ,
     },
     {
       "label":"Password",
       "value": user?.pass?.replace(/./g, '*'),
-      "change": <ChangePass getUser={getUser} pass={user?.pass} CloseModal={CloseModal} />,
+      "change": <ChangePass pass={user?.pass} CloseModal={CloseModal} />,
     },
   ]
   const profileNbr = user?.profile ? user?.profile : 0
@@ -85,7 +72,7 @@ export default function Profile({route}) {
     <BottomSheetModalProvider>
       <View style={[styles.container, IsOpen && {backgroundColor: "#2C3333"}]}>
         <View style={[styles.box, IsOpen ? {backgroundColor: "#374040"} : {backgroundColor:"white"}]}>
-          <TouchableOpacity onPress={()=> setSheet(true) & setSheetBody(<ChangeProfile getUser={getUser} profile={user?.profile} profiles={profiles} CloseModal={CloseModal} />) & OpenModal()} style={styles.profile}>
+          <TouchableOpacity onPress={()=> setSheet(true) & setSheetBody(<ChangeProfile profile={user?.profile} profiles={profiles} CloseModal={CloseModal} />) & OpenModal()} style={styles.profile}>
             <Image source={profiles[profileNbr].image} style={[styles.icon ,{ width: 160, height: 150}]} />
             <Text style={{marginTop: 20, color: "#E8E2E2"}}> Click to Change Profile Image ? </Text>
           </TouchableOpacity>

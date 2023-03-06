@@ -1,14 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useContext } from 'react'
 import { Alert, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
 import IosIcon from 'react-native-vector-icons/Ionicons'
 import { IMC } from '../../../Components/Calcules'
-import { GetUser } from '../../../Components/GetData'
+import { PracticeContext } from '../../../Components/Context'
 import Statusbar from '../../../Components/Statusbar'
 
 export function Account({route, navigation}) {
-    const user = GetUser().user
+  const {user} = useContext(PracticeContext)
 
     const unit = user?.system === "eu" ? "Kg" : "Lbs"
 

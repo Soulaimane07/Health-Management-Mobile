@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 import { NavigateBtn } from '../../../Components/Buttons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -8,24 +8,13 @@ import { Video } from 'expo-av';
 import TargetLeftTaken from '../../../Components/TargetLeftTaken'
 import {Steps} from '../../../Components/Calcules'
 import VerrifiedModal from '../../../Components/VerrifiedModal'
+import { PracticeContext } from '../../../Components/Context'
 
 export default function StepsPage() {
   const [steps, setSteps] = useState(null)
-  const [user, setUser] = useState("null")
   const [visible, setVisible] = useState(false)
 
-  async function getUser(){
-    const value = await AsyncStorage.getItem('user')
-    const val = JSON.parse(value)
-    if(value !== null) {
-      console.log(value);
-      setUser(val)
-    }
-  }
-
-  useEffect(() => {
-    getUser();
-  }, []) 
+  const {user} = useContext(PracticeContext) 
 
   const condittion = steps > 0
   const oldStep = user?.steps ? Number(user?.steps) : 0

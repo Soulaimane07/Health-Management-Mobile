@@ -5,7 +5,7 @@ import Meal from './Meal'
 export default function Snack({navigation}) {
   const [data, setData] = useState([])
   
-  async function getUser(){
+  async function getSnacks(){
       const snacks = await AsyncStorage.getItem('snacks')
       const val = JSON.parse(snacks)
       snacks !== null ? (
@@ -17,7 +17,7 @@ export default function Snack({navigation}) {
   }
   
   useEffect(() => {
-      getUser();
+      getSnacks();
   }, [data])
 
   return (

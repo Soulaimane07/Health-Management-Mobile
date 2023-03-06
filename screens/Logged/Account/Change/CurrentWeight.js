@@ -16,7 +16,6 @@ export default function CurrentWeight(props) {
         try {
           await AsyncStorage.mergeItem("user", JSON.stringify(weight))
           props.CloseModal()
-          props.getUser()
           console.log("==> User Weight is Updated!")
         } catch (e) {
           console.log("==> User Weight is not updated! "+e);

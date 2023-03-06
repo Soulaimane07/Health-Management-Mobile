@@ -8,7 +8,8 @@ import Foicon from 'react-native-vector-icons/Foundation'
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {Calories, Steps, Water} from '../../Components/Calcules'
-import { GetUser } from '../../Components/GetData'
+import { useContext } from 'react'
+import { PracticeContext } from '../../Components/Context'
 
 const months = [
   {
@@ -50,7 +51,7 @@ const months = [
 ]
 
 export default function Home({route, navigation}) {
-    const user = GetUser().user
+    const {user} = useContext(PracticeContext)
 
     const header = () => {
         const date = new Date().getHours()

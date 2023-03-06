@@ -16,7 +16,6 @@ export default function GoalWeight(props) {
         try {
           await AsyncStorage.mergeItem("user", JSON.stringify(weight))
           props.CloseModal()
-          props.getUser()
           console.log("User's Goal Weight is Updated!")
         } catch (e) {
           console.log("User Goal Weight is not updated");

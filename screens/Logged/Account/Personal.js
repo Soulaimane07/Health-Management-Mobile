@@ -1,5 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useContext, useMemo, useRef, useState } from 'react'
 import {StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
@@ -12,22 +11,10 @@ import Age from './Change/Age'
 import Gender from './Change/Gender'
 import ChangeHeight from './Change/ChangeHeight'
 import Statusbar from '../../../Components/Statusbar'
+import { PracticeContext } from '../../../Components/Context'
 
 export function Personal() {
-    const [user, setUser] = useState({})
-
-    async function getUser(){
-        const value = await AsyncStorage.getItem('user')
-        const val = JSON.parse(value)
-        if(value !== null) {
-            console.log(value);
-            setUser(val)
-        }
-    }
-    
-    useEffect(() => {
-        getUser();
-    }, []) 
+    const {user} = useContext(PracticeContext)
 
 
     let Hunit, Wunit, separator, height, Cweight, Gweight
@@ -59,12 +46,12 @@ export function Personal() {
         {
             "label":"Goal",
             "value": user?.goal,
-            "change": <GoalChange goal={user?.goal} CloseModal={CloseModal} getUser={getUser} />
+            "change": <GoalChange goal={user?.goal} CloseModal={CloseModal} />
         },
         {
             "label":"Goal Weight",
             "value": Gweight,
-            "change": <GoalWeight Gweight={user?.Gweight} CloseModal={CloseModal} getUser={getUser} />
+            "change": <GoalWeight Gweight={user?.Gweight} CloseModal={CloseModal} />
         },
     ]
 
@@ -72,22 +59,22 @@ export function Personal() {
         {
             "label":"Current Weight",
             "value": Cweight,
-            "change": <CurrentWeight weight={user?.weight} CloseModal={CloseModal} getUser={getUser} />,
+            "change": <CurrentWeight weight={user?.weight} CloseModal={CloseModal} />,
         },
         {
             "label":"Height",
             "value": height,
-            "change": <ChangeHeight height={user?.height} system={user?.system} CloseModal={CloseModal} getUser={getUser} />,
+            "change": <ChangeHeight height={user?.height} system={user?.system} CloseModal={CloseModal} />,
         },
         {
             "label":"Age",
             "value": user?.age && `${user?.age} years`,
-            "change": <Age age={user?.age} CloseModal={CloseModal} getUser={getUser} />,
+            "change": <Age age={user?.age} CloseModal={CloseModal} />,
         },
         {
             "label":"Gender",
             "value": user?.sex,
-            // "change": <Gender sex={user?.sex} CloseModal={CloseModal} getUser={getUser} /> ,
+            // "change": <Gender sex={user?.sex} CloseModal={CloseModal} /> ,
         },
     ]
 

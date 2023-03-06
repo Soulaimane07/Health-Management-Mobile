@@ -5,7 +5,7 @@ import Meal from './Meal'
 export default function Dinner({navigation}) {
   const [data, setData] = useState([])
   
-  async function getUser(){
+  async function getDinner(){
       const dinner = await AsyncStorage.getItem('dinner')
       const val = JSON.parse(dinner)
       dinner !== null ? (
@@ -17,7 +17,7 @@ export default function Dinner({navigation}) {
   }
   
   useEffect(() => {
-      getUser();
+      getDinner();
   }, [data])
 
   return (

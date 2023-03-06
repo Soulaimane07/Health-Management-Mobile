@@ -1,26 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useEffect, useState } from 'react'
-import { Image } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
+import { Button, Image } from 'react-native'
 import { StyleSheet, Text, View } from 'react-native'
 import { Calories } from '../../../Components/Calcules'
 import Statusbar from '../../../Components/Statusbar'
 import TargetLeftTaken from '../../../Components/TargetLeftTaken'
+import { PracticeContext } from '../../../Components/Context' 
 
 export default function CaloriesPage() {
-
-  const [user, setUser] = useState("null")
-
-  useEffect(() => {
-    async function getUser(){
-      const value = await AsyncStorage.getItem('user')
-      const val = JSON.parse(value)
-      if(value !== null) {
-          console.log(value);
-          setUser(val)
-      }
-    }
-    getUser();
-  }, []) 
+  const {user} = useContext(PracticeContext)
 
   const calorieSTarget = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
   const caloriesTaken = 0
@@ -54,6 +42,10 @@ export default function CaloriesPage() {
       <Statusbar color="#e71d36" style="light" />
       <View style={styles.box}>
           <TargetLeftTaken title={"Calories"} taken={caloriesTaken} target={calorieSTarget} unit={"Kcal"} color="#e71d36" />
+      </View>
+
+      <View style={styles.box}>
+        <Text> {user.goal} </Text>
       </View>
       
       <View style={styles.box}>

@@ -16,7 +16,6 @@ export default function ChangeFname(props) {
         try {
           await AsyncStorage.mergeItem("user", JSON.stringify(Lname))
           props.CloseModal()
-          props.getUser()
           console.log("==> User's Last name is Updated!")
         } catch (e) {
           console.log("==> User Last name is not updated! "+e);
