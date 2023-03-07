@@ -13,12 +13,62 @@
             "createAccount":"Create Account"
         },
         "signup":{
-            "welcome":"Welcome! Let us customize HealthManager for your goals.",
+            "welcome":"Welcome! Let us customize Health Manager for your goals.",
             "continue":"Continue",
             "title":"Create your Account",
             "fname":"First Name",
             "lname":"Last Name",
-            "create":"Create"
+            "create":"Create",
+            "goal":{
+                "title":"What goal do you have in mind",
+                "subTitle":"Let's get to know you better",
+                "lose":"Lose weight",
+                "maintain":"Maintain weight",
+                "gain":"Gain weight"
+            },
+            "sex":{
+                "title":"Great, let's continue.",
+                "subTitle":"What sex should we use to calculate your recommendations ?",
+                "female":"Female",
+                "male":"Male"
+            },
+            "system":{
+                "title":"Choose your unit system?",
+                "subTitle":"Great!",
+                "us":"US system",
+                "usUnits":"feet, inches, pounds, calories",
+                "eu":"European system",
+                "euUnits":"m, kg, calories"
+            },
+            "age":{
+                "title":"What's your age?",
+                "subTitle":"Got it",
+                "unit":"Years old"
+            },
+            "height":{
+                "title":"What's your height?",
+                "subTitle":"Thanks, you're doing great!",
+                "euUnit":"meter"
+            },
+            "weight":{
+                "title":"What's your current weight?",
+                "subTitle":"Ok, let's continue",
+                "euUnit":"Kg"
+            },
+            "Gweight":{
+                "title":"What's your Goal weight?",
+                "subTitle":"Great, Almost done!"
+            },
+            "active":{
+                "title":"Your activity level?",
+                "subTitle":"Thanks, you're doing great!",
+                "sedentary":"Sedentary",
+                "slightly":"Slightly active",
+                "moderately":"Moderately active",
+                "very":"Very active",
+                "finish":"Finish"
+            },
+            "next":"Next"
         }
     },
     "frensh":{
@@ -35,12 +85,62 @@
             "createAccount":"Créer un compte"
         },
         "signup":{
-            "welcome":"Accueillir! Laissez-nous personnaliser HealthManager pour vos objectifs.",
+            "welcome":"Accueillir! Laissez-nous personnaliser Health Manager pour vos objectifs.",
             "continue":"Continuer",
             "title":"Créez votre compte",
             "fname":"Prénom",
             "lname":"Nom de famille",
-            "create":"Créer"
+            "create":"Créer",
+            "goal":{
+                "title":"Quel objectif avez-vous en tête ?",
+                "subTitle":"Apprenons à mieux vous connaître !",
+                "lose":"Perdre du poids",
+                "maintain":"Maintien du poids",
+                "gain":"Prise de poids"
+            },
+            "sex":{
+                "title":"Quel sexe doit-on utiliser pour calculer vos recommandations ?",
+                "subTitle":"Super, continuons.",
+                "female":"Femelle",
+                "male":"Mâle"
+            },
+            "system":{
+                "title":"Choisissez votre système d'unités ?",
+                "subTitle":"Super!",
+                "us":"Système Américain",
+                "usUnits":"pieds, pouces, livres, calories",
+                "eu":"Système Européen",
+                "euUnits":"mètre, kilogramme, calories"
+            },
+            "age":{
+                "title":"Quel âge as tu?",
+                "subTitle":"J'ai compris",
+                "unit":"Ans"
+            },
+            "height":{
+                "title":"Quelle est ta taille?",
+                "subTitle":"Merci, vous allez très bien !",
+                "euUnit":"mètre"
+            },
+            "weight":{
+                "title":"Quel est votre poids actuel ?",
+                "subTitle":"Bon, continuons",
+                "euUnit":"Kg"
+            },
+            "Gweight":{
+                "title":"Quel poids voulez-vous atteindre?.",
+                "subTitle":"Super, presque terminé !"
+            },
+            "active":{
+                "title":"Votre niveau d'activité ?",
+                "subTitle":"Merci, vous allez très bien !",
+                "sedentary":"Sédentaire",
+                "slightly":"Légèrement actif",
+                "moderately":"Modérément actif",
+                "very":"Très actif",
+                "finish":"Finir"
+            },
+            "next":"Suivant"
         }
     },
     "arabic":{
@@ -57,12 +157,62 @@
             "createAccount":"إنشاء حساب"
         },
         "signup":{
-            "welcome":"مرحباً! دعونا نخصص HealthManager لأهدافك.",
+            "welcome":"مرحباً! دعونا نخصص Health Manager لأهدافك.",
             "continue":"إستمر",
             "title":"أنشئ حسابك",
             "fname":"الأسم الأول",
             "lname":"إسم العائلة",
-            "create":"إنشاء"
+            "create":"إنشاء",
+            "goal":{
+                "title":"ما الهدف الذي تفكر فيه؟",
+                "subTitle":"دعنا نتعرف عليك بشكل أفضل!",
+                "lose":"فقدان الوزن",
+                "maintain":"الحفاظ على الوزن",
+                "gain":"زيادة الوزن"
+            },
+            "sex":{
+                "title":"ما الجنس الذي يجب أن نستخدمه لحساب توصياتك؟",
+                "subTitle":"عظيم ، دعنا نكمل.",
+                "female":"أنثى",
+                "male":"ذكر"
+            },
+            "system":{
+                "title":"اختر نظام وحدتك؟",
+                "subTitle":"عظيم!",
+                "us":"نظام الولايات المتحدة",
+                "usUnits":"قدم ، بوصة ، رطل ، سعرات حرارية",
+                "eu":"النظام الأوروبي",
+                "euUnits":"متر ، كيلوغرام ، سعرات حرارية"
+            },
+            "age":{
+                "title":"ما هو عمرك؟",
+                "subTitle":"حصلت عليه الآن",
+                "unit":"سنة"
+            },
+            "height":{
+                "title":"ما هو طولك؟",
+                "subTitle":"شكراً ، أنت تبلي بلاءً حسناً!",
+                "euUnit":"متر"
+            },
+            "weight":{
+                "title":"ما هو وزنك الحالي؟",
+                "subTitle":"حسنًا ، دعنا نكمل",
+                "euUnit":"كلغ"
+            },
+            "Gweight":{
+                "title":"ماهو الوزن الذي تطمح للوصول إليه؟",
+                "subTitle":"رائع ، لقد أوشكت على الانتهاء!"
+            },
+            "active":{
+                "title":"مستوى نشاطك؟",
+                "subTitle":"شكراً ، أنت تبلي بلاءً حسناً!",
+                "sedentary":"كَسُول",
+                "slightly":"نشط قليلا",
+                "moderately":"نشط بشكل معتدل",
+                "very":"نشيط جدا",
+                "finish":"نهاية"
+            },
+            "next":"التالي"
         }  
     }
 }

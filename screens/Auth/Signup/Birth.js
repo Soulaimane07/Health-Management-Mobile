@@ -1,11 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
+import { PracticeContext } from '../../../Components/Context'
 import Error from '../../../Components/Error'
 import { Progress } from '../../../Components/Headers'
 
 export default function Birth({navigation}) {
+  const {languageObj} = useContext(PracticeContext)
+  let header = languageObj?.signup.age
+
   const [age, setAge] = useState(0)
   const agevalue = {
     age: age > 5 && age
@@ -23,7 +27,7 @@ export default function Birth({navigation}) {
 
   return (
     <View style={styles.container}>
-      {Progress({navigation}, 3)}
+      {Progress({navigation}, header, 3)}
       
       {!condittion && age !== 0 && <Error text={"You should be more than 5 years old"} />}
       
@@ -36,12 +40,12 @@ export default function Birth({navigation}) {
         />
         
         <Text style={{fontSize:17, marginLeft: 10}}>
-          Years old
+          {languageObj?.signup.age.unit}
         </Text>
       </View>
 
       <View style={styles.BtnBox}>
-        {NavigateBtn("Next", Submit, condittion)}
+        {NavigateBtn(languageObj?.signup.next , Submit, condittion)}
       </View>
     </View>
   )

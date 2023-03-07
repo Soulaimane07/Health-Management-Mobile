@@ -76,7 +76,7 @@ export default function Signup({navigation}) {
             />
         </View>
         <View style={[styles.info, {marginBottom: 160}]}>
-            {NavigateBtn(languageObj?.signup.create, Submit, condittion )}
+            {NavigateBtn(languageObj?.signup.create, Submit, true )}
         </View>
     </ScrollView>
   )

@@ -1,12 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
 import { Progress } from '../../../Components/Headers'
+import { PracticeContext } from '../../../Components/Context'
 
 import Ficon from 'react-native-vector-icons/FontAwesome'
 
 export default function Height({navigation}) {
+    const {languageObj} = useContext(PracticeContext)
+    let header = languageObj?.signup.height
+
     const [user, setUser] = useState("null")
 
     useEffect(() => {
@@ -45,7 +49,7 @@ export default function Height({navigation}) {
 
   return (
     <View style={styles.container}>
-        {Progress({navigation}, 4)}
+        {Progress({navigation}, header, 4)}
 
         <View style={styles.box}>
             {user?.system === "eu" ?
@@ -65,7 +69,7 @@ export default function Height({navigation}) {
                     onChangeText={e => setHeightY(e)}
                     defaultValue={"00"}
                 />
-                <Text style={{marginLeft: 10, fontSize: 20}}> meter </Text>
+                <Text style={{marginLeft: 10, fontSize: 20}}> {header.euUnit} </Text>
             </>
             :
             <>
@@ -89,7 +93,7 @@ export default function Height({navigation}) {
         </View>
 
         <View style={styles.BtnBox}>
-            {NavigateBtn("Next", Submit, condittion)}
+            {NavigateBtn(languageObj?.signup.next, Submit, condittion)}
         </View>
     </View>
   )

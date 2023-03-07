@@ -5,7 +5,7 @@ import { NavigateBtn } from '../../../Components/Buttons';
 import { PracticeContext } from '../../../Components/Context';
 
 export default function Login({route, navigation}) {
-    const {languageObj} = useContext(PracticeContext)
+    const {lang, languageObj} = useContext(PracticeContext)
 
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
@@ -60,7 +60,7 @@ export default function Login({route, navigation}) {
             <View style={[styles.info]}>
                 {NavigateBtn(languageObj?.login.login, fun, !condition)}
             </View>
-            <View style={styles.signPara}>
+            <View style={[styles.signPara, lang == "ar" && {justifyContent: "flex-end"}]}>
                 <Text> {languageObj?.login.dontHave} </Text>
                 <TouchableOpacity
                     style={styles.sign}
@@ -106,5 +106,6 @@ const styles = StyleSheet.create({
     },
     signPara: {
         flexDirection: 'row',
+        textAlign: "right",
     },
 })

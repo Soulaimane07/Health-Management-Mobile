@@ -2,50 +2,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import IconFo from 'react-native-vector-icons/FontAwesome';
 import IconEn from 'react-native-vector-icons/Entypo';
 
-export const Progress = ({navigation}, p) => {
-
-    const prog = [
-        {
-            'title': 'Goal',
-            'text':"Let's get to know you better!",
-            'header':"What goal do you have in mind?"
-        },
-        {
-            'title': 'Sex',
-            'text': "Great, let's continue.",
-            'header': "What sex should we use to calculate your recommendations?",
-        },
-        {
-            'title': 'system',
-            'text': 'Great!',
-            'header': "Choose your unit system?",
-        },
-        {
-            'title': 'Birth',
-            'text':'Got it',
-            'header':"What's your age?",
-        },
-        {
-            'title': 'height',
-            'text': "Thanks, you're doing great!",
-            'header':"What's your height?",
-        },
-        {
-            'title': 'weight',
-            'text':"Ok, let's continue.",
-            'header':"What's your current weight?",
-        },
-        {
-            'title': 'Goal weight',
-            'text':"Great, Almost done!",
-            'header':"What's your Goal weight?",
-        },
-        {
-            'title': 'Goal weight',
-            'text':"Thanks, you're doing great!",
-            'header':"Your activity level?",
-        },
-    ]
+export const Progress = ({navigation}, header, p) => {
+    const prog = [1,2,3,4,5,6,7,8]
 
     return (
         <View>
@@ -67,9 +25,9 @@ export const Progress = ({navigation}, p) => {
                     style={styles.logo}
                     source={require('../assets/logoPng.png')}
                 />
-                <Text style={styles.text1}> {prog[p]?.text} </Text>
+                <Text style={styles.text1}> {header.subTitle} </Text>
             </View>
-            <Text style={styles.text2}> {prog[p]?.header} </Text>
+            <Text style={styles.text2}> {header.title} </Text>
         </View>
     )
 }

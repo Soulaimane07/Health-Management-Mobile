@@ -1,24 +1,30 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
+import { PracticeContext } from '../../../Components/Context'
 import { Progress } from '../../../Components/Headers'
 
 export default function Sex({navigation}) {
+    const {languageObj} = useContext(PracticeContext)
+    let header = languageObj?.signup.sex
+
     const [box, setBox] = useState(null)
     const condittion = box !== null
 
     const sexObj = [
         {
-            "title":"Female",
+            "title": languageObj?.signup.sex.female,
+            "val": "Female",
         },
         {
-            "title":"Male",
+            "title": languageObj?.signup.sex.male,
+            "val": "Male",
         }
     ]
 
     const sex = {
-        sex: box != null && sexObj[box].title
+        sex: box != null && sexObj[box].val
     }
 
     const Submit = async () => {
@@ -26,9 +32,9 @@ export default function Sex({navigation}) {
           await AsyncStorage.mergeItem('user', JSON.stringify(sex))
           console.log("Sex is stored");
 
-          let profile = {
-            profile: box === 0 ? 0 : 1
-        }
+            let profile = {
+                profile: box === 0 ? 0 : 1
+            }
 
           await AsyncStorage.mergeItem('user', JSON.stringify(profile))
           console.log("Profile is stored");
@@ -40,7 +46,7 @@ export default function Sex({navigation}) {
 
   return (
     <View style={styles.container}>
-        {Progress({navigation}, 1)}
+        {Progress({navigation}, header, 1)}
         
         <View style={styles.boxs}>
             {sexObj.map((item,key)=>(
@@ -49,7 +55,7 @@ export default function Sex({navigation}) {
         </View>
         
         <View style={styles.BtnBox}>
-            {NavigateBtn("Next", Submit, condittion)}
+            {NavigateBtn(languageObj?.signup.next, Submit, condittion)}
         </View>
     </View>
   )

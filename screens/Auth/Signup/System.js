@@ -1,25 +1,29 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Progress } from '../../../Components/Headers'
 import { NavigateBtn } from '../../../Components/Buttons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { PracticeContext } from '../../../Components/Context'
 
 export default function System({navigation}) {
+    const {lang, languageObj} = useContext(PracticeContext)
+    let header = languageObj?.signup.system
+
     const [system, setSystem] = useState(null)
     const condittion = system !== null
 
     const systems = [
         {
-            "title": "US system",
+            "title": languageObj?.signup.system.us,
             "val":"us",
             "image": require("../../../assets/auth/us.png"),
-            "units": "feet, inches, pounds, calories"
+            "units": languageObj?.signup.system.usUnits
         },
         {
-            "title": "European system",
+            "title": languageObj?.signup.system.eu,
             "val":"eu",
             "image": require("../../../assets/auth/eu.png"),
-            "units": "m, kg, calories"
+            "units": languageObj?.signup.system.euUnits
         },
     ]
 
@@ -39,11 +43,11 @@ export default function System({navigation}) {
 
   return (
     <View style={styles.container}>
-        {Progress({navigation}, 2)}
+        {Progress({navigation}, header, 2)}
 
         <View style={styles.boxs}>
             {systems.map((item,key)=>(
-                <TouchableOpacity onPress={()=> setSystem(key)} style={[system === key ? {backgroundColor: "#3FC495"} : {backgroundColor: "white"}, styles.box]} key={key}>
+                <TouchableOpacity onPress={()=> setSystem(key)} style={[system === key ? {backgroundColor: "#3FC495"} : {backgroundColor: "white"}, lang == "ar" && {justifyContent: 'space-between'}, styles.box]} key={key}>
                     <Image source={item.image} style={{width: 70, height: 50, borderRadius: 8}} />
                     <View style={{marginLeft: 10,}}>
                         <Text style={[system === key && {color: "white"}, {fontSize: 18, fontWeight: 'bold'}]}> {item.title} </Text>
@@ -54,7 +58,7 @@ export default function System({navigation}) {
         </View>
         
         <View style={styles.BtnBox}>
-            {NavigateBtn("Next", Submit, condittion)}
+            {NavigateBtn(languageObj?.signup.next, Submit, condittion)}
         </View>
     </View>
   )
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 16,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     BtnBox: {
         marginHorizontal: 20,

@@ -1,10 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
+import { PracticeContext } from '../../../Components/Context'
 import { Progress } from '../../../Components/Headers'
 
 export default function Weight({navigation}) {
+    const {languageObj} = useContext(PracticeContext)
+    let header = languageObj?.signup.weight
+
     const [user, setUser] = useState("null")
 
     useEffect(() => {
@@ -40,7 +44,7 @@ export default function Weight({navigation}) {
 
   return (
     <View style={styles.container}>
-        {Progress({navigation}, 5)}
+        {Progress({navigation}, header, 5)}
 
         <View style={styles.box}>
             <TextInput
@@ -49,11 +53,11 @@ export default function Weight({navigation}) {
                 keyboardType="numeric"
                 onChangeText={e => setWeight(e)}
             />
-            <Text style={{marginLeft: 10, fontSize: 20}}> {user?.system === "eu" ? "kg" : "Lbs"} </Text>
+            <Text style={{marginLeft: 10, fontSize: 20}}> {header.euUnit} </Text>
         </View>
 
         <View style={styles.BtnBox}>
-            {NavigateBtn("Next", Submit, condittion)}
+            {NavigateBtn(languageObj?.signup.next, Submit, condittion)}
         </View>
     </View>
   )

@@ -66,7 +66,6 @@ export default function First({route, navigation}) {
             source={require('../../assets/logoPng.png')}
         /> 
 
-
         <View style={styles.buttons}>
             {buttons.map((item,key)=>(
                 <View key={key}>
