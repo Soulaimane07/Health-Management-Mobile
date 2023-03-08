@@ -20,17 +20,17 @@ export default function TargetLeftTaken(props) {
     ]
 
     return (
-        <>
-            <Text style={styles.h1}> {props.title} </Text>
-            <View style={styles.boxContent}>
-                {options.map((item,key)=>(
-                    <View key={key} style={[styles.boxx, key == 1 && {borderLeftWidth: 0.4, borderRightWidth: 0.4,}]}>
-                        <Text style={{fontWeight: 'bold', marginBottom: 10}}> {item.title} </Text>
-                        <Text style={{color: item.color}}> {item.val} {item.unit} </Text>
-                    </View>
-                ))}
-            </View>
-        </>
+      <>
+        <Text style={styles.h1}> {props.title} </Text>
+        <View style={styles.boxContent}>
+            {options.map((item,key)=>(
+                <View key={key} style={[styles.boxx, key == 1 && {borderLeftWidth: 0.4, borderRightWidth: 0.4,}]}>
+                    <Text style={{fontWeight: 'bold', marginBottom: 10}}> {item.title} </Text>
+                    <Text style={{color: item.color}}> {item.val} {item.unit} </Text>
+                </View>
+            ))}
+        </View>
+      </>
   )
 }
 

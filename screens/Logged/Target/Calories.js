@@ -6,12 +6,10 @@ import { Calories } from '../../../Components/Calcules'
 import Statusbar from '../../../Components/Statusbar'
 import TargetLeftTaken from '../../../Components/TargetLeftTaken'
 import { PracticeContext } from '../../../Components/Context' 
+import { calorie } from '../../../Components/cal'
 
 export default function CaloriesPage() {
   const {user} = useContext(PracticeContext)
-
-  const calorieSTarget = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
-  const caloriesTaken = 0
 
   const caloriesFun = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
 
@@ -35,17 +33,60 @@ export default function CaloriesPage() {
       "unit":"g"
     },
   ]
-  
+
+  const [breakfast, setBreakfast] = useState([])
+  const [lunch, setLunch] = useState([])
+  const [snacks, setSnacks] = useState([])
+  const [dinner, setDinner] = useState([])
+
+  async function getMeals(){
+    const breakfast = await AsyncStorage.getItem('breakfast')
+    const lunch = await AsyncStorage.getItem('lunch')
+    const snacks = await AsyncStorage.getItem('snacks')
+    const dinner = await AsyncStorage.getItem('dinner')
+
+    const val = JSON.parse(breakfast)
+    const val2 = JSON.parse(lunch)
+    const val3 = JSON.parse(snacks)
+    const val4 = JSON.parse(dinner)
+    
+    breakfast !== null ? setBreakfast(val) : setBreakfast([])
+    lunch !== null ? setLunch(val2) : setLunch([])
+    snacks !== null ? setSnacks(val3) : setSnacks([])
+    dinner !== null ? setDinner(val4) : setDinner([])
+  }
+
+  useEffect(() => {
+      getMeals();
+  }, []) 
+
+  const meals = [
+    {
+      "title":"Breakfast",
+      "cal": breakfast !== null ? calorie(breakfast).cal : 0
+    },
+    {
+      "title":"Lunch",
+      "cal": lunch !== null ? calorie(lunch).cal : 0
+    },
+    {
+      "title":"Snacks",
+      "cal": snacks !== null ? calorie(snacks).cal : 0
+    },
+    {
+      "title":"Dinner",
+      "cal": dinner !== null ? calorie(dinner).cal : 0
+    },
+  ]
+
+  const calorieSTarget = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
+  const caloriesTaken = calorie(meals).cal
 
   return (
     <View style={styles.container}>
       <Statusbar color="#e71d36" style="light" />
       <View style={styles.box}>
           <TargetLeftTaken title={"Calories"} taken={caloriesTaken} target={calorieSTarget} unit={"Kcal"} color="#e71d36" />
-      </View>
-
-      <View style={styles.box}>
-        <Text> {user.goal} </Text>
       </View>
       
       <View style={styles.box}>
@@ -58,6 +99,16 @@ export default function CaloriesPage() {
             </View>
           ))}
         </View>
+      </View>
+      
+      <View style={styles.box}>
+        <Text style={styles.h1}> Meals </Text>
+        {meals.map((item,key)=>(
+          <View key={key} style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6, marginHorizontal: 40}}>
+            <Text style={{fontWeight: 'bold', fontSize: 16}}> {item.title} </Text>
+            <Text> {item.cal} Kcal </Text>
+          </View>
+        ))}
       </View>
     </View>
   )
@@ -85,6 +136,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center'
+  },
+
+  h1: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10,
   }
   
 })

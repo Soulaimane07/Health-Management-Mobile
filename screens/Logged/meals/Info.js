@@ -8,7 +8,8 @@ import SheetBody from '../../../Components/sheetBody'
 
 export default function Info({route, navigation}) {
     const data = [
-       { 
+        { 
+            "id": 1,
             "title":"Orange",
             "image":require("../../../assets/meals/food/orange.png"),
             "cal": 50,
@@ -18,6 +19,7 @@ export default function Info({route, navigation}) {
             "fibre": 2.4
         },
         {
+            "id": 2,
             "title":"Pomme",
             "image":require("../../../assets/meals/food/apple.png"),
             "cal": 52,
@@ -27,6 +29,7 @@ export default function Info({route, navigation}) {
             "fibre": 2.4
         },
         {
+            "id": 3,
             "title":"Avocat",
             "image":require("../../../assets/meals/food/avocado.png"),
             "cal": 167,
@@ -36,15 +39,17 @@ export default function Info({route, navigation}) {
             "fibre": 6.7
         },
         {
+            "id": 4,
             "title":"Pain blanc",
             "image":require("../../../assets/meals/food/baguette.png"),
-            "cal": 0,
+            "cal": 265,
             "carbs": 49.1,
             "protein": 9.2,
             "fat": 3.2,
             "fibre": 2.7
         },
         {
+            "id": 5,
             "title":"Amande",
             "image":require("../../../assets/meals/food/amande.png"),
             "cal": 620,
@@ -54,6 +59,7 @@ export default function Info({route, navigation}) {
             "fibre": 12
         },
         {
+            "id": 6,
             "title":"Avoine",
             "image":require("../../../assets/meals/food/avoine.png"),
             "cal": 389,
@@ -63,6 +69,7 @@ export default function Info({route, navigation}) {
             "fibre": 1.7
         },
         {
+            "id": 7,
             "title":"Chocolat au lait",
             "image":require("../../../assets/meals/food/barre-de-chocolat.png"),
             "cal": 535,
@@ -72,6 +79,7 @@ export default function Info({route, navigation}) {
             "fibre": 3.4
         },
         {
+            "id": 8,
             "title":"Cookies",
             "image":require("../../../assets/meals/food/biscuits.png"),
             "cal": 474,
@@ -81,6 +89,7 @@ export default function Info({route, navigation}) {
             "fibre": 6
         },
         {
+            "id": 9,
             "title":"Carrot",
             "image":require("../../../assets/meals/food/carrot.png"),
             "cal": 33,
@@ -90,6 +99,7 @@ export default function Info({route, navigation}) {
             "fibre": 3
         },
         {
+            "id": 10,
             "title":"Chou",
             "image":require("../../../assets/meals/food/chou.png"),
             "cal": 22,
@@ -99,6 +109,7 @@ export default function Info({route, navigation}) {
             "fibre": 3.4
         },
         {
+            "id": 11,
             "title":"Chou-Fleur",
             "image":require("../../../assets/meals/food/chou-fleur.png"),
             "cal": 24,
@@ -108,6 +119,7 @@ export default function Info({route, navigation}) {
             "fibre": 2.5
         },
         {
+            "id": 12,
             "title":"Couscous aux legumes",
             "image":require("../../../assets/meals/food/couscous.png"),
             "cal": 114,
@@ -117,6 +129,7 @@ export default function Info({route, navigation}) {
             "fibre": 2.8
         },
         {
+            "id": 13,
             "title":"Crevette",
             "image":require("../../../assets/meals/food/crevette.png"),
             "cal": 119,
@@ -126,6 +139,7 @@ export default function Info({route, navigation}) {
             "fibre": 0
         },
         {
+            "id": 14,
             "title":"Cake",
             "image":require("../../../assets/meals/food/cup-cake.png"),
             "cal": 371,
@@ -135,6 +149,7 @@ export default function Info({route, navigation}) {
             "fibre": 3.7
         },
         {
+            "id": 15,
             "title":"Jus d'orange",
             "image":require("../../../assets/meals/food/jus-dorange.png"),
             "cal": 5.7,
@@ -144,6 +159,7 @@ export default function Info({route, navigation}) {
             "fibre": 0.2
         },
         {
+            "id": 16,
             "title":"Noix",
             "image":require("../../../assets/meals/food/noix.png"),
             "cal": 677,
@@ -153,6 +169,7 @@ export default function Info({route, navigation}) {
             "fibre": 7
         },
         {
+            "id": 17,
             "title":"Oeuf",
             "image":require("../../../assets/meals/food/oeuf.png"),
             "cal": 155,
@@ -181,6 +198,10 @@ export default function Info({route, navigation}) {
         }, 120);
     }
 
+    // ************ Search Engine
+
+    const [searchData, setSearchData] = useState("")
+    console.log(searchData);
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
@@ -196,15 +217,19 @@ export default function Info({route, navigation}) {
                 <TextInput 
                     placeholder='Search here...'
                     style={styles.textInput}
+                    onChangeText={(e)=> setSearchData(e)}
                 />
             </View>
             
             <ScrollView vertical style={{paddingTop: 10, paddingHorizontal: 20,}}>
-                {data.map((item,key)=>(
-                    <TouchableOpacity onPress={()=> OpenModal() & setSelected(key)} style={[styles.item, key+1 == data?.length && {marginBottom: "60%"}]} key={key}>
+                {data.filter((val)=>{
+                    searchData == "" && ""
+                    if(val.title.toLowerCase().includes(searchData.toLowerCase())){ return val}
+                }).map((val,key)=>(
+                    <TouchableOpacity onPress={()=> OpenModal() & setSelected(val.id-1)} style={[styles.item, key+1 == data?.length && {marginBottom: "60%"}]} key={key}>
                         <View style={{alignItems: 'center', flexDirection: 'row'}}>
-                            <Image source={item.image} style={[{marginRight: 20, width: 40, height: 40}]} />
-                            <Text style={{fontSize: 16}}> {item.title} </Text>
+                            <Image source={val.image} style={[{marginRight: 20, width: 40, height: 40}]} />
+                            <Text style={{fontSize: 16}}> {val.title} </Text>
                         </View>
                         <Aicon name="pluscircleo" size={20} />
                     </TouchableOpacity>

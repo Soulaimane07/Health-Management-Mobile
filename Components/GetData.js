@@ -9,7 +9,7 @@ export const GetUser = () => {
             const value = await AsyncStorage.getItem('user')
             const val = JSON.parse(value)
             if(value !== null) {
-                console.log(`==> User data: ${value}`);
+                // console.log(`==> User data: ${value}`);
                 setUser(val)
             }
         } catch(e){
@@ -17,7 +17,6 @@ export const GetUser = () => {
         }
     }
 
-    // getUser()
     useEffect(() => {
         getUser();
     }, [user]) 

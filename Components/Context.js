@@ -15,12 +15,12 @@ const ContextProvider = ({children}) => {
         const value = await AsyncStorage.getItem('lang')
         let val
         value !== null ? (
-            console.log("==> Language:", value),
+            // console.log("==> Language:", value),
             val = JSON.parse(value),
             setLang(val.lang),
             setlanguageObj(LangFun(val.lang))
         ) : (
-            console.log("Language is empty"),
+            // console.log("Language is empty"),
             setLang("fr"),
             setlanguageObj(LangFun("fr"))
         )

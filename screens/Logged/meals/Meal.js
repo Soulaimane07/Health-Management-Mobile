@@ -70,6 +70,9 @@ export default function Breakfast(props) {
 
     const [remove, setRemove] = useState([])
 
+    console.log(remove);
+    console.log(remove.length);
+
   return (
     <SafeAreaView style={{flex: 1}}>
         <StatusBar
@@ -140,12 +143,14 @@ export default function Breakfast(props) {
         </ScrollView>
 
         <View style={styles.BtnBox}>
-            <View style={styles.btn}>
-                {NavigateBtn(`Add`, Submit, true)}
-            </View>
+            {remove.length == 0 && 
+                <View style={styles.btn}>
+                    {NavigateBtn(`Add`, Submit, true)}
+                </View>
+            }
             {remove.length > 0 && 
                 <View style={{marginTop: 10}}>
-                    {NavigateBtn(`Remove`, Delete, true,"gray")}
+                    {NavigateBtn(`Remove`, Delete, true,)}
                 </View>
             }
         </View>
