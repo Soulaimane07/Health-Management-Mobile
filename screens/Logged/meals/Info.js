@@ -183,20 +183,14 @@ export default function Info({route, navigation}) {
 
     const refB = useRef(null)
     const snapPoints =  useMemo(()=> ["70%"])
-    const [IsOpen, setIsOpen] = useState(false)
 
     const OpenModal = () => {
         refB.current?.present()
-        setTimeout(() => {
-            setIsOpen(true)
-        }, 120);
     }
     const CloseModal = () => {
         refB.current?.close()
-        setTimeout(() => {
-            setIsOpen(false)
-        }, 120);
     }
+
 
     // ************ Search Engine
 

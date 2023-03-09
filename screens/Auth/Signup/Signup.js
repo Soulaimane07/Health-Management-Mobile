@@ -49,7 +49,7 @@ export default function Signup({navigation}) {
         <View style={styles.info}>
             <Text style={styles.label}> {languageObj?.signup.fname} </Text>
             <TextInput 
-                autoComplete="name"
+                autoComplete="name-given"
                 style={styles.textInput} 
                 placeholderTextColor='white'
                 onChangeText={e => setFname(e)}

@@ -70,9 +70,6 @@ export default function Breakfast(props) {
 
     const [remove, setRemove] = useState([])
 
-    console.log(remove);
-    console.log(remove.length);
-
   return (
     <SafeAreaView style={{flex: 1}}>
         <StatusBar

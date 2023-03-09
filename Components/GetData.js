@@ -5,7 +5,7 @@ export const GetUser = () => {
     const [user, setUser] = useState("null")
 
     const getUser = async () => {
-      try {
+        try {
             const value = await AsyncStorage.getItem('user')
             const val = JSON.parse(value)
             if(value !== null) {
@@ -19,7 +19,30 @@ export const GetUser = () => {
 
     useEffect(() => {
         getUser();
-    }, [user]) 
+    }, []) 
 
     return {user, getUser}
+}
+
+export const GetBreakfast = () => {
+    const [breakfast, setBreakfast] = useState([])
+
+    const getBreakfast = async () => {
+        try {
+            const value = await AsyncStorage.getItem('breakfast')
+            const val = JSON.parse(value)
+            if(value !== null) {
+                // console.log(`==> User data: ${value}`);
+                setBreakfast(val)
+            }
+        } catch(e){
+            console.log(e);
+        }
+    }
+
+    useEffect(() => {
+        getBreakfast();
+    }, [breakfast])
+
+    return {breakfast, getBreakfast}
 }
