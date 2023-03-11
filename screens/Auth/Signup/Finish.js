@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ActivityIndicator, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon1 from 'react-native-vector-icons/Feather';
 import * as Progress from 'react-native-progress';
@@ -6,8 +6,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Calories, IMC} from '../../../Components/Calcules';
 import { Video } from 'expo-av';
 import StatusBar from '../../../Components/Statusbar';
+import { PracticeContext } from '../../../Components/Context';
 
 export default function Finish({route, navigation}) {
+    const {languageObj} = useContext(PracticeContext)
+
     const [show, setShow] = useState(false)
     const [user, setUser] = useState("null")
 
@@ -31,24 +34,24 @@ export default function Finish({route, navigation}) {
 
     const Reachs = [
         {
-            "image":require('../../../assets/finish/1.webp'),
-            "text":"Track your food"
+            "image":require('../../../assets/images/auth/finish/1.webp'),
+            "text": languageObj?.signup.finish.getStarted.box4.details.text1
         },
         {
-            "image":require('../../../assets/finish/2.png'),
-            "text":"Follow your daily calorie recommendation"
+            "image":require('../../../assets/images/auth/finish/2.png'),
+            "text": languageObj?.signup.finish.getStarted.box4.details.text2
         },
         {
-            "image":require('../../../assets/finish/3.png'),
-            "text":"Balance your intake of carbs, protein, fat, and dietary fiber"
+            "image":require('../../../assets/images/auth/finish/3.png'),
+            "text": languageObj?.signup.finish.getStarted.box4.details.text3
         },
         {
-            "image":require('../../../assets/finish/4.jpg'),
-            "text":"Stay hydrated and track water intake"
+            "image":require('../../../assets/images/auth/finish/4.jpg'),
+            "text": languageObj?.signup.finish.getStarted.box4.details.text4
         },
         {
-            "image":require('../../../assets/finish/5.jpg'),
-            "text":"Log your progress by updating your weight or body measurements"
+            "image":require('../../../assets/images/auth/finish/5.jpg'),
+            "text": languageObj?.signup.finish.getStarted.box4.details.text5
         },
     ]
 
@@ -93,13 +96,46 @@ export default function Finish({route, navigation}) {
 
     const video = React.useRef(null);
 
+    const IMCData = [
+        {
+            "title": languageObj?.signup.finish.getStarted.box2.imc.maigreur,
+            "from": 0,
+            "to": 18.5,
+            "color":"#219ebc"
+        },
+        {
+            "title": languageObj?.signup.finish.getStarted.box2.imc.normal,
+            "from": 18.5,
+            "to": 25.5,
+            "color":"#25a244"
+        },
+        {
+            "title": languageObj?.signup.finish.getStarted.box2.imc.surpoids,
+            "from": 25,
+            "to": 30,
+            "color":"#ff9914"
+        },
+        {
+            "title": languageObj?.signup.finish.getStarted.box2.imc.obisiteM,
+            "from": 30,
+            "to": 40,
+            "color":"#fb6107"
+        },
+        {
+            "title": languageObj?.signup.finish.getStarted.box2.imc.obisiteS,
+            "from": 40,
+            "to": 100,
+            "color":"red"
+        },
+    ]
+
   return (
     !show 
     ?
-        <ImageBackground source={require("../../../assets/finish/image1.jpg")} style={styles.container}>
+        <ImageBackground source={require("../../../assets/images/auth/finish/finish.jpg")} style={styles.container}>
             <StatusBar color="transparent" style="dark-content" />
-            <Text style={styles.text1}>We're setting everything up for you</Text>
-            <Text style={styles.text2}>Creating your personal recommendations...</Text>
+            <Text style={styles.text1}> {languageObj?.signup.finish.settingUp.title} </Text>
+            <Text style={styles.text2}> {languageObj?.signup.finish.settingUp.text} </Text>
             <ActivityIndicator style={styles.spinner} size="large" color="#3FC495" />
         </ImageBackground>
     :
@@ -109,15 +145,12 @@ export default function Finish({route, navigation}) {
                     <Video
                         ref={video}
                         style={styles.video}
-                        source={require('../../../assets/finish/verification.mp4')}
+                        source={require('../../../assets/videos/verification.mp4')}
                         resizeMode="contain"
                         shouldPlay= {true}
                         isMuted
                     />
-                </View>
-
-                <View style={styles.box}>
-                    <Text style={styles.text3}> {user.fname}, your personalized health plan is ready! </Text>
+                    <Text style={styles.text3}> {user.fname} {languageObj?.signup.finish.getStarted.box1.title} </Text>
                     <View style={styles.box1}>
                         {user.goal === "Maintain Weight" ?
                             <Text style={styles.text4}> {user.weight} </Text>
@@ -129,20 +162,20 @@ export default function Finish({route, navigation}) {
                             </>
                         }
                     </View>
-                    <Text style={styles.text5}> Follow your recommendations and you will reach your goal. </Text>
+                    <Text style={styles.text5}> {languageObj?.signup.finish.getStarted.box1.text} </Text>
                 </View>
 
                 <View style={styles.box}>
-                    <Text style={styles.boxHeader}>Indice de masse corporelle (IMC)  </Text>
+                    <Text style={styles.boxHeader}> {languageObj?.signup.finish.getStarted.box2.title} </Text>
                     <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                        <Text style={{color: IMC(user).color, marginRight: 10, fontWeight: 'bold'}}>{IMC(user).imc}</Text>
-                        <Text style={{color: IMC(user).color, fontWeight: 'bold'}}> {IMC(user).title} </Text>
+                        <Text style={{color: IMC(user, IMCData).color, marginRight: 10, fontWeight: 'bold'}}>{IMC(user, IMCData).imc}</Text>
+                        <Text style={{color: IMC(user, IMCData).color, fontWeight: 'bold'}}> {IMC(user, IMCData).title} </Text>
                     </View>
                 </View>
                 
                 <View style={styles.box}>
-                    <Text style={styles.boxHeader}> Daily nutritional recommendations </Text>
-                    <Text style={styles.boxHeader1}> You can edit this anytime in the app </Text>
+                    <Text style={styles.boxHeader}> {languageObj?.signup.finish.getStarted.box3.title} </Text>
+                    <Text style={styles.boxHeader1}> {languageObj?.signup.finish.getStarted.box3.text} </Text>
                     {recommendations.map((item,key)=>(
                         <View style={styles.row1} key={key}>
                             <View style={styles.box2}>
@@ -163,14 +196,11 @@ export default function Finish({route, navigation}) {
                 </View>
 
                 <View style={[styles.box, {marginBottom: 160}]}>
-                    <Text style={styles.boxHeader}> How to reach your goals </Text>
+                    <Text style={styles.boxHeader}> {languageObj?.signup.finish.getStarted.box4.title} </Text>
                     {Reachs.map((item,key)=>(
-                        <View key={key}>
-                        <View style={styles.row}>
-                            <Image style={{width: 80, height: 80, marginRight: 20,}} source={item.image} />
-                            <Text style={{width: "70%"}}> {item.text} </Text>
-                        </View>
-                        {key+1 !== Reachs.length && <View style={styles.hairline} /> }
+                        <View key={key} style={[styles.row, key+1 !== Reachs.length && {borderBottomWidth: 1,}]}>
+                            <Image style={{width: 80, height: 80, marginLeft: 10}} source={item.image} />
+                            <Text style={{marginHorizontal: 10, flex: 1}}> {item.text} </Text>
                         </View>
                     ))}
                 </View>
@@ -178,7 +208,7 @@ export default function Finish({route, navigation}) {
 
             <View style={styles.btn}>
                 <TouchableOpacity style={styles.button} onPress={()=> Login()}>
-                    <Text style={styles.buttonText}> GET STARTED </Text>
+                    <Text style={styles.buttonText}> {languageObj?.signup.finish.getStarted.button} </Text>
                 </TouchableOpacity>
             </View>
         </>
@@ -206,7 +236,7 @@ const styles = StyleSheet.create({
 
     started: {
         flex: 1,
-        paddingTop: 60,
+        paddingTop: 40,
         paddingBottom: 100,
         paddingVertical: 100,
     },
@@ -280,7 +310,8 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        overflow: "hidden",
+        justifyContent: 'space-between', 
+        borderBottomColor: "#B2B2B2",
     },
 
     hairline: {
@@ -304,7 +335,8 @@ const styles = StyleSheet.create({
     header: {
         backgroundColor: "white",
         marginHorizontal: 20,
-        borderRadius: 16
+        borderRadius: 16,
+        paddingVertical: 20,
     },
     video: {
         width: "100%",

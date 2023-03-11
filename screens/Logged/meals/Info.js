@@ -11,7 +11,7 @@ export default function Info({route, navigation}) {
         { 
             "id": 1,
             "title":"Orange",
-            "image":require("../../../assets/meals/food/orange.png"),
+            "image":require("../../../assets/images/logged/meals/food/orange.png"),
             "cal": 50,
             "carbs": 11.7,
             "protein": 0.5,
@@ -21,7 +21,7 @@ export default function Info({route, navigation}) {
         {
             "id": 2,
             "title":"Pomme",
-            "image":require("../../../assets/meals/food/apple.png"),
+            "image":require("../../../assets/images/logged/meals/food/apple.png"),
             "cal": 52,
             "carbs": 12,
             "protein": 0.3,
@@ -31,7 +31,7 @@ export default function Info({route, navigation}) {
         {
             "id": 3,
             "title":"Avocat",
-            "image":require("../../../assets/meals/food/avocado.png"),
+            "image":require("../../../assets/images/logged/meals/food/avocado.png"),
             "cal": 167,
             "carbs": 4.7,
             "protein": 2.1,
@@ -41,7 +41,7 @@ export default function Info({route, navigation}) {
         {
             "id": 4,
             "title":"Pain blanc",
-            "image":require("../../../assets/meals/food/baguette.png"),
+            "image":require("../../../assets/images/logged/meals/food/baguette.png"),
             "cal": 265,
             "carbs": 49.1,
             "protein": 9.2,
@@ -51,7 +51,7 @@ export default function Info({route, navigation}) {
         {
             "id": 5,
             "title":"Amande",
-            "image":require("../../../assets/meals/food/amande.png"),
+            "image":require("../../../assets/images/logged/meals/food/amande.png"),
             "cal": 620,
             "carbs": 17,
             "protein": 20,
@@ -61,7 +61,7 @@ export default function Info({route, navigation}) {
         {
             "id": 6,
             "title":"Avoine",
-            "image":require("../../../assets/meals/food/avoine.png"),
+            "image":require("../../../assets/images/logged/meals/food/avoine.png"),
             "cal": 389,
             "carbs": 66.3,
             "protein": 16.9,
@@ -71,7 +71,7 @@ export default function Info({route, navigation}) {
         {
             "id": 7,
             "title":"Chocolat au lait",
-            "image":require("../../../assets/meals/food/barre-de-chocolat.png"),
+            "image":require("../../../assets/images/logged/meals/food/barre-de-chocolat.png"),
             "cal": 535,
             "carbs": 59.4,
             "protein": 7.6,
@@ -81,7 +81,7 @@ export default function Info({route, navigation}) {
         {
             "id": 8,
             "title":"Cookies",
-            "image":require("../../../assets/meals/food/biscuits.png"),
+            "image":require("../../../assets/images/logged/meals/food/biscuits.png"),
             "cal": 474,
             "carbs": 63.9,
             "protein": 5.1,
@@ -91,7 +91,7 @@ export default function Info({route, navigation}) {
         {
             "id": 9,
             "title":"Carrot",
-            "image":require("../../../assets/meals/food/carrot.png"),
+            "image":require("../../../assets/images/logged/meals/food/carrot.png"),
             "cal": 33,
             "carbs": 6.7,
             "protein": 0.8,
@@ -101,7 +101,7 @@ export default function Info({route, navigation}) {
         {
             "id": 10,
             "title":"Chou",
-            "image":require("../../../assets/meals/food/chou.png"),
+            "image":require("../../../assets/images/logged/meals/food/chou.png"),
             "cal": 22,
             "carbs": 2.8,
             "protein": 2.8,
@@ -111,7 +111,7 @@ export default function Info({route, navigation}) {
         {
             "id": 11,
             "title":"Chou-Fleur",
-            "image":require("../../../assets/meals/food/chou-fleur.png"),
+            "image":require("../../../assets/images/logged/meals/food/chou-fleur.png"),
             "cal": 24,
             "carbs": 3.5,
             "protein": 2.4,
@@ -121,7 +121,7 @@ export default function Info({route, navigation}) {
         {
             "id": 12,
             "title":"Couscous aux legumes",
-            "image":require("../../../assets/meals/food/couscous.png"),
+            "image":require("../../../assets/images/logged/meals/food/couscous.png"),
             "cal": 114,
             "carbs": 18,
             "protein": 4.32,
@@ -131,7 +131,7 @@ export default function Info({route, navigation}) {
         {
             "id": 13,
             "title":"Crevette",
-            "image":require("../../../assets/meals/food/crevette.png"),
+            "image":require("../../../assets/images/logged/meals/food/crevette.png"),
             "cal": 119,
             "carbs": 1.5,
             "protein": 22.8,
@@ -141,7 +141,7 @@ export default function Info({route, navigation}) {
         {
             "id": 14,
             "title":"Cake",
-            "image":require("../../../assets/meals/food/cup-cake.png"),
+            "image":require("../../../assets/images/logged/meals/food/cup-cake.png"),
             "cal": 371,
             "carbs": 53.4,
             "protein": 5.3,
@@ -151,7 +151,7 @@ export default function Info({route, navigation}) {
         {
             "id": 15,
             "title":"Jus d'orange",
-            "image":require("../../../assets/meals/food/jus-dorange.png"),
+            "image":require("../../../assets/images/logged/meals/food/jus-dorange.png"),
             "cal": 5.7,
             "carbs": 10.4,
             "protein": 0.7,
@@ -161,7 +161,7 @@ export default function Info({route, navigation}) {
         {
             "id": 16,
             "title":"Noix",
-            "image":require("../../../assets/meals/food/noix.png"),
+            "image":require("../../../assets/images/logged/meals/food/noix.png"),
             "cal": 677,
             "carbs": 14.3,
             "protein": 15,
@@ -171,7 +171,7 @@ export default function Info({route, navigation}) {
         {
             "id": 17,
             "title":"Oeuf",
-            "image":require("../../../assets/meals/food/oeuf.png"),
+            "image":require("../../../assets/images/logged/meals/food/oeuf.png"),
             "cal": 155,
             "carbs": 1.1,
             "protein": 12.6,

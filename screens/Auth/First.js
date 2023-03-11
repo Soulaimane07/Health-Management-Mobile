@@ -53,7 +53,7 @@ export default function First({route, navigation}) {
     ]
 
   return (
-    <ImageBackground source={require('../../assets/bg/image2.jpg')} style={styles.container} >
+    <ImageBackground source={require('../../assets/images/auth/bg/first.jpg')} style={styles.container} >
         <StatusBar
             style="dark"
             hidden = {false} 

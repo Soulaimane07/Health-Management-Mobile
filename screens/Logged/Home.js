@@ -78,25 +78,25 @@ export default function Home({route, navigation}) {
 
     const meals = [
         {
-            "image":require(`../../assets/breakfast.webp`),
+            "image":require(`../../assets/images/logged/meals/breakfast.webp`),
             "title":"Breakfast",
             "text":"Recommended 830 - 1170Cal",
             "path":"breakfast"
         },
         {
-            "image":require(`../../assets/lunch.webp`),
+            "image":require(`../../assets/images/logged/meals/lunch.webp`),
             "title":"Lunch",
             "text":"Recommended 255 - 370Cal",
             "path":"lunch"
         },
         {
-            "image":require(`../../assets/snacks.jpg`),
+            "image":require(`../../assets/images/logged/meals/snacks.jpg`),
             "title":"Snack",
             "text":"Recommended 830 - 1170Cal",
             "path":"snack"
         },
         {
-            "image":require(`../../assets/dinner.jpg`),
+            "image":require(`../../assets/images/logged/meals/dinner.jpg`),
             "title":"Dinner",
             "text":"Recommended 255 - 370Cal",
             "path":"dinner"

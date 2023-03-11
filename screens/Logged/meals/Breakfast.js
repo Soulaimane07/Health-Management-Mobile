@@ -21,6 +21,6 @@ export default function Breakfast({navigation}) {
   }, [data]) 
 
   return (
-    <Meal meal={'breakfast'} image={require("../../../assets/meals/image1.jpg")} kal={0} carbs={50} protein={100} fat={30} title={"My Breakfast"} data={data} navigation={navigation} />
+    <Meal meal={'breakfast'} image={require("../../../assets/images/logged/meals/breakfastPage.jpg")} kal={0} carbs={50} protein={100} fat={30} title={"My Breakfast"} data={data} navigation={navigation} />
   )
 }

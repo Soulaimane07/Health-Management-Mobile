@@ -18,7 +18,7 @@ export default function VerrifiedModal(props) {
             <Video
                 ref={video}
                 style={styles.video}
-                source={require('../assets/finish/verification.mp4')}
+                source={require('../assets/videos/verification.mp4')}
                 resizeMode="contain"
                 shouldPlay={true}
                 isMuted

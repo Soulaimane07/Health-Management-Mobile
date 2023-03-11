@@ -24,32 +24,32 @@ const Stack = createNativeStackNavigator();
 
 const profiles = [
   {
-    image: require("./assets/profiles/1.png"),
+    image: require("./assets/images/logged/profiles/1.png"),
     width: 90,
     height: 90,
   },
   {
-    image: require("./assets/profiles/2.png"),
+    image: require("./assets/images/logged/profiles/2.png"),
     width: 88,
     height: 60,
   },
   {
-    image: require("./assets/profiles/3.png"),
+    image: require("./assets/images/logged/profiles/3.png"),
     width: 76,
     height: 80,
   },
   {
-    image: require("./assets/profiles/4.png"),
+    image: require("./assets/images/logged/profiles/4.png"),
     width: 90,
     height: 80,
   },
   {
-    image: require("./assets/profiles/5.png"),
+    image: require("./assets/images/logged/profiles/5.png"),
     width: 90,
     height: 80,
   },
   {
-    image: require("./assets/profiles/6.png"),
+    image: require("./assets/images/logged/profiles/6.png"),
     width: 80,
     height: 70,
   },

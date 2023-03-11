@@ -21,6 +21,6 @@ export default function Snack({navigation}) {
   }, [data])
 
   return (
-    <Meal meal={"snacks"} image={require("../../../assets/meals/snacks/image6.jpg")} kal={320} carbs={50} protein={100} fat={30} title={"My Snacks"} data={data} navigation={navigation} />
+    <Meal meal={"snacks"} image={require("../../../assets/images/logged/meals/snacksPage.jpg")} kal={320} carbs={50} protein={100} fat={30} title={"My Snacks"} data={data} navigation={navigation} />
   )
 }

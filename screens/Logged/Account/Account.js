@@ -13,6 +13,39 @@ export function Account({route, navigation}) {
 
     const unit = user?.system === "eu" ? "Kg" : "Lbs"
 
+    const IMCData = [
+      {
+          "title":"Maigreur",
+          "from": 0,
+          "to": 18.5,
+          "color":"#219ebc"
+      },
+      {
+          "title":"Normal",
+          "from": 18.5,
+          "to": 25.5,
+          "color":"#25a244"
+      },
+      {
+          "title":"Surpoids",
+          "from": 25,
+          "to": 30,
+          "color":"#ff9914"
+      },
+      {
+          "title":"Obisité Moderee",
+          "from": 30,
+          "to": 40,
+          "color":"#fb6107"
+      },
+      {
+          "title":"Obesite Severe",
+          "from": 40,
+          "to": 100,
+          "color":"red"
+      },
+  ]
+
     const profile = [
       {
         "label":"Goal",
@@ -28,8 +61,8 @@ export function Account({route, navigation}) {
       },
       {
         "label":"IMC",
-        "value": IMC(user).title,
-        "color": IMC(user).color,
+        "value": IMC(user, IMCData).title,
+        "color": IMC(user, IMCData).color,
       },
     ]
 

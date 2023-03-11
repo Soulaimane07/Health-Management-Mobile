@@ -16,13 +16,13 @@ export default function System({navigation}) {
         {
             "title": languageObj?.signup.system.us,
             "val":"us",
-            "image": require("../../../assets/auth/us.png"),
+            "image": require("../../../assets/images/auth/us.png"),
             "units": languageObj?.signup.system.usUnits
         },
         {
             "title": languageObj?.signup.system.eu,
             "val":"eu",
-            "image": require("../../../assets/auth/eu.png"),
+            "image": require("../../../assets/images/auth/eu.png"),
             "units": languageObj?.signup.system.euUnits
         },
     ]

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Image } from 'react-native'
+import { Image } from 'react-native'
 import { StyleSheet, Text, View } from 'react-native'
 import { Calories } from '../../../Components/Calcules'
 import Statusbar from '../../../Components/Statusbar'

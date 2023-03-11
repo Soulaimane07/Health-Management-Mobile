@@ -1,37 +1,4 @@
-export const IMC = (user) => {
-    const IMCData = [
-        {
-            "title":"Maigreur",
-            "from": 0,
-            "to": 18.5,
-            "color":"#219ebc"
-        },
-        {
-            "title":"Normal",
-            "from": 18.5,
-            "to": 25.5,
-            "color":"#25a244"
-        },
-        {
-            "title":"Surpoids",
-            "from": 25,
-            "to": 30,
-            "color":"#ff9914"
-        },
-        {
-            "title":"Obisité Moderee",
-            "from": 30,
-            "to": 40,
-            "color":"#fb6107"
-        },
-        {
-            "title":"Obesite Severe",
-            "from": 40,
-            "to": 100,
-            "color":"red"
-        },
-    ]
-
+export const IMC = (user, IMCData) => {
     let title
     let imc
     let color
@@ -42,7 +9,7 @@ export const IMC = (user) => {
         return imc
     }
 
-    IMCData.map(item=>(
+    IMCData?.map(item=>(
         Indic() <= item.to && Indic() >= item.from && (
             title = item.title,
             color = item.color,

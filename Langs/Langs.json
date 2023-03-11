@@ -68,7 +68,44 @@
                 "very":"Very active",
                 "finish":"Finish"
             },
-            "next":"Next"
+            "next":"Next",
+            "finish":{
+                "settingUp":{
+                    "title":"We're setting everything up for you!",
+                    "text":"Creating your personal recommendations..."
+                },
+                "getStarted":{
+                    "box1":{
+                        "title":",your personalized health plan is ready!",
+                        "text":"Follow your recommendations and you will reach your goal."
+                    },
+                    "box2":{
+                        "title":"Body Mass Index (BMI)",
+                        "imc":{
+                            "maigreur":"Thinness",
+                            "normal":"Normal",
+                            "surpoids":"Overweight",
+                            "obisiteM":"Moderate obesity",
+                            "ObisiteS":"Severe obesity"
+                        }
+                    },
+                    "box3":{
+                        "title":"Daily nutritional recommendations",
+                        "text":"You can edit this anytime in the app"
+                    },
+                    "box4":{
+                        "title":"How to reach your goals",
+                        "details":{
+                            "text1":"Track your food",
+                            "text2":"Follow your daily calorie recommendation",
+                            "text3":"Balance your intake of carbs, protein, fat, and dietary fiber",
+                            "text4":"Stay hydrated and track water intake",
+                            "text5":"Log your progress by updating your weight or body measurements"
+                        }
+                    },
+                    "button":"GET STARTED"
+                }
+            }
         }
     },
     "frensh":{
@@ -140,7 +177,44 @@
                 "very":"Très actif",
                 "finish":"Finir"
             },
-            "next":"Suivant"
+            "next":"Suivant",
+            "finish":{
+                "settingUp":{
+                    "title":"Nous mettons tout en place pour vous !",
+                    "text":"Créer vos recommandations personnelles..."
+                },
+                "getStarted":{
+                    "box1":{
+                        "title":",votre plan de santé personnalisé est prêt!",
+                        "text":"Suivez vos recommandations et vous atteindrez votre objectif."
+                    },
+                    "box2":{
+                        "title":"Indice de masse corporelle (IMC)",
+                        "imc":{
+                            "maigreur":"Maigreur",
+                            "normal":"Normal",
+                            "surpoids":"Surpoids",
+                            "obisiteM":"Obésité Moderee",
+                            "ObisiteS":"Obésité Sévère"
+                        }
+                    },
+                    "box3":{
+                        "title":"Recommandations nutritionnelles quotidiennes",
+                        "text":"Vous pouvez le modifier à tout moment dans l'application"
+                    },
+                    "box4":{
+                        "title":"Comment atteindre vos objectifs",
+                        "details":{
+                            "text1":"Suivez votre alimentation",
+                            "text2":"Suivez votre recommandation calorique quotidienne",
+                            "text3":"Équilibrez votre consommation de glucides, de protéines, de lipides et de fibres alimentaires",
+                            "text4":"Restez hydraté et surveillez votre consommation d'eau",
+                            "text5":"Enregistrez vos progrès en mettant à jour votre poids ou vos mensurations"
+                        }
+                    },
+                    "button":"COMMENCER"
+                }
+            }
         }
     },
     "arabic":{
@@ -212,7 +286,44 @@
                 "very":"نشيط جدا",
                 "finish":"نهاية"
             },
-            "next":"التالي"
+            "next":"التالي",
+            "finish":{
+                "settingUp":{
+                    "title":"نحن نجهز كل شيء من أجلك!",
+                    "text":"إنشاء توصياتك الشخصية ..."
+                },
+                "getStarted":{
+                    "box1":{
+                        "title":"، خطتك الصحية الشخصية جاهزة!",
+                        "text":"اتبع توصياتك وسوف تصل إلى هدفك."
+                    },
+                    "box2":{
+                        "title":"مؤشر كتلة الجسم",
+                        "imc":{
+                            "maigreur":"نحافة",
+                            "normal":"طبيعي",
+                            "surpoids":"زيادة الوزن",
+                            "obisiteM":"سمنة معتدلة",
+                            "ObisiteS":"السمنة المفرطة"
+                        }
+                    },
+                    "box3":{
+                        "title":"توصيات غذائية يومية",
+                        "text":"يمكنك تعديل هذا في أي وقت في التطبيق"
+                    },
+                    "box4":{
+                        "title":"كيف تصل إلى أهدافك",
+                        "details":{
+                            "text1":"تتبع طعامك",
+                            "text2":"اتبع توصياتك اليومية من السعرات الحرارية",
+                            "text3":"وازن مدخولك من الكربوهيدرات والبروتين والدهون والألياف الغذائية",
+                            "text4":"حافظ على رطوبتك وتتبع كمية الماء التي تتناولها",
+                            "text5":"سجل تقدمك عن طريق تحديث وزنك أو قياسات جسمك"
+                        }
+                    },
+                    "button":"البدء"
+                }
+            }
         }  
     }
 }

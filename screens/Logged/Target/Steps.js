@@ -44,7 +44,7 @@ export default function StepsPage() {
           <Video
             ref={video}
             style={styles.video}
-            source={require('../../../assets/videos/steps2.mp4')}
+            source={require('../../../assets/videos/steps.mp4')}
             resizeMode="contain"
             isLooping
             isMuted
