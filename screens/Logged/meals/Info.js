@@ -183,7 +183,6 @@ export default function Info({route, navigation}) {
 
     const refB = useRef(null)
     const snapPoints =  useMemo(()=> ["70%"])
-
     const OpenModal = () => {
         refB.current?.present()
     }
@@ -241,7 +240,6 @@ export default function Info({route, navigation}) {
             ref={refB}
             index={0}
             snapPoints={snapPoints}
-            onDismiss={()=> setIsOpen(false)}
         >
             <View style={styles.modalView}>
                 <SheetBody meal={route.params.meal} data={data[selected]} CloseModal={CloseModal} />

@@ -19,7 +19,7 @@ export const GetUser = () => {
 
     useEffect(() => {
         getUser();
-    }, []) 
+    }, [user]) 
 
     return {user, getUser}
 }

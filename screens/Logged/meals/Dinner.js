@@ -9,7 +9,7 @@ export default function Dinner({navigation}) {
       const dinner = await AsyncStorage.getItem('dinner')
       const val = JSON.parse(dinner)
       dinner !== null ? (
-          console.log(dinner),
+          // console.log(dinner),
           setData(val)
       ) : (
           setData([])

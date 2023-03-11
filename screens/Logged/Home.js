@@ -120,6 +120,8 @@ export default function Home({route, navigation}) {
     const calories = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
     const water = Water(user?.weight)
 
+    // console.log(user.calories);
+
     const target = [
         {
             "color":"#fff0f3",
@@ -128,7 +130,7 @@ export default function Home({route, navigation}) {
             "unit":"Kcal",
             "icon": <Ficon name='fire' color="#e71d36" size={40} /> ,
             "rightTitle": "Remaining Calories",
-            "rightValue": user?.calories ? calories - user?.calories : calories?.toFixed(0),
+            "rightValue": (user?.calories ? calories - user?.calories : calories).toFixed(0),
             "path":"calories"
         },
         {

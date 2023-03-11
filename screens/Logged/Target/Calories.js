@@ -7,6 +7,7 @@ import Statusbar from '../../../Components/Statusbar'
 import TargetLeftTaken from '../../../Components/TargetLeftTaken'
 import { PracticeContext } from '../../../Components/Context' 
 import { calorie } from '../../../Components/cal'
+import { NavigateBtn } from '../../../Components/Buttons'
 
 export default function CaloriesPage() {
   const {user} = useContext(PracticeContext)
@@ -82,6 +83,24 @@ export default function CaloriesPage() {
   const calorieSTarget = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
   const caloriesTaken = calorie(meals).cal
 
+  const Submit = async () => {
+    try {
+      let calories = {
+        calories : 0,
+      }
+
+      await AsyncStorage.mergeItem('user', JSON.stringify(calories))
+
+      let keys = ['breakfast', 'lunch', 'snacks', 'dinner'];
+      AsyncStorage.multiRemove(keys, err => {
+        console.log(err);
+      });
+      console.log("success");
+    } catch(e){
+      console.log(e);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Statusbar color="#e71d36" style="light" />
@@ -109,6 +128,10 @@ export default function CaloriesPage() {
             <Text> {item.cal} Kcal </Text>
           </View>
         ))}
+      </View>
+
+      <View style={styles.btn}>
+        {NavigateBtn("Delete", Submit, true, "red")}
       </View>
     </View>
   )
@@ -143,6 +166,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
+  },
+
+
+  btn: {
+    paddingHorizontal: 20,
   }
-  
 })
