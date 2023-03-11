@@ -64,7 +64,7 @@ export default function Login({route, navigation}) {
                 <Text> {languageObj?.login.dontHave} </Text>
                 <TouchableOpacity
                     style={styles.sign}
-                    onPress={()=> navigation.navigate('signStack')} 
+                    onPress={()=> navigation.navigate("signStack", {screen: 'start'})} 
                 >
                     <Text style={styles.signText}> {languageObj?.login.createAccount} </Text>
                 </TouchableOpacity>

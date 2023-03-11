@@ -60,7 +60,9 @@ export default function App() {
 
     async function getUser(){
       const value = await AsyncStorage.getItem('user')
-      if(value !== null) {
+      const user = JSON.parse(value)
+      const condittion = user.email && user.fname && user.lname && user.pass && user.goal && user.sex && user.system && user.age && user.height && user.weight && user.Gweight && user.activity
+      if(condittion) {
           setLogged(true)
       }else {
         setLogged(false)
@@ -79,7 +81,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!logged ?
           <>
-            <Stack.Screen name="first" component={First} />
+            <Stack.Screen name="first" initialParams={{setLogged: setLogged}} component={First} />
             <Stack.Screen name="login" initialParams={{setLogged: setLogged}} component={Login} />
             <Stack.Screen name="signStack" initialParams={{setLogged: setLogged}} component={SignStack} />
           </>

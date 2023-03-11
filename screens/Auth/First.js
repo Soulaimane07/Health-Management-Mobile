@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image, ImageBackground, TouchableOpacity } from 'react-native'
 import React, { useContext } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { MyButton } from '../../Components/Buttons'
+import { MyButton, NavigateBtn } from '../../Components/Buttons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { PracticeContext } from '../../Components/Context'
 

@@ -8,8 +8,10 @@ import Foicon from 'react-native-vector-icons/Foundation'
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {Calories, Steps, Water} from '../../Components/Calcules'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { PracticeContext } from '../../Components/Context'
+import { GetUser } from '../../Components/GetData'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const months = [
   {
@@ -52,6 +54,7 @@ const months = [
 
 export default function Home({route, navigation}) {
     const {user} = useContext(PracticeContext)
+
 
     const header = () => {
         const date = new Date().getHours()
@@ -117,10 +120,13 @@ export default function Home({route, navigation}) {
 
     const profiles = route.params.profiles
 
-    const calories = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
-    const water = Water(user?.weight)
+    let calories = 0
+    let water
 
-    // console.log(user.calories);
+    user && (
+        calories = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity),
+        water = Water(user?.weight)
+    )
 
     const target = [
         {
@@ -130,7 +136,7 @@ export default function Home({route, navigation}) {
             "unit":"Kcal",
             "icon": <Ficon name='fire' color="#e71d36" size={40} /> ,
             "rightTitle": "Remaining Calories",
-            "rightValue": (user?.calories ? calories - user?.calories : calories).toFixed(0),
+            "rightValue": user !== null && user?.calories !== undefined ? (calories).toFixed(0) - user?.calories : calories && (calories).toFixed(0),
             "path":"calories"
         },
         {
