@@ -8,8 +8,10 @@ const PracticeContext = createContext();
 
 const ContextProvider = ({children}) => {
     const user = GetUser().user
+
     const [lang, setLang] = useState("fr")
     const [languageObj, setlanguageObj] = useState(LangFun("fr"))
+    const [language, setLanguage] = useState()
 
     const fun = async () => {
         const value = await AsyncStorage.getItem('lang')
@@ -18,7 +20,13 @@ const ContextProvider = ({children}) => {
             // console.log("==> Language:", value),
             val = JSON.parse(value),
             setLang(val.lang),
-            setlanguageObj(LangFun(val.lang))
+            setlanguageObj(LangFun(val.lang)),
+
+            // console.log(val.lang),
+
+            val.lang == "fr" && (setLanguage("Français")),
+            val.lang == "ar" && (setLanguage("العربية")),
+            val.lang == "en" && (setLanguage("English"))
         ) : (
             // console.log("Language is empty"),
             setLang("fr"),
@@ -28,7 +36,7 @@ const ContextProvider = ({children}) => {
     fun()
 
     return(
-        <PracticeContext.Provider value={{user, lang, setLang, languageObj}}>
+        <PracticeContext.Provider value={{user, lang, setLang, languageObj, language}}>
             {children}
         </PracticeContext.Provider>
     )

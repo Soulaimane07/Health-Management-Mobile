@@ -8,10 +8,8 @@ import Foicon from 'react-native-vector-icons/Foundation'
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {Calories, Steps, Water} from '../../Components/Calcules'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { PracticeContext } from '../../Components/Context'
-import { GetUser } from '../../Components/GetData'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const months = [
   {
@@ -53,17 +51,16 @@ const months = [
 ]
 
 export default function Home({route, navigation}) {
-    const {user} = useContext(PracticeContext)
-
+    const {user, languageObj} = useContext(PracticeContext)
 
     const header = () => {
         const date = new Date().getHours()
         let datee = 0
 
-        date >= 4 && date < 12 ? datee = "Morning" : ""
-        date >= 12 && date < 18 ? datee = "Afternoon" : ""
-        date >= 18 && date < 22 ? datee = "Evening" : ""
-        date >= 22 || date < 4 ? datee = "Night" : ""
+        date >= 4 && date < 12 && ( datee = languageObj.home.header.morning )
+        date >= 12 && date < 18 && ( datee = languageObj.home.header.afternoon )
+        date >= 18 && date < 22 && ( datee = languageObj.home.header.evening )
+        date >= 22 || date < 4 && ( datee = languageObj.home.header.night )
 
         return datee
     }
@@ -82,25 +79,25 @@ export default function Home({route, navigation}) {
     const meals = [
         {
             "image":require(`../../assets/images/logged/meals/breakfast.webp`),
-            "title":"Breakfast",
+            "title": languageObj.home.box2.breakfast,
             "text":"Recommended 830 - 1170Cal",
             "path":"breakfast"
         },
         {
             "image":require(`../../assets/images/logged/meals/lunch.webp`),
-            "title":"Lunch",
+            "title": languageObj.home.box2.lunch,
             "text":"Recommended 255 - 370Cal",
             "path":"lunch"
         },
         {
             "image":require(`../../assets/images/logged/meals/snacks.jpg`),
-            "title":"Snack",
+            "title": languageObj.home.box2.snacks,
             "text":"Recommended 830 - 1170Cal",
             "path":"snack"
         },
         {
             "image":require(`../../assets/images/logged/meals/dinner.jpg`),
-            "title":"Dinner",
+            "title": languageObj.home.box2.dinner,
             "text":"Recommended 255 - 370Cal",
             "path":"dinner"
         },
@@ -131,30 +128,30 @@ export default function Home({route, navigation}) {
     const target = [
         {
             "color":"#fff0f3",
-            "leftTitle": "Target Calories",
+            "leftTitle": languageObj.home.box1.target1.target,
             "leftValue": calories?.toFixed(0),
             "unit":"Kcal",
             "icon": <Ficon name='fire' color="#e71d36" size={40} /> ,
-            "rightTitle": "Remaining Calories",
+            "rightTitle": languageObj.home.box1.target1.remaining,
             "rightValue": user !== null && user?.calories !== undefined ? (calories).toFixed(0) - user?.calories : calories && (calories).toFixed(0),
             "path":"calories"
         },
         {
             "color":"#fff2b2",
-            "leftTitle": "Target Steps",
+            "leftTitle": languageObj.home.box1.target2.target,
             "leftValue": Steps(user?.goal),
             "icon": <Foicon name='foot' color="#fdb833" size={50} />,
-            "rightTitle": "Remaining Steps",
+            "rightTitle": languageObj.home.box1.target2.remaining,
             "rightValue": user?.steps ? Steps(user?.goal) - user?.steps : Steps(user?.goal),
             "path":"steps"
         },
         {
             "color":"#caf0f8",
-            "leftTitle": "Target Water",
+            "leftTitle": languageObj.home.box1.target3.target,
             "leftValue": water,
             "unit":"ml",
             "icon": <Micon name='cup-water' color="#5390d9" size={50} />,
-            "rightTitle": "Remaining Water",
+            "rightTitle": languageObj.home.box1.target3.remaining,
             "rightValue": user?.water ? water - user?.water  : water,
             "path":"water"
         }
@@ -166,7 +163,7 @@ export default function Home({route, navigation}) {
       <SafeAreaView style={styles.header}>
         <TouchableOpacity style={styles.profile} onPress={()=> navigation.navigate("accountStack", {screen: 'account'})}>
             <Image source={profiles[profileNbr].image}  style={[styles.logo ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]} />
-            <Text style={styles.text}>Good {header()} {user && user.fname} </Text>
+            <Text style={styles.text}>{header()} {user && user.fname} </Text>
         </TouchableOpacity>
       </SafeAreaView>
 
@@ -180,7 +177,7 @@ export default function Home({route, navigation}) {
         </View>
 
         <View style={styles.target}>
-          <Text style={styles.targetText}> Today's Targets </Text>
+          <Text style={styles.targetText}> {languageObj.home.box1.title} </Text>
           {target.map((item,key)=>(
               <TouchableOpacity key={key} onPress={()=> navigation.navigate(item.path)} style={{ marginVertical: 6, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', borderRadius: 16, padding: 20, backgroundColor: item.color}}>
                   <View>
@@ -197,7 +194,7 @@ export default function Home({route, navigation}) {
         </View>
 
         <View style={styles.meals}>
-          <Text style={styles.Mtext}> Today's Meals </Text>
+          <Text style={styles.Mtext}> {languageObj.home.box2.title} </Text>
           <ScrollView contentOffset={{ x: scroll() }}  horizontal={true} style={styles.boxs}>
               {meals.map((item,key)=>(
                 <TouchableOpacity key={key} onPress={()=> navigation.navigate(item.path)}>
@@ -212,7 +209,7 @@ export default function Home({route, navigation}) {
         </View>
 
         <View style={[styles.target]}>
-            <Text style={styles.targetText}> Today's Workout </Text>
+            <Text style={styles.targetText}> {languageObj.home.box3.title} </Text>
             <ImageBackground style={styles.workout} source={require(`../../assets/workout.webp`)} resizeMode="cover">
                 <View style={styles.textBox}>
                     <Text style={styles.title}> Day 01 </Text>
@@ -303,7 +300,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 16,
       marginBottom: 10,
-      marginLeft: 20,
+      marginHorizontal: 20,
   },
   boxs: {
       paddingLeft: 20,

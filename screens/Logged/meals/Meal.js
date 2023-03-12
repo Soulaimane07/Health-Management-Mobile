@@ -1,7 +1,7 @@
 import { View, Text, Image, StatusBar, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native'
-import { MyButton, NavigateBtn } from '../../../Components/Buttons'
+import { NavigateBtn } from '../../../Components/Buttons'
 import Aicon from 'react-native-vector-icons/AntDesign'
 import Oicon from 'react-native-vector-icons/Octicons'
 import Ficon from 'react-native-vector-icons/FontAwesome'
@@ -24,6 +24,13 @@ export default function Breakfast(props) {
     const Delete = async () => {
         let found
         let index
+        let cals = 0
+        let caloriesObj
+
+        const user = await AsyncStorage.getItem('user')
+        const val = JSON.parse(user)
+
+        console.log(val);
 
         try {
             data?.map((item,key)=>(
@@ -33,10 +40,17 @@ export default function Breakfast(props) {
                         index = data?.indexOf(found),
                         console.log(found),
                         console.log(index),
+                        cals = cals + item.cal,
+                        console.log(cals),
 
+                        caloriesObj = {
+                            calories : val?.calories - cals
+                        },
+                        
                         data?.splice(index, remove?.length),
                         AsyncStorage.setItem(props.meal, JSON.stringify(data)),
-                        remove.splice(itemm, remove?.length)
+                        remove.splice(itemm, remove?.length),
+                        AsyncStorage.mergeItem('user', JSON.stringify(caloriesObj))
                     )
                 ))
             ))

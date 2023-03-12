@@ -11,11 +11,10 @@ import DeleteAccount from './Change/DeleteAccount'
 import Statusbar from '../../../Components/Statusbar'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import { PracticeContext } from '../../../Components/Context'
+import ChangeLang from './Change/ChangeLang'
 
 export default function Profile({route}) {
-  const {user} = useContext(PracticeContext)
-
-
+  const {user, language} = useContext(PracticeContext)
 
   /* ************* Bottom Sheet ************* */
   const [SheetBody, setSheetBody] = useState(null)
@@ -59,6 +58,11 @@ export default function Profile({route}) {
       "label":"Password",
       "value": user?.pass?.replace(/./g, '*'),
       "change": <ChangePass pass={user?.pass} CloseModal={CloseModal} />,
+    },
+    {
+      "label":"Language",
+      "value": language,
+      "change": <ChangeLang lang={language} CloseModal={CloseModal} />,
     },
   ]
   const profileNbr = user?.profile ? user?.profile : 0

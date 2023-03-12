@@ -9,7 +9,7 @@ import { PracticeContext } from '../../../Components/Context'
 import Statusbar from '../../../Components/Statusbar'
 
 export function Account({route, navigation}) {
-  const {user} = useContext(PracticeContext)
+  const {user, language} = useContext(PracticeContext)
 
     const unit = user?.system === "eu" ? "Kg" : "Lbs"
 
@@ -64,6 +64,10 @@ export function Account({route, navigation}) {
         "value": IMC(user, IMCData).title,
         "color": IMC(user, IMCData).color,
       },
+      {
+        "label":"Language",
+        "value": language,
+      }
     ]
 
     user?.goal === "Maintain Weight" && profile.splice(2, 1);
@@ -86,21 +90,21 @@ export function Account({route, navigation}) {
       },
     ]
 
-    const Logout = async () => {
-        try {
-          await AsyncStorage.removeItem("user");
-          await AsyncStorage.removeItem("breakfast");
-          await AsyncStorage.removeItem("lunch");
-          await AsyncStorage.removeItem("snacks");
-          await AsyncStorage.removeItem("dinner");
-          route.params.setLogged(false)
-          console.log("user logged out");
-          navigation.navigate('first')
-        }
-        catch(exception) {
-          console.log("user didn't log out");
-        }
+  const Logout = async () => {
+      try {
+        await AsyncStorage.removeItem("user");
+        await AsyncStorage.removeItem("breakfast");
+        await AsyncStorage.removeItem("lunch");
+        await AsyncStorage.removeItem("snacks");
+        await AsyncStorage.removeItem("dinner");
+        route.params.setLogged(false)
+        console.log("user logged out");
+        navigation.navigate('first')
       }
+      catch(exception) {
+        console.log("user didn't log out");
+      }
+  }
 
     const LogoutAlert = () => {
       Alert.alert('Log out', 'Are you sure you want to log out ?', [

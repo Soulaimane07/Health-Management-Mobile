@@ -106,6 +106,39 @@
                     "button":"GET STARTED"
                 }
             }
+        },
+        "home":{
+            "header":{
+                "morning":"Good Morning",
+                "afternoon":"Good Afternoon",
+                "evening":"Good Evening",
+                "night":"Good Night"
+            },
+            "box1":{
+                "title":"Today's Targets",
+                "target1":{
+                    "target":"Target Calories",
+                    "remaining":"Remaining Calories"
+                },
+                "target2":{
+                    "target":"Target Staps",
+                    "remaining":"Remaining Steps"
+                },
+                "target3":{
+                    "target":"Target Water",
+                    "remaining":"Remaining Water"
+                }
+            },
+            "box2":{
+                "title":"Today's Meals",
+                "breakfast":"Breakfast",
+                "lunch":"Lunch",
+                "snacks":"Snacks",
+                "dinner":"Dinner"
+            },
+            "box3":{
+                "title":"Today's Workout"
+            }
         }
     },
     "frensh":{
@@ -214,6 +247,39 @@
                     },
                     "button":"COMMENCER"
                 }
+            }
+        },
+        "home":{
+            "header":{
+                "morning":"Good Morning",
+                "afternoon":"Bon après-midi",
+                "evening":"Bonne soirée",
+                "night":"Bonne nuit"
+            },
+            "box1":{
+                "title":"Les objectifs d'aujourd'hui",
+                "target1":{
+                    "target":"Calories cibles",
+                    "remaining":"Calories restantes"
+                },
+                "target2":{
+                    "target":"Cible de pas",
+                    "remaining":"Étapes restantes"
+                },
+                "target3":{
+                    "target":"Eau cible",
+                    "remaining":"Eau restante"
+                }
+            },
+            "box2":{
+                "title":"Les repas d'aujourd'hui",
+                "breakfast":"Petit-déjeuner",
+                "lunch":"Déjeuner",
+                "snacks":"Collations",
+                "dinner":"Dîner"
+            },
+            "box3":{
+                "title":"L'entraînement d'aujourd'hui"
             }
         }
     },
@@ -324,6 +390,39 @@
                     "button":"البدء"
                 }
             }
-        }  
+        },
+        "home":{
+            "header":{
+                "morning":"صباح الخير",
+                "afternoon":"مساء الخير",
+                "evening":"مساء الخير",
+                "night":"طاب مساؤك"
+            },
+            "box1":{
+                "title":"أهداف اليوم",
+                "target1":{
+                    "target":"السعرات الحرارية المستهدفة",
+                    "remaining":"السعرات الحرارية المتبقية"
+                },
+                "target2":{
+                    "target":"الهدف الخطوات",
+                    "remaining":"الخطوات المتبقية"
+                },
+                "target3":{
+                    "target":"الهدف المياه",
+                    "remaining":"المياه المتبقية"
+                }
+            },
+            "box2":{
+                "title":"وجبات اليوم",
+                "breakfast":"إفطار",
+                "lunch":"غداء",
+                "snacks":"وجبات خفيفة",
+                "dinner":"عشاء"
+            },
+            "box3":{
+                "title":"رياضة اليوم"
+            }
+        }
     }
 }
