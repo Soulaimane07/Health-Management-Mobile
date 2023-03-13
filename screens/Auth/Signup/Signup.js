@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, ScrollView} from 'react-native';
+import axios from 'axios';
 import { NavigateBtn } from '../../../Components/Buttons';
 import { PracticeContext } from '../../../Components/Context';
 
@@ -23,11 +24,19 @@ export default function Signup({navigation}) {
 
     const Submit = async () => {
         try {
-            await AsyncStorage.setItem('user', JSON.stringify(user))
-            console.log("User info is Stored");
-            navigation.navigate('goal')
+            axios.post('http://192.168.1.35:3001/users/create', user)
+            .then(function (response) {
+                console.log("==> User Created: ", response.data);
+                
+                AsyncStorage.setItem('user', JSON.stringify(user))
+                console.log("User info is Stored");
+                navigation.navigate('goal')
+            })
+            .catch(function (error) {
+                console.log("==> Error: ",error);
+            });
         } catch (e) {
-            console.log("User info isn't stored");
+            console.log("User info isn't stored: ", e);
         }
     }
 
