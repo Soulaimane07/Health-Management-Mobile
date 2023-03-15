@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import { useContext, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image} from 'react-native';
 import { NavigateBtn } from '../../../Components/Buttons';
@@ -12,17 +13,29 @@ export default function Login({route, navigation}) {
 
     const condition = email === "" || pass === ""
 
-    const user = {
-        email: email,
-        pass: pass,
-    }
-
     const fun = async () => {
         try {
-            await AsyncStorage.setItem('user', JSON.stringify(user))
-            console.log("User info stored");
-            route.params.setLogged(true)
-            navigation.navigate('home')
+            axios.get(`http://192.168.1.35:3001/users/getByEmail/${email}`)
+            .then(function (response) {
+                console.log("==> User: ", response.data);
+
+                axios.get(`http://192.168.1.35:3001/usersDetails/getByUserID/${response.data._id}`)
+                .then(function (response1) {
+                    console.log(`==> User ${response.data.fname}`, response1.data);
+                    
+                    let user = {...response.data, ...response1.data}
+                    console.log(user);
+                    
+                    AsyncStorage.setItem('user', JSON.stringify(user))
+                    console.log("User info stored");
+                    route.params.setLogged(true)
+                    navigation.navigate('home')
+                })
+            })
+            .catch(function (error) {
+                console.log("==> Error: ",error);
+            });
+            
         } catch (e) {
             console.log("User info isn't stored");
         }

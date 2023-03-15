@@ -7,7 +7,7 @@ import { PracticeContext } from '../../../Components/Context';
 
 export default function Signup({navigation}) {
     const {languageObj} = useContext(PracticeContext)
-
+    
     const [email, setEmail] = useState(null)
     const [fname, setFname] = useState(null)
     const [lname, setLname] = useState(null)
@@ -24,14 +24,14 @@ export default function Signup({navigation}) {
 
     const Submit = async () => {
         try {
-            axios.post('http://192.168.1.35:3001/users/create', user)
-            // .then(function (response) {
-            //     console.log("==> User Created: ", response.data);
+            axios.post('http://192.168.1.35:3001/users/', user)
+            .then(function (response) {
+                console.log("==> User Created: ", response.data.user);
                 
-                AsyncStorage.setItem('user', JSON.stringify(user))
+                AsyncStorage.setItem('user', JSON.stringify(response.data.user))
                 console.log("User info is Stored");
                 navigation.navigate('goal')
-            // })
+            })
             .catch(function (error) {
                 console.log("==> Error: ",error);
             });

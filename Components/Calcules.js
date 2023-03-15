@@ -4,8 +4,8 @@ export const IMC = (user, IMCData) => {
     let color
 
     const Indic = () => {
-        const height = Number(user?.height?.x) * 100 + Number(user?.height?.y)
-        const imc = (user?.weight)*10000 / Math.pow(height, 2)
+        const height = Number(user?.height?.X) * 100 + Number(user?.height?.Y)
+        const imc = (user?.CWeight)*10000 / Math.pow(height, 2)
         return imc
     }
 

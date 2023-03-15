@@ -16,14 +16,14 @@ import { PracticeContext } from '../../../Components/Context'
 export function Personal() {
     const {user} = useContext(PracticeContext)
 
-
+    // console.log(user.system);
     let Hunit, Wunit, separator, height, Cweight, Gweight
     user?.system === "eu" && (Hunit= "m", separator=".", Wunit="Kg")
     user?.system === "us" && (Hunit= "f/in", separator="/", Wunit="Lbs")
 
-    user?.height && (height = `${user?.height?.x}${separator}${user?.height?.y} ${Hunit}`)
-    user?.weight && (Cweight = `${user?.weight} ${Wunit}`)
-    user?.Gweight && (Gweight = `${user?.Gweight} ${Wunit}`)
+    user?.height && (height = `${user?.height?.X}${separator}${user?.height?.Y} ${Hunit}`)
+    user?.CWeight && (Cweight = `${user?.CWeight} ${Wunit}`)
+    user?.GWeight && (Gweight = `${user?.GWeight} ${Wunit}`)
 
     const [SheetBody, setSheetBody] = useState(null)
     const refB = useRef(null)

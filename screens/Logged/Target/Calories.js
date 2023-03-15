@@ -12,7 +12,7 @@ import { NavigateBtn } from '../../../Components/Buttons'
 export default function CaloriesPage() {
   const {user} = useContext(PracticeContext)
 
-  const caloriesFun = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
+  const caloriesFun = Calories(user?.CWeight, Number(user?.height?.X) * 100 + Number(user?.height?.Y), user?.age, user?.sex, user?.goal, user?.activity)
 
   const calories = [
     {
@@ -80,7 +80,7 @@ export default function CaloriesPage() {
     },
   ]
 
-  const calorieSTarget = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
+  const calorieSTarget = Calories(user?.CWeight, Number(user?.height?.X) * 100 + Number(user?.height?.Y), user?.age, user?.sex, user?.goal, user?.activity)
   const caloriesTaken = calorie(meals).cal
 
   const Submit = async () => {

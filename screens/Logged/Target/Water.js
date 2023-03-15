@@ -51,7 +51,7 @@ export default function Steps() {
             isMuted
             shouldPlay= {true}
           />
-          <TargetLeftTaken title={"Water"} target={Water(user?.weight)} taken={user?.water ? user?.water : 0} unit={"ml"} color="#5390d9" />
+          <TargetLeftTaken title={"Water"} target={Water(user?.CWeight)} taken={user?.water ? user?.water : 0} unit={"ml"} color="#5390d9" />
         </View>
 
         <View style={styles.box}>

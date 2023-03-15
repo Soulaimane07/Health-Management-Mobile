@@ -7,6 +7,7 @@ import {Calories, IMC} from '../../../Components/Calcules';
 import { Video } from 'expo-av';
 import StatusBar from '../../../Components/Statusbar';
 import { PracticeContext } from '../../../Components/Context';
+import axios from 'axios';
 
 export default function Finish({route, navigation}) {
     const {languageObj} = useContext(PracticeContext)
@@ -89,9 +90,32 @@ export default function Finish({route, navigation}) {
     ]
 
     const Login = () => {
-        console.log("User Logged in");
-        route.params.setLogged(true)
-        navigation.navigate('home')
+        try {
+            axios.post('http://192.168.1.35:3001/usersDetails', {
+                userId: user._id,
+                goal: user.goal,
+                sex: user.sex,
+                profile: user.profile,
+                system: user.system,
+                age: Number(user.age),
+                height: user.height,
+                CWeight: user.weight,
+                GWeight: user.Gweight,
+                activity: user.activity
+            })
+            .then(function (response) {
+                console.log("==> UserDetails Created: ", response.data);
+                
+                console.log("User Logged in");
+                route.params.setLogged(true)
+                navigation.navigate("homeStack", {screen: 'home'})
+            })
+            .catch(function (error) {
+                console.log("==> Error: ",error);
+            });
+        } catch (e) {
+            console.log("User info isn't stored: ", e);
+        }
     }
 
     const video = React.useRef(null);

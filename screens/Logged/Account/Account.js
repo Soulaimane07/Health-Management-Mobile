@@ -53,11 +53,11 @@ export function Account({route, navigation}) {
       },
       {
         "label":"Current Weight",
-        "value": `${user?.weight} ${unit}`,
+        "value": `${user?.CWeight} ${unit}`,
       },
       {
         "label":"Goal Weight",
-        "value": `${user?.Gweight} ${unit}`,
+        "value": `${user?.GWeight} ${unit}`,
       },
       {
         "label":"IMC",
