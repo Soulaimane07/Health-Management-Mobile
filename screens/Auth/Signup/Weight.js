@@ -24,7 +24,10 @@ export default function Weight({navigation}) {
     }, []) 
     
     const [weight, setWeight] = useState(0)
-    const condittion = weight > 0
+    let condittion
+    user.system == "eu" 
+        ?   condittion = weight > 20
+        :   condittion = weight > 40
 
     const weightKey = {
         weight: weight >= 0 && weight
@@ -47,13 +50,28 @@ export default function Weight({navigation}) {
         {Progress({navigation}, header, 5)}
 
         <View style={styles.box}>
-            <TextInput
-                style={styles.input}
-                value={weight}
-                keyboardType="numeric"
-                onChangeText={e => setWeight(e)}
-            />
-            <Text style={{marginLeft: 10, fontSize: 20}}> {header.euUnit} </Text>
+
+            {user.system == "eu" ?
+                <>
+                    <TextInput
+                        style={styles.input}
+                        value={weight}
+                        keyboardType="numeric"
+                        onChangeText={e => setWeight(e)}
+                    />
+                    <Text style={{marginLeft: 10, fontSize: 20}}> {header.euUnit} </Text>
+                </>
+                : 
+                <>
+                    <TextInput
+                        style={styles.input}
+                        value={weight}
+                        keyboardType="numeric"
+                        onChangeText={e => setWeight(e)}
+                    />
+                    <Text style={{marginLeft: 10, fontSize: 20}}> Pound </Text>
+                </>
+            }
         </View>
 
         <View style={styles.BtnBox}>

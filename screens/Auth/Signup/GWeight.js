@@ -47,7 +47,10 @@ export default function GWeight({navigation}) {
     }
 
     const [weight, setWeight] = useState(0)
-    const condittion = weight > 0 && InputCondittion().x
+    let condittion
+    user.system == "eu" 
+        ?   condittion = weight > 20 && InputCondittion().x
+        :   condittion = weight > 40 && InputCondittion().x
 
     const weightKey = {
         Gweight: weight >= 0 && weight
@@ -78,7 +81,7 @@ export default function GWeight({navigation}) {
                     maxLength={3}
                     onChangeText={e => setWeight(e)}
                 />
-                <Text style={{marginLeft: 10, fontSize: 20}}> {user?.system === "eu" ? languageObj?.signup.weight.euUnit : "Lbs"} </Text>
+                <Text style={{marginLeft: 10, fontSize: 20}}> {user?.system === "eu" ? languageObj?.signup.weight.euUnit : "Pound"} </Text>
             </View>
         </View>
 

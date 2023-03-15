@@ -25,13 +25,13 @@ export default function Signup({navigation}) {
     const Submit = async () => {
         try {
             axios.post('http://192.168.1.35:3001/users/create', user)
-            .then(function (response) {
-                console.log("==> User Created: ", response.data);
+            // .then(function (response) {
+            //     console.log("==> User Created: ", response.data);
                 
                 AsyncStorage.setItem('user', JSON.stringify(user))
                 console.log("User info is Stored");
                 navigation.navigate('goal')
-            })
+            // })
             .catch(function (error) {
                 console.log("==> Error: ",error);
             });

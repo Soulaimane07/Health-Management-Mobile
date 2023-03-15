@@ -27,25 +27,41 @@ export default function Height({navigation}) {
 
     const [heightX, setHeightX] = useState(1)
     const [heightY, setHeightY] = useState(0)
-
-    const condittion = heightX > 0 && heightY > 0
-
+    
+    const [feetX, setfeetX] = useState(3)
+    const [feetY, setfeetY] = useState(0)
+    
+    let condittion
+    user.system == "eu" 
+        ? condittion = heightX > 0 && heightY > 0
+        : condittion = feetX >= 3 && feetY >= 0
+    
     const heightkey = {
         height: {
             x: heightX,
             y: heightY,
         }
     }
+
+    const feetKey = {
+        height: {
+            x: feetX,
+            y: feetY,
+        }
+    }
     
     const Submit = async () => {
         try {
-          await AsyncStorage.mergeItem('user', JSON.stringify(heightkey))
+          user.system == "eu" 
+            ?   await AsyncStorage.mergeItem('user', JSON.stringify(heightkey))
+            :   await AsyncStorage.mergeItem('user', JSON.stringify(feetKey))
           console.log("Height is stored");
           navigation.navigate('weight')
         } catch (e) {
           console.log("Height isn't stored");
         }
     }
+
 
   return (
     <View style={styles.container}>
@@ -76,16 +92,19 @@ export default function Height({navigation}) {
                 <TextInput
                     style={[styles.input, {width: 60}]}
                     keyboardType="numeric"
-                    maxLength={2}
-                    onChangeText={e => setHeightX(e)}
+                    maxLength={1}
+                    value={feetX}
+                    defaultValue={"3"}
+                    onChangeText={e => setfeetX(e)}
                 />
                 <Text style={{padding: 10, borderBottomWidth: 1, borderBottomColor: "#3FC495", marginLeft: 10, fontSize: 14}}> feet </Text>
 
                 <TextInput
                     style={[styles.input, {width: 60, marginLeft: 20,}]}
                     keyboardType="numeric"
-                    maxLength={2}
-                    onChangeText={e => setHeightY(e)}
+                    maxLength={4}
+                    defaultValue={"00"}
+                    onChangeText={e => setfeetY(e)}
                 />
                 <Text style={{padding: 10, borderBottomWidth: 1, borderBottomColor: "#3FC495", marginLeft: 10, fontSize: 14}}> inches </Text>
             </>

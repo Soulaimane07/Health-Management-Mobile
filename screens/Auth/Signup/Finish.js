@@ -14,7 +14,7 @@ export default function Finish({route, navigation}) {
     const [show, setShow] = useState(false)
     const [user, setUser] = useState("null")
 
-    const unit = user?.system === "eu" ? "Kg" : "Lbs"
+    const unit = user?.system === "eu" ? "Kg" : "Lb"
 
     useEffect(() => {
         setTimeout(() => {
