@@ -63,18 +63,16 @@ export default function App() {
       const user = JSON.parse(value)
       const condittion = user._id && user.userId
       if(condittion) {
-          setLogged(true)
-      }else {
+        setLogged(true)
+      } else {
         setLogged(false)
       }
     }
-
+    
     useEffect(() => {
       getUser();
     }, []) 
-
-    // console.log(user);
-
+    
   return (
     <ContextProvider>
     <NavigationContainer>

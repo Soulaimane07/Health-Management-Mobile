@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
 import { Progress } from '../../../Components/Headers'
@@ -7,23 +7,11 @@ import { PracticeContext } from '../../../Components/Context'
 
 import Ficon from 'react-native-vector-icons/FontAwesome'
 
-export default function Height({navigation}) {
+export default function Height({route, navigation}) {
     const {languageObj} = useContext(PracticeContext)
     let header = languageObj?.signup.height
 
-    const [user, setUser] = useState("null")
-
-    useEffect(() => {
-        async function getUser(){
-          const value = await AsyncStorage.getItem('user')
-          const val = JSON.parse(value)
-          if(value !== null) {
-              console.log(value);
-              setUser(val)
-          }
-        }
-        getUser();
-    }, []) 
+    const system = route.params.system
 
     const [heightX, setHeightX] = useState(1)
     const [heightY, setHeightY] = useState(0)
@@ -32,35 +20,36 @@ export default function Height({navigation}) {
     const [feetY, setfeetY] = useState(0)
     
     let condittion
-    user.system == "eu" 
+    system == "eu" 
         ? condittion = heightX > 0 && heightY > 0
         : condittion = feetX >= 3 && feetY >= 0
     
     const heightkey = {
         height: {
-            x: heightX,
-            y: heightY,
+            X: heightX,
+            Y: Number(heightY),
         }
     }
 
     const feetKey = {
         height: {
-            x: feetX,
-            y: feetY,
+            X: feetX,
+            Y: feetY,
         }
     }
     
     const Submit = async () => {
         try {
-          user.system == "eu" 
+          system == "eu" 
             ?   await AsyncStorage.mergeItem('user', JSON.stringify(heightkey))
             :   await AsyncStorage.mergeItem('user', JSON.stringify(feetKey))
           console.log("Height is stored");
-          navigation.navigate('weight')
+          navigation.navigate('weight', {system: system})
         } catch (e) {
           console.log("Height isn't stored");
         }
     }
+
 
 
   return (
@@ -68,7 +57,7 @@ export default function Height({navigation}) {
         {Progress({navigation}, header, 4)}
 
         <View style={styles.box}>
-            {user?.system === "eu" ?
+            {system === "eu" ?
             <>
                 <TextInput
                     style={[styles.input, {width: 50}]}

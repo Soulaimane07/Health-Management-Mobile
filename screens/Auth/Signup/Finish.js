@@ -56,7 +56,7 @@ export default function Finish({route, navigation}) {
         },
     ]
 
-    const calories = Calories(user?.weight, Number(user?.height?.x) * 100 + Number(user?.height?.y), user?.age, user?.sex, user?.goal, user?.activity)
+    const calories = Calories(user?.CWeight, Number(user?.height?.X) * 100 + Number(user?.height?.Y), user?.age, user?.sex, user?.goal, user?.activity)
 
     const recommendations = [
         {
@@ -99,13 +99,21 @@ export default function Finish({route, navigation}) {
                 system: user.system,
                 age: Number(user.age),
                 height: user.height,
-                CWeight: user.weight,
-                GWeight: user.Gweight,
+                CWeight: user.CWeight,
+                GWeight: user.GWeight,
                 activity: user.activity
             })
             .then(function (response) {
                 console.log("==> UserDetails Created: ", response.data);
                 
+                const otherData = {
+                    calories: 0,
+                    steps: 0,
+                    water: 0
+                }
+
+                AsyncStorage.mergeItem('user', JSON.stringify(otherData))
+
                 console.log("User Logged in");
                 route.params.setLogged(true)
                 navigation.navigate("homeStack", {screen: 'home'})
@@ -153,9 +161,9 @@ export default function Finish({route, navigation}) {
         },
     ]
 
+
   return (
-    !show 
-    ?
+    !show ?
         <ImageBackground source={require("../../../assets/images/auth/finish/finish.jpg")} style={styles.container}>
             <StatusBar color="transparent" style="dark-content" />
             <Text style={styles.text1}> {languageObj?.signup.finish.settingUp.title} </Text>
@@ -177,12 +185,12 @@ export default function Finish({route, navigation}) {
                     <Text style={styles.text3}> {user.fname} {languageObj?.signup.finish.getStarted.box1.title} </Text>
                     <View style={styles.box1}>
                         {user.goal === "Maintain Weight" ?
-                            <Text style={styles.text4}> {user.weight} </Text>
+                            <Text style={styles.text4}> {user.CWeight} </Text>
                         :
                             <>
-                                <Text style={styles.text4}> {user.weight} {unit} </Text>
+                                <Text style={styles.text4}> {user.CWeight} {unit} </Text>
                                 <Icon1 style={styles.icon1} name={user.goal === "Lose Weight" ? "trending-down" : "trending-up"} size={34} color="#3FC495" />
-                                <Text style={styles.text4}> {user.Gweight} {unit} </Text>
+                                <Text style={styles.text4}> {user.GWeight} {unit} </Text>
                             </>
                         }
                     </View>

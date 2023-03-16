@@ -35,7 +35,9 @@ export default function System({navigation}) {
         try {
           await AsyncStorage.mergeItem('user', JSON.stringify(systemobj))
           console.log("system is stored");
-          navigation.navigate('birth')
+          navigation.navigate('birth', {
+            system: systemobj.system,
+          })
         } catch (e) {
           console.log("system isn't stored");
         }

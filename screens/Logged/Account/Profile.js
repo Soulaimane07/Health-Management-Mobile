@@ -12,9 +12,11 @@ import Statusbar from '../../../Components/Statusbar'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import { PracticeContext } from '../../../Components/Context'
 import ChangeLang from './Change/ChangeLang'
+import { GetUser } from '../../../Components/GetData'
 
 export default function Profile({route}) {
-  const {user, language} = useContext(PracticeContext)
+  const user = GetUser().user
+  const {language} = useContext(PracticeContext)
 
   /* ************* Bottom Sheet ************* */
   const [SheetBody, setSheetBody] = useState(null)

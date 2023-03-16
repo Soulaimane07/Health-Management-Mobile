@@ -11,10 +11,10 @@ import Age from './Change/Age'
 import Gender from './Change/Gender'
 import ChangeHeight from './Change/ChangeHeight'
 import Statusbar from '../../../Components/Statusbar'
-import { PracticeContext } from '../../../Components/Context'
+import { GetUser } from '../../../Components/GetData'
 
 export function Personal() {
-    const {user} = useContext(PracticeContext)
+    const user = GetUser().user
 
     // console.log(user.system);
     let Hunit, Wunit, separator, height, Cweight, Gweight

@@ -6,10 +6,12 @@ import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
 import IosIcon from 'react-native-vector-icons/Ionicons'
 import { IMC } from '../../../Components/Calcules'
 import { PracticeContext } from '../../../Components/Context'
+import { GetUser } from '../../../Components/GetData'
 import Statusbar from '../../../Components/Statusbar'
 
 export function Account({route, navigation}) {
-  const {user, language} = useContext(PracticeContext)
+  const user = GetUser().user
+  const {language} = useContext(PracticeContext)
 
     const unit = user?.system === "eu" ? "Kg" : "Lbs"
 

@@ -33,7 +33,7 @@ export default function Sex({navigation}) {
           console.log("Sex is stored");
 
             let profile = {
-                profile: box === 0 ? 0 : 1
+                profile: box == 0 ? 0 : 1
             }
 
           await AsyncStorage.mergeItem('user', JSON.stringify(profile))

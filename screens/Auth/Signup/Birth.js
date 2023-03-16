@@ -6,7 +6,7 @@ import { PracticeContext } from '../../../Components/Context'
 import Error from '../../../Components/Error'
 import { Progress } from '../../../Components/Headers'
 
-export default function Birth({navigation}) {
+export default function Birth({route, navigation}) {
   const {languageObj} = useContext(PracticeContext)
   let header = languageObj?.signup.age
 
@@ -19,7 +19,7 @@ export default function Birth({navigation}) {
     try {
       await AsyncStorage.mergeItem("user", JSON.stringify(agevalue))
       console.log("User's age is stored!")
-      navigation.navigate('height')
+      navigation.navigate('height', {system: route.params.system})
     } catch (e) {
       console.log("not stored");
     }

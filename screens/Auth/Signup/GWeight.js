@@ -28,20 +28,17 @@ export default function GWeight({navigation}) {
         let x
         let Statement
 
-        user.goal === "Gain Weight" ?
-            <>
-                {x= Number(user.weight) < weight}
-                {weight <= Number(user?.weight) && weight != 0 ?
-                    Statement = <Error text={`Your goal weight must be more than ${user.weight} kg`} />
-                : ""}
-            </>
-        :
-            <>
-                {x= Number(user.weight) > weight}
-                {weight >= Number(user?.weight) && weight != 0 ? 
-                    Statement = <Error text={`Your goal weight must be less than ${user.weight} kg`} />
-                : ""}
-            </>
+        user.goal === "Gain Weight" ? (
+            x= Number(user.CWeight) < weight,
+            weight <= Number(user?.CWeight) && weight != 0 && (
+                Statement = <Error text={`Your goal weight must be more than ${user.CWeight} kg`} />
+            )
+        ) : (
+            x= Number(user.CWeight) > weight,
+            weight >= Number(user?.CWeight) && weight != 0 && (
+                Statement = <Error text={`Your goal weight must be less than ${user.CWeight} kg`} />
+            )
+        )
 
         return {x,Statement}
     }
@@ -53,7 +50,7 @@ export default function GWeight({navigation}) {
         :   condittion = weight > 40 && InputCondittion().x
 
     const weightKey = {
-        Gweight: weight >= 0 && weight
+        GWeight: weight >= 0 && weight
     }
 
     const Submit = async () => {

@@ -2,12 +2,29 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GetUser } from "./GetData";
 import { LangFun } from "./Language";
 
-const { createContext, useState } = require("react");
+const { createContext, useState, useEffect } = require("react");
 
 const PracticeContext = createContext();
 
 const ContextProvider = ({children}) => {
-    const user = GetUser().user
+    const [user, setUser] = useState("null")
+
+    const getUser = async () => {
+        try {
+            const value = await AsyncStorage.getItem('user')
+            const val = JSON.parse(value)
+            if(value !== null) {
+                // console.log(`==> User data: ${value}`);
+                setUser(val)
+            }
+        } catch(e){
+            console.log(e);
+        }
+    }
+
+    useEffect(() => {
+        getUser();
+    }, [user]) 
 
     const [lang, setLang] = useState("fr")
     const [languageObj, setlanguageObj] = useState(LangFun("fr"))

@@ -30,7 +30,7 @@ export default function Weight({navigation}) {
         :   condittion = weight > 40
 
     const weightKey = {
-        weight: weight >= 0 && weight
+        CWeight: weight >= 0 && weight
     }
     
     const Submit = async () => {

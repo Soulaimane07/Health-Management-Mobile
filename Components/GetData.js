@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useEffect, useState } from "react"
 
 export const GetUser = () => {
-    const [user, setUser] = useState("null")
+    const [user, setUser] = useState({})
 
     const getUser = async () => {
         try {
