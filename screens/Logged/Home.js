@@ -8,7 +8,7 @@ import Foicon from 'react-native-vector-icons/Foundation'
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {Calories, Steps, Water} from '../../Components/Calcules'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { PracticeContext } from '../../Components/Context'
 import { GetUser } from '../../Components/GetData'
 
@@ -115,20 +115,49 @@ export default function Home({route, navigation}) {
         return x
     }
 
-    const profileNbr = user?.profile !== undefined ? user?.profile : 0
+    let profile = 0
 
-    const profiles = route.params.profiles
+    const profiles = [
+        {
+          image: require("../../assets/images/logged/profiles/1.png"),
+          width: 90,
+          height: 90,
+        },
+        {
+          image: require("../../assets/images/logged/profiles/2.png"),
+          width: 88,
+          height: 60,
+        },
+        {
+          image: require("../../assets/images/logged/profiles/3.png"),
+          width: 76,
+          height: 80,
+        },
+        {
+          image: require("../../assets/images/logged/profiles/4.png"),
+          width: 90,
+          height: 80,
+        },
+        {
+          image: require("../../assets/images/logged/profiles/5.png"),
+          width: 90,
+          height: 80,
+        },
+        {
+          image: require("../../assets/images/logged/profiles/6.png"),
+          width: 80,
+          height: 70,
+        },
+    ]
 
     let calories = 0
     let water
 
     user && (
         calories = Calories(user?.CWeight, user?.height?.X * 100 + user?.height?.Y, user?.age, user?.sex, user?.goal, user?.activity),
-        water = Water(user?.CWeight)
+        water = Water(user?.CWeight),
+        profile = user?.profile
     )
-
-    // console.log(user.calories);
-
 
     const target = [
         {
@@ -167,7 +196,7 @@ export default function Home({route, navigation}) {
       <Statusbar color="white" style="dark-content" />
       <SafeAreaView style={styles.header}>
         <TouchableOpacity style={styles.profile} onPress={()=> navigation.navigate("accountStack", {screen: 'account'})}>
-            <Image source={profiles[Number(profileNbr)].image}  style={[styles.logo ,{ width: profiles[profileNbr].width, height: profiles[profileNbr].height}]} />
+            {user && <Image source={profiles[profile]?.image} style={[styles.logo ,{ width: profiles[profile]?.width, height: profiles[profile]?.height}]} />}
             <Text style={styles.text}>{header()} {user && user.fname} </Text>
         </TouchableOpacity>
       </SafeAreaView>

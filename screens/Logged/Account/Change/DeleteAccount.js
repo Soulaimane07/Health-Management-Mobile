@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { NavigateBtn } from '../../../../Components/Buttons'
 import Error from '../../../../Components/Error'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
 
 export default function DeleteAccount(props) {
     const [number, setNumber] = useState(0)
@@ -14,10 +15,20 @@ export default function DeleteAccount(props) {
     
     const condition = number != Gnumber
 
+    console.log(props.user);
+
     const Submit = async () => {
         try {
-            await AsyncStorage.clear();
-            console.log("==> User account is deleted!");
+            axios.delete(`http://192.168.1.35:3001/users/${props.user.userId}`)
+                .then(res => {
+                    console.log(res.data);
+                })
+            axios.delete(`http://192.168.1.35:3001/usersDetails/${props.user.userId}`)
+                .then(res => {
+                    console.log(res.data);
+                })
+            AsyncStorage.clear(),
+            console.log("==> User account is deleted!"),
             props.CloseModal()
         } catch (e) {
             console.log("==> User Logout fun is not working! "+e);

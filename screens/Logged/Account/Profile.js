@@ -104,7 +104,7 @@ export default function Profile({route}) {
 
         <View style={styles.Btnbox}>
           <TouchableOpacity 
-            onPress={()=> setSheet(false) & setSheetBody(<DeleteAccount CloseModal={CloseModal} />) & OpenModal()}
+            onPress={()=> setSheet(false) & setSheetBody(<DeleteAccount user={user} CloseModal={CloseModal} />) & OpenModal()}
             style={styles.delete}
           >
               <Text style={styles.DeleteText}> Delete account </Text>

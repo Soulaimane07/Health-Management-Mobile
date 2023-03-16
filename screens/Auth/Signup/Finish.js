@@ -107,6 +107,7 @@ export default function Finish({route, navigation}) {
                 console.log("==> UserDetails Created: ", response.data);
                 
                 const otherData = {
+                    userId: user._id,
                     calories: 0,
                     steps: 0,
                     water: 0

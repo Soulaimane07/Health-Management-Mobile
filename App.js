@@ -62,6 +62,7 @@ export default function App() {
       const value = await AsyncStorage.getItem('user')
       const user = JSON.parse(value)
       const condittion = user._id && user.userId
+      console.log(user);
       if(condittion) {
         setLogged(true)
       } else {
