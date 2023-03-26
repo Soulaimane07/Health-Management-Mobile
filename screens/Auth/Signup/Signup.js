@@ -22,21 +22,34 @@ export default function Signup({navigation}) {
     }
     
     const condittion = email !== null && fname !== null && lname !== null && pass !== null && pass.length > 4
+    const [loading, setLoading] = useState(false)
 
     const Submit = async () => {
         try {
-            axios.post('http://192.168.1.36:3001/users/', user)
-            .then(function (response) {
-                console.log("==> User Created: ", response.data.user);
-                
-                AsyncStorage.setItem('user', JSON.stringify(response.data.user))
-                console.log("User info is Stored");
-                navigation.navigate('goal')
-            })
-            .catch(function (error) {
-                console.log("==> Error: ",error);
-                setMessage("Email is already taken !")
-            });
+            setMessage(null)
+            setLoading(true)
+
+            let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+            reg.test(email) === true 
+            ?
+                axios.post('https://health-manager.onrender.com/users/', user)
+                .then(function (response) {
+                    console.log("==> User Created: ", response.data.user);
+                    
+                    AsyncStorage.setItem('user', JSON.stringify(response.data.user))
+                    console.log("User info is Stored");
+                    setLoading(false)
+                    navigation.navigate('goal')
+                })
+                .catch(function (error) {
+                    console.log("==> Error: ",error);
+                    setLoading(false)
+                    setMessage("Email is already taken !")
+                })
+            :   (
+                setLoading(false),
+                setMessage("Email is not valid !")
+            )
         } catch (e) {
             console.log("User info isn't stored: ", e);
         }
@@ -92,7 +105,7 @@ export default function Signup({navigation}) {
             />
         </View>
         <View style={[styles.info, {marginBottom: 160}]}>
-            {NavigateBtn(languageObj?.signup.create, Submit, condittion )}
+            {NavigateBtn(languageObj?.signup.create, Submit, condittion, null, loading)}
         </View>
     </ScrollView>
   )

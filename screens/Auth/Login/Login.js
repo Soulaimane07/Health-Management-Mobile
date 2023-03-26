@@ -13,43 +13,59 @@ export default function Login({route, navigation}) {
     const [pass, setPass] = useState("")
 
     
-    const condition = email === "" || pass === ""
+    const condition = email === "" || pass === "" || pass.length <= 4
     
     const fun = async () => {
         try {
-            axios.get(`http://192.168.1.36:3001/users/getByEmail/${email}`)
-                .then(function (response) {
-                    console.log("==> User: ", response.data);
-                    (response.data.email).toLowerCase() === (email).toLowerCase() && response.data.pass === pass 
-                    ?
-                        axios.get(`http://192.168.1.36:3001/usersDetails/getByUserID/${response.data._id}`)
-                        .then(function (response1) {
-                            console.log(`==> User ${response.data.fname}`, response1.data);
-                            
-                            let user = {...response.data, ...response1.data}
-                            console.log(user);
-                            
-                            AsyncStorage.setItem('user', JSON.stringify(user))
-                            console.log("User info stored");
-                            route.params.setLogged(true)
-                            navigation.navigate('home')
-                        })
-                    : 
-                        response.data.pass !== pass && console.log("Password is not correct !");
-                        setMessage(`Incorrect Password ${response.data.fname} !`)
-                })
-                .catch(function (error) {
-                    console.log("==> Error: ",error);
-                    console.log("==> Incorect Email !");
-                    setMessage("Incorrect Email or Password !")
-                });
+            setMessage(null)
+            setLoading(true)
             
+            let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+            reg.test(email) === true 
+            ?
+                axios.get(`https://health-manager.onrender.com/users/getByEmail/${email}`)
+                    .then(function (response) {
+                        setMessage(null)
+                        console.log("==> User: ", response.data);
+                        (response.data.email).toLowerCase() === (email).toLowerCase() && response.data.pass === pass 
+                        ?
+                            axios.get(`https://health-manager.onrender.com/usersDetails/getByUserID/${response.data._id}`)
+                                .then(function (response1) {
+                                    setMessage(null)
+                                    console.log(`==> User ${response.data.fname}`, response1.data);
+                                    
+                                    let user = {...response.data, ...response1.data}
+                                    console.log(user);
+                                    
+                                    AsyncStorage.setItem('user', JSON.stringify(user))
+                                    console.log("User info stored");
+                                    setLoading(false)
+                                    route.params.setLogged(true)
+                                    navigation.navigate('home')
+                                })
+                        :   (
+                            setLoading(false),
+                            response.data.pass !== pass && console.log("Password is not correct !"),
+                            setMessage(`Incorrect Password ${response.data.fname} !`)
+                            )
+                    })
+                    .catch(function (error) {
+                        setLoading(false)
+                        console.log("==> Error: ",error);
+                        console.log("==> Incorect Email !");
+                        setMessage("Incorrect Email or Password !")
+                    })
+            : 
+                (setLoading(false),
+                setMessage("Email is Not valid !")
+                )
         } catch (e) {
             console.log("User info isn't stored");
         }
     }
 
     const [message, setMessage] = useState(null)
+    const [loading, setLoading] = useState(false)
 
   return (
 
@@ -86,7 +102,7 @@ export default function Login({route, navigation}) {
                 />
             </View>
             <View style={[styles.info]}>
-                {NavigateBtn(languageObj?.login.login, fun, !condition)}
+                {NavigateBtn(languageObj?.login.login, fun, !condition, null, loading)}
             </View>
             <View style={[styles.signPara, lang == "ar" && {justifyContent: "flex-end"}]}>
                 <Text> {languageObj?.login.dontHave} </Text>

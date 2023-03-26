@@ -19,12 +19,12 @@ export default function DeleteAccount(props) {
 
     const Submit = async () => {
         try {
-            axios.delete(`http://192.168.1.36:3001/users/${props.user.userId}`)
+            axios.delete(`https://health-manager.onrender.com/users/${props.user.userId}`)
                 .then(res => {
                     console.log(res.data);
                     console.log("==> User is deleted!");
                     
-                    axios.delete(`http://192.168.1.36:3001/usersDetails/${props.user._id}`)
+                    axios.delete(`https://health-manager.onrender.com/usersDetails/${props.user._id}`)
                         .then(res => {
                             console.log(res.data);
                             console.log("==> User Details is deleted!");

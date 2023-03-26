@@ -1,13 +1,20 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native"
+import { ActivityIndicator, ActivityIndicatorBase, StyleSheet, Text, TouchableOpacity } from "react-native"
 
-export const NavigateBtn = (text, submit, condittion, color) => {
+export const NavigateBtn = (text, submit, condittion, color, loading) => {
     return (
         <TouchableOpacity
-            style={[!condittion ? styles.disabledBtn : color ? {backgroundColor: color} : {backgroundColor: "#3FC495"}  , styles.button]} 
+            style={[
+                styles.button, 
+                !condittion ? styles.disabledBtn : color ? {backgroundColor: color} : {backgroundColor: "#3FC495"},
+                loading && {padding: 8}
+            ]} 
             onPress={()=> submit()}
             disabled={!condittion ? true : false}
         >
-            <Text style={!condittion ? styles.disabledBtnText : styles.buttonText}> {text} </Text>
+            {loading 
+                ?   <ActivityIndicator style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }} size="large" color="white" /> 
+                :   <Text style={!condittion ? styles.disabledBtnText : styles.buttonText}> {text} </Text>
+            }
         </TouchableOpacity>
     )
 }

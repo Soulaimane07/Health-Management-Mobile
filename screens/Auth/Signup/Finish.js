@@ -91,7 +91,7 @@ export default function Finish({route, navigation}) {
 
     const Login = () => {
         try {
-            axios.post('http://192.168.1.36:3001/usersDetails', {
+            axios.post('https://health-manager.onrender.com/usersDetails', {
                 userId: user._id,
                 goal: user.goal,
                 sex: user.sex,
