@@ -22,7 +22,7 @@ export default function AccountStack({route}) {
           headerStyle: {backgroundColor: '#3FC495'}, 
           headerTintColor:"white", title:"ACCOUNT"
         }} 
-        initialParams={{profiles: route.params.profiles}} 
+        initialParams={{profiles: route.params.profiles, setLogged: route.params.setLogged}} 
         component={Profile} 
       /> 
       <Stack.Screen 

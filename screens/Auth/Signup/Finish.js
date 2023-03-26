@@ -91,7 +91,7 @@ export default function Finish({route, navigation}) {
 
     const Login = () => {
         try {
-            axios.post('http://192.168.1.35:3001/usersDetails', {
+            axios.post('http://192.168.1.36:3001/usersDetails', {
                 userId: user._id,
                 goal: user.goal,
                 sex: user.sex,

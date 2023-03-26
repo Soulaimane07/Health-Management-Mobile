@@ -1,9 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
-import Aicon from 'react-native-vector-icons/AntDesign'
-import TodoPage from '../screens/Logged/Account/TodoPage';
+import IoIcon from 'react-native-vector-icons/Ionicons'
+
 import Home from '../screens/Logged/Home';
+import Diet from '../screens/Logged/Diet/Diet';
 
 export default function HomeStack({route}) {
     const Tab = createBottomTabNavigator();
@@ -29,15 +30,20 @@ export default function HomeStack({route}) {
         component={Home} 
       />
       <Tab.Screen 
-        name="todo" 
+        name="Diet" 
         options={{
-          headerShown: false,
-          tabBarLabel: 'Todo',
+          // headerShown: false,
+          tabBarLabel: 'Diet',
           tabBarIcon: ({color, size}) => (
-            <Aicon name="edit" color={color} size={size} />
-            ),
+            <IoIcon name="fast-food" color={color} size={size} />
+          ),
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: "center"
+
         }}
-        component={TodoPage} 
+        component={Diet} 
       />
     </Tab.Navigator>  
   )

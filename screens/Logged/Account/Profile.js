@@ -14,7 +14,7 @@ import { PracticeContext } from '../../../Components/Context'
 import ChangeLang from './Change/ChangeLang'
 import { GetUser } from '../../../Components/GetData'
 
-export default function Profile({route}) {
+export default function Profile({navigation, route}) {
   const user = GetUser().user
   const {language} = useContext(PracticeContext)
 
@@ -70,8 +70,6 @@ export default function Profile({route}) {
   const profileNbr = user?.profile ? user?.profile : 0
   const profiles = route.params.profiles
 
-
-
   return (
     <GestureHandlerRootView style={{flex: 1}}>
     <Statusbar color="#3FC495" style="light" />
@@ -104,7 +102,7 @@ export default function Profile({route}) {
 
         <View style={styles.Btnbox}>
           <TouchableOpacity 
-            onPress={()=> setSheet(false) & setSheetBody(<DeleteAccount user={user} CloseModal={CloseModal} />) & OpenModal()}
+            onPress={()=> setSheet(false) & setSheetBody(<DeleteAccount user={user} setLogged={route.params.setLogged} navigation={navigation} CloseModal={CloseModal} />) & OpenModal()}
             style={styles.delete}
           >
               <Text style={styles.DeleteText}> Delete account </Text>

@@ -33,6 +33,7 @@ export default function ChangeLang(props) {
             const langobj = {
                 lang: languages[newKey].val,
             }
+            console.log(langobj);
             await AsyncStorage.mergeItem('lang', JSON.stringify(langobj))
             console.log("Language is stored");
         } catch (e) {

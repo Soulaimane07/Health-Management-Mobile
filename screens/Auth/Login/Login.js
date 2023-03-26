@@ -4,6 +4,7 @@ import { useContext, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image} from 'react-native';
 import { NavigateBtn } from '../../../Components/Buttons';
 import { PracticeContext } from '../../../Components/Context';
+import Error from '../../../Components/Error';
 
 export default function Login({route, navigation}) {
     const {lang, languageObj} = useContext(PracticeContext)
@@ -11,35 +12,44 @@ export default function Login({route, navigation}) {
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
 
+    
     const condition = email === "" || pass === ""
-
+    
     const fun = async () => {
         try {
-            axios.get(`http://192.168.1.35:3001/users/getByEmail/${email}`)
-            .then(function (response) {
-                console.log("==> User: ", response.data);
-
-                axios.get(`http://192.168.1.35:3001/usersDetails/getByUserID/${response.data._id}`)
-                .then(function (response1) {
-                    console.log(`==> User ${response.data.fname}`, response1.data);
-                    
-                    let user = {...response.data, ...response1.data}
-                    console.log(user);
-                    
-                    AsyncStorage.setItem('user', JSON.stringify(user))
-                    console.log("User info stored");
-                    route.params.setLogged(true)
-                    navigation.navigate('home')
+            axios.get(`http://192.168.1.36:3001/users/getByEmail/${email}`)
+                .then(function (response) {
+                    console.log("==> User: ", response.data);
+                    (response.data.email).toLowerCase() === (email).toLowerCase() && response.data.pass === pass 
+                    ?
+                        axios.get(`http://192.168.1.36:3001/usersDetails/getByUserID/${response.data._id}`)
+                        .then(function (response1) {
+                            console.log(`==> User ${response.data.fname}`, response1.data);
+                            
+                            let user = {...response.data, ...response1.data}
+                            console.log(user);
+                            
+                            AsyncStorage.setItem('user', JSON.stringify(user))
+                            console.log("User info stored");
+                            route.params.setLogged(true)
+                            navigation.navigate('home')
+                        })
+                    : 
+                        response.data.pass !== pass && console.log("Password is not correct !");
+                        setMessage(`Incorrect Password ${response.data.fname} !`)
                 })
-            })
-            .catch(function (error) {
-                console.log("==> Error: ",error);
-            });
+                .catch(function (error) {
+                    console.log("==> Error: ",error);
+                    console.log("==> Incorect Email !");
+                    setMessage("Incorrect Email or Password !")
+                });
             
         } catch (e) {
             console.log("User info isn't stored");
         }
     }
+
+    const [message, setMessage] = useState(null)
 
   return (
 
@@ -49,6 +59,11 @@ export default function Login({route, navigation}) {
         </View>
         <View style={{paddingHorizontal: 20}}>
             <Text style={styles.welcome}> {languageObj?.login.title}  </Text>
+            {message && 
+                <View style={{marginBottom: 20}}>  
+                    <Error text={message} /> 
+                </View>
+            }
             <View style={styles.info}>
                 <Text style={styles.label}> {languageObj?.login.email} </Text>
                 <TextInput 

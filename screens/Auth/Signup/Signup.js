@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TextInput, Image, ScrollView} from 'react-nativ
 import axios from 'axios';
 import { NavigateBtn } from '../../../Components/Buttons';
 import { PracticeContext } from '../../../Components/Context';
+import Error from '../../../Components/Error';
 
 export default function Signup({navigation}) {
     const {languageObj} = useContext(PracticeContext)
@@ -24,7 +25,7 @@ export default function Signup({navigation}) {
 
     const Submit = async () => {
         try {
-            axios.post('http://192.168.1.35:3001/users/', user)
+            axios.post('http://192.168.1.36:3001/users/', user)
             .then(function (response) {
                 console.log("==> User Created: ", response.data.user);
                 
@@ -34,11 +35,14 @@ export default function Signup({navigation}) {
             })
             .catch(function (error) {
                 console.log("==> Error: ",error);
+                setMessage("Email is already taken !")
             });
         } catch (e) {
             console.log("User info isn't stored: ", e);
         }
     }
+
+    const [message, setMessage] = useState(null)
 
   return (
     <ScrollView vertical={true} style={styles.container}>
@@ -46,6 +50,9 @@ export default function Signup({navigation}) {
             <Image source={require("../../../assets/logoPng.png")} style={{marginBottom: 30, width: 120, height: 120}} />
         </View>
         <Text style={styles.welcome}> {languageObj?.signup.title} </Text>
+        {message && 
+            <Error text={message} />
+        }
         <View style={styles.info}>
             <Text style={styles.label}> {languageObj?.login.email} </Text>
             <TextInput 
