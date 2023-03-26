@@ -40,8 +40,7 @@ export default function HomeStack({route}) {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
-          headerTitleAlign: "center"
-
+          headerTitleAlign: "center",
         }}
         component={Diet} 
       />

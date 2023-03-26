@@ -19,6 +19,7 @@ import Snack from './screens/Logged/meals/Snack';
 import Dinner from './screens/Logged/meals/Dinner';
 import Info from './screens/Logged/meals/Info';
 import { ContextProvider } from './Components/Context';
+import DietStack from './Routes/DietStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -88,6 +89,7 @@ export default function App() {
           <>
             <Stack.Screen name="homeStack" initialParams={{profiles: profiles}} component={HomeStack} />
             <Stack.Screen name="accountStack" initialParams={{setLogged: setLogged, profiles: profiles}} component={AccountStack} />
+            <Stack.Screen name="dietStack" component={DietStack} />
 
             <>
               <Stack.Screen name="calories" 

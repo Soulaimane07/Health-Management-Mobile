@@ -2,7 +2,6 @@ import { View, Text, Image, StatusBar, StyleSheet, ScrollView, TouchableOpacity 
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native'
 import { NavigateBtn } from '../../../Components/Buttons'
-import Aicon from 'react-native-vector-icons/AntDesign'
 import Oicon from 'react-native-vector-icons/Octicons'
 import Ficon from 'react-native-vector-icons/FontAwesome'
 import { calorie } from '../../../Components/cal'
@@ -58,8 +57,6 @@ export default function Breakfast(props) {
             console.log("Delete function is not working !");
         }
     }
-
-    const icon = <Aicon name="pluscircleo" size={20} style={{marginRight: 40}} />
 
     const calories = [
         {

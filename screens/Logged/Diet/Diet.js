@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, ImageBackground } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ImageBackground, Image } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import MaterialIcons from "react-native-vector-icons/MaterialIcons"
 
-export default function Diet() {
+export default function Diet({navigation}) {
 
     const meals = [
         {
@@ -32,14 +33,14 @@ export default function Diet() {
 
     const diets = [
         {
-            "image":require(`../../../assets/images/logged/meals/snacks.jpg`),
+            "image": require(`../../../assets/images/logged/meals/snacks.jpg`),
             "title": "Vegan Diet",
-            "duration":"15 Days Plan",
+            "duration": "15 Days Plan",
         },
         {
-            "image":require(`../../../assets/images/logged/meals/dinner.jpg`),
+            "image": require(`../../../assets/images/logged/meals/dinner.jpg`),
             "title": "Keto Diet",
-            "duration":"10 Days Plan",
+            "duration": "10 Days Plan",
         },
         {
             "image":require(`../../../assets/images/logged/meals/breakfast.webp`),
@@ -53,48 +54,169 @@ export default function Diet() {
         },
     ]
 
-  return (
-    <View style={{paddingTop: 20, height: 1000, backgroundColor: "white"}}>
-      <View style={styles.box}>
-        <View style={styles.head}>
-            <Text style={{fontSize: 18, fontWeight: 'bold'}}> Today's Diet Plan </Text>
-            <TouchableOpacity> 
-                <Text style={{fontSize: 14, color: "#3FC495", fontWeight: 'bold'}}> See All </Text> 
-            </TouchableOpacity>
-        </View>
-        <View>
-        <ScrollView horizontal={true} style={styles.body}>
-            {meals.map((item,key)=>(
-                <View key={key} style={[styles.boxx, key+1 === meals.length && {marginRight: 50}]}>
-                    <ImageBackground source={item.image} resizeMode="cover" style={{borderRadius: 8, justifyContent: "flex-end", overflow: 'hidden', width: 300, height: 160}}>
-                        <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 20, paddingVertical: 10, backgroundColor: "#B2B2B2", color: "white", borderBottomLeftRadius: 16, borderBottomRightRadius: 16}}> {item.title} </Text>
-                    </ImageBackground>
-                </View>
-            ))}
-        </ScrollView>
-        </View>
-      </View>
+    const [test, setTest] = useState(false)
+    useEffect(()=> {
+        setTest(false)
+        setTimeout(() => {
+            setTest(true)
+        }, 1500);
+    }, [])
 
-      <View style={[styles.box, {marginTop: 20}]}>
-        <View style={styles.head}>
-            <Text style={{fontSize: 18, fontWeight: 'bold'}}> Diet Categoties </Text>
-            <TouchableOpacity> 
-                <Text style={{fontSize: 14, color: "#3FC495", fontWeight: 'bold'}}> See All </Text> 
-            </TouchableOpacity>
-        </View>
-        <View style={{height: 360}}>
-            <ScrollView horizontal={true} style={styles.body}>
-                {diets.map((item,key)=>(
-                    <ImageBackground key={key} source={item.image} resizeMode="cover" style={[styles.boxx1, key+1 === meals.length && {marginRight: 50}]}>
-                        <View style={{width: "100%", padding: 20}}>
-                            <Text style={{color: "white", fontSize: 20, fontWeight: 'bold' }}> {item.title} </Text>
-                            <Text style={{color: "white", fontSize: 16}}> {item.duration} </Text>
+  return (
+    <View style={{flex: 1}}>
+        <ScrollView style={{paddingTop: 20, backgroundColor: "white"}}>
+            <View style={styles.box}>
+                <View style={styles.head}>
+                    <Text style={{fontSize: 18, fontWeight: 'bold'}}> Today's Diet Plan </Text>
+                </View>
+                <View>
+                    <ScrollView horizontal={true} style={styles.body}>
+                        {meals.map((item,key)=>(
+                            <View key={key} style={[styles.boxx, key+1 === meals.length && {marginRight: 50}]}>
+                                <ImageBackground source={item.image} resizeMode="cover" style={{borderRadius: 8, justifyContent: "flex-end", overflow: 'hidden', width: 300, height: 160}}>
+                                    <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 20, paddingVertical: 10, backgroundColor: "#B2B2B2", color: "white", borderBottomLeftRadius: 16, borderBottomRightRadius: 16}}> {item.title} </Text>
+                                </ImageBackground>
+                            </View>
+                        ))}
+                    </ScrollView>
+                </View>
+            </View>
+
+            <View style={[styles.box, {marginTop: 20}]}>
+                <View style={styles.head}>
+                    <Text style={{fontSize: 18, fontWeight: 'bold'}}> BALANCED </Text>
+                </View>
+                <View style={{height: 300}}>
+                    <ScrollView horizontal={true} style={styles.body}>
+                        {diets.map((item,key)=>(
+                            <TouchableOpacity 
+                                style={[styles.boxx1, key+1 === meals.length && {marginRight: 50}]} 
+                                onPress={() => {
+                                    navigation.navigate('dietStack', {
+                                        screen: "categorie",
+                                        params: {
+                                            data: diets[key]
+                                        },
+                                    });
+                                }}
+                            >
+                                <ImageBackground key={key} source={item.image} resizeMode="cover" style={[{justifyContent: "flex-end", height: 270}]}>
+                                    <View style={{width: "100%", padding: 20}}>
+                                        <Text style={{color: "white", fontSize: 20, fontWeight: 'bold' }}> {item.title} </Text>
+                                        <Text style={{color: "white", fontSize: 16}}> {item.duration} </Text>
+                                    </View>
+                                </ImageBackground>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                </View>
+            </View>
+            
+            <View style={[styles.box, {marginTop: 20}]}>
+                <View style={styles.head}>
+                    <Text style={{fontSize: 18, fontWeight: 'bold'}}> FASTING </Text>
+                </View>
+                <View style={{height: 300}}>
+                    <ScrollView horizontal={true} style={styles.body}>
+                        {diets.map((item,key)=>(
+                            <TouchableOpacity 
+                                style={[styles.boxx1, key+1 === meals.length && {marginRight: 50}]} 
+                                onPress={() => {
+                                    navigation.navigate('dietStack', {
+                                        screen: "categorie",
+                                        params: {
+                                            data: diets[key]
+                                        },
+                                    });
+                                }}
+                            >
+                                <ImageBackground key={key} source={item.image} resizeMode="cover" style={[{justifyContent: "flex-end", height: 270}]}>
+                                    <View style={{width: "100%", padding: 20}}>
+                                        <Text style={{color: "white", fontSize: 20, fontWeight: 'bold' }}> {item.title} </Text>
+                                        <Text style={{color: "white", fontSize: 16}}> {item.duration} </Text>
+                                    </View>
+                                </ImageBackground>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                </View>
+            </View>
+            
+            <View style={[styles.box, {marginTop: 20}]}>
+                <View style={styles.head}>
+                    <Text style={{fontSize: 18, fontWeight: 'bold'}}> KETO / LOW CARB </Text>
+                </View>
+                <View style={{height: 300}}>
+                    <ScrollView horizontal={true} style={styles.body}>
+                        {diets.map((item,key)=>(
+                            <TouchableOpacity 
+                                style={[styles.boxx1, key+1 === meals.length && {marginRight: 50}]} 
+                                onPress={() => {
+                                    navigation.navigate('dietStack', {
+                                        screen: "categorie",
+                                        params: {
+                                            data: diets[key]
+                                        },
+                                    });
+                                }}
+                            >
+                                <ImageBackground key={key} source={item.image} resizeMode="cover" style={[{justifyContent: "flex-end", height: 270}]}>
+                                    <View style={{width: "100%", padding: 20}}>
+                                        <Text style={{color: "white", fontSize: 20, fontWeight: 'bold' }}> {item.title} </Text>
+                                        <Text style={{color: "white", fontSize: 16}}> {item.duration} </Text>
+                                    </View>
+                                </ImageBackground>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                </View>
+            </View>
+            
+            <View style={[styles.box, {marginTop: 20, marginBottom: 120}]}>
+                <View style={styles.head}>
+                    <Text style={{fontSize: 18, fontWeight: 'bold'}}> HIGH PROTEIN </Text>
+                </View>
+                <View style={{height: 300}}>
+                    <ScrollView horizontal={true} style={styles.body}>
+                        {diets.map((item,key)=>(
+                            <TouchableOpacity 
+                                style={[styles.boxx1, key+1 === meals.length && {marginRight: 50}]} 
+                                onPress={() => {
+                                    navigation.navigate('dietStack', {
+                                        screen: "categorie",
+                                        params: {
+                                            data: diets[key]
+                                        },
+                                    });
+                                }}
+                            >
+                                <ImageBackground key={key} source={item.image} resizeMode="cover" style={[{justifyContent: "flex-end", height: 270}]}>
+                                    <View style={{width: "100%", padding: 20}}>
+                                        <Text style={{color: "white", fontSize: 20, fontWeight: 'bold' }}> {item.title} </Text>
+                                        <Text style={{color: "white", fontSize: 16}}> {item.duration} </Text>
+                                    </View>
+                                </ImageBackground>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                </View>
+            </View>
+        </ScrollView>
+
+        {test &&
+            <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, marginHorizontal: 20, marginVertical: 10,}}>
+                <TouchableOpacity onPress={()=> navigation.navigate("dietStack", {screen: "dietTest"})} style={{backgroundColor: "#3FC495", width: "100%", flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 14, borderRadius: 16}}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <Image source={require("../../../assets/logo.jpg")} style={{width: 50, height: 50, marginRight: 10, borderRadius: 8}} />
+                        <View>
+                            <Text style={{fontSize: 20, color: "white"}}> Take the test </Text>
+                            <Text style={{color: "white"}}> To get help choosing a plan </Text>
                         </View>
-                    </ImageBackground>
-                ))}
-            </ScrollView>
-        </View>
-      </View>
+                    </View>
+                    <MaterialIcons name="arrow-forward-ios" color={"white"} size={20} />
+                </TouchableOpacity>
+            </View>
+        }
     </View>
   )
 }
@@ -124,9 +246,9 @@ const styles = StyleSheet.create({
     boxx1: {
         marginRight: 10,
         borderRadius: 16,
-        width: 280,
+        width: 220,
         overflow: 'hidden',
-        justifyContent: "flex-end",
-        marginBottom: 10
+        height: 270,
+        marginBottom: 10,
     }
 })
