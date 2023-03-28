@@ -15,7 +15,7 @@ export default function Categorie({route}) {
         "Manage diabetes by lowering A1C levels."
     ]
 
-    const food = [
+    const toAvoid = [
         { 
             "id": 1,
             "title":"Orange",
@@ -66,6 +66,8 @@ export default function Categorie({route}) {
             "title":"Chou",
             "image":require("../../../../assets/images/logged/meals/food/chou.png"),
         },
+    ]
+    const toEat = [
         {
             "id": 11,
             "title":"Chou-Fleur",
@@ -130,62 +132,7 @@ export default function Categorie({route}) {
             "id": 6,
             "title":"Avoine",
             "image":require("../../../../assets/images/logged/meals/food/avoine.png"),
-        },
-        {
-            "id": 7,
-            "title":"Chocolat au lait",
-            "image":require("../../../../assets/images/logged/meals/food/barre-de-chocolat.png"),
-        },
-        {
-            "id": 8,
-            "title":"Cookies",
-            "image":require("../../../../assets/images/logged/meals/food/biscuits.png"),
-        },
-        {
-            "id": 9,
-            "title":"Carrot",
-            "image":require("../../../../assets/images/logged/meals/food/carrot.png"),
-        },
-        {
-            "id": 10,
-            "title":"Chou",
-            "image":require("../../../../assets/images/logged/meals/food/chou.png"),
-        },
-        {
-            "id": 11,
-            "title":"Chou-Fleur",
-            "image":require("../../../../assets/images/logged/meals/food/chou-fleur.png"),
-        },
-        {
-            "id": 12,
-            "title":"Couscous aux legumes",
-            "image":require("../../../../assets/images/logged/meals/food/couscous.png"),
-        },
-        {
-            "id": 13,
-            "title":"Crevette",
-            "image":require("../../../../assets/images/logged/meals/food/crevette.png"),
-        },
-        {
-            "id": 14,
-            "title":"Cake",
-            "image":require("../../../../assets/images/logged/meals/food/cup-cake.png"),
-        },
-        {
-            "id": 15,
-            "title":"Jus d'orange",
-            "image":require("../../../../assets/images/logged/meals/food/jus-dorange.png"),
-        },
-        {
-            "id": 16,
-            "title":"Noix",
-            "image":require("../../../../assets/images/logged/meals/food/noix.png"),
-        },
-        {
-            "id": 17,
-            "title":"Oeuf",
-            "image":require("../../../../assets/images/logged/meals/food/oeuf.png"),
-        },
+        }
     ]
 
     const [SheetBody, setSheetBody] = useState(null)
@@ -199,6 +146,29 @@ export default function Categorie({route}) {
 
     const submit = () => {
 
+    }
+
+    const FoodTo = (title, food) => {
+        return (
+            <View style={{marginBottom: 30}}>
+                <View style={{flexDirection: 'row', alignItems: "baseline", justifyContent: 'space-between'}}>
+                    <Text style={{fontWeight: 'bold', marginBottom: 10}}> {title} </Text>
+                    <TouchableOpacity onPress={()=> OpenModal() & setSheetBody({"title": title, "data": food})}>
+                        <Text style={{fontWeight: 'bold', color: "#3FC495"}}> See All </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{marginLeft: 10, flexDirection:'row', flexWrap:'wrap'}}>
+                    {food.map((item,key)=>(
+                        key < 6 &&
+                        <View key={key} style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10, width: "50%"}}>
+                            <Octions name="dot-fill" color={"#3FC495"} />
+                            <Image source={item.image} style={{width: 30, height: 30, marginLeft: 10}} />
+                            <Text style={{marginLeft: 6}}> {item.title} </Text>
+                        </View>
+                    ))}
+                </View>
+            </View>
+        )
     }
 
   return (
@@ -215,8 +185,8 @@ export default function Categorie({route}) {
             
             <ScrollView style={styles.body}>
                 <View style={{}}>
-                    <Text style={{fontWeight: 'bold', fontSize: 28}}> {data.title} </Text>
-                    <Text style={{fontSize: 16, marginTop: 4, color: "#B2B2B2"}}> {data.duration} </Text>
+                    <Text style={{fontWeight: 'bold', fontSize: 28}}>{data.title} </Text>
+                    <Text style={{fontSize: 16, marginTop: 4, color: "#B2B2B2"}}>{data.text} </Text>
                 </View>
                 <Text style={{color: "#B2B2B2", marginVertical: 20, fontSize: 16, lineHeight: 22, marginHorizontal: 6}}>
                     It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal.
@@ -234,43 +204,8 @@ export default function Categorie({route}) {
                     </View>
                 </View>
                 
-                <View style={{marginBottom: 30}}>
-                    <View style={{flexDirection: 'row', alignItems: "baseline", justifyContent: 'space-between'}}>
-                        <Text style={{fontWeight: 'bold', marginBottom: 10}}> Food to avoid: </Text>
-                        <TouchableOpacity onPress={()=> OpenModal() & setSheetBody({"title": "Food to avoid", "data": food})}>
-                            <Text style={{fontWeight: 'bold', color: "#3FC495"}}> See All </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{marginLeft: 10}}>
-                        {food.map((item,key)=>(
-                            key < 4 &&
-                            <View key={key} style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
-                                <Octions name="dot-fill" color={"#3FC495"} />
-                                <Image source={item.image} style={{width: 30, height: 30, marginLeft: 10}} />
-                                <Text style={{marginLeft: 6}}> {item.title} </Text>
-                            </View>
-                        ))}
-                    </View>
-                </View>
-
-                <View style={{marginBottom: 30}}>
-                    <View style={{flexDirection: 'row', alignItems: "baseline", justifyContent: 'space-between'}}>
-                        <Text style={{fontWeight: 'bold', marginBottom: 10}}> Food to eat: </Text>
-                        <TouchableOpacity onPress={()=> OpenModal() & setSheetBody({"title": "Food To Eat", "data": food})}>
-                            <Text style={{fontWeight: 'bold', color: "#3FC495"}}> See All </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{marginLeft: 10}}>
-                        {food.map((item,key)=>(
-                            key > 4 && key < 9 &&
-                            <View key={key} style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
-                                <Octions name="dot-fill" color={"#3FC495"} />
-                                <Image source={item.image} style={{width: 30, height: 30, marginLeft: 10}} />
-                                <Text style={{marginLeft: 6}}> {item.title} </Text>
-                            </View>
-                        ))}
-                    </View>
-                </View>
+                {FoodTo("Food to avoid:", toAvoid)}
+                {FoodTo("Food to eat:", toEat)}
 
                 <View style={{marginTop: 30}}>
                 </View>

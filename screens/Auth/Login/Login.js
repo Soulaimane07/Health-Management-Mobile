@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useContext, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, ScrollView} from 'react-native';
 import { NavigateBtn } from '../../../Components/Buttons';
 import { PracticeContext } from '../../../Components/Context';
 import Error from '../../../Components/Error';
@@ -69,11 +69,11 @@ export default function Login({route, navigation}) {
 
   return (
 
-    <View style={styles.container}>
-        <View style={{width: "100%", alignItems:"center", position: 'absolute', top: 40}}>
+    <ScrollView style={styles.container}>
+        <View style={{width: "100%", alignItems:"center"}}>
             <Image source={require("../../../assets/logoPng.png")} style={{width: 120, height: 120}} />
         </View>
-        <View style={{paddingHorizontal: 20}}>
+        <View style={{paddingHorizontal: 20, flex: 1, marginTop: 50}}>
             <Text style={styles.welcome}> {languageObj?.login.title}  </Text>
             {message && 
                 <View style={{marginBottom: 20}}>  
@@ -114,15 +114,16 @@ export default function Login({route, navigation}) {
                 </TouchableOpacity>
             </View>
         </View>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        // justifyContent: 'flex-start',
         position: 'relative',
+        marginTop: 50
     },
     welcome: {
         fontSize: 30,

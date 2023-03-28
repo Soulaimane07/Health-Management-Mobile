@@ -1,4 +1,4 @@
-import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { AppState, Button, Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import { DateHeader } from '../../Components/Date'
 import Statusbar from '../../Components/Statusbar'
@@ -8,9 +8,13 @@ import Foicon from 'react-native-vector-icons/Foundation'
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {Calories, Steps, Water} from '../../Components/Calcules'
-import { useContext } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { PracticeContext } from '../../Components/Context'
 import { GetUser } from '../../Components/GetData'
+
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import Emotions from '../../Components/Emotions'
 
 const months = [
   {
@@ -191,67 +195,117 @@ export default function Home({route, navigation}) {
         }
     ]
 
+
+
+    const refB = useRef(null)
+    const snapPoints = useMemo(()=> ["46%"], [])
+    const OpenModal = () => {
+        refB.current?.present()
+    }
+    const CloseModal = () => {
+        refB.current?.close()
+        times = 0
+    }
+
+
+    let appState = useRef(AppState.currentState)
+    const [appStateVisible, setAppStateVisible] = useState(appState.current)
+    let times = 0
+
+    useEffect(() => {
+        const subscription = AppState.addEventListener('change', nextAppState => {
+            if (
+                appState.current.match(/inactive|background/) && nextAppState === 'active'
+            ) {
+                console.log('App has come to the foreground!')
+                user.emotion == undefined && (times = times + 1)
+            }
+        
+            appState.current = nextAppState;
+            setAppStateVisible(appState.current);
+            console.log('AppState', appState.current);
+            console.log(times);
+            times == 1 && user.emotion == undefined && OpenModal()
+        });
+        
+        return () => {
+            subscription.remove();
+        };
+    }, []);
+
   return (
-    <View style={styles.container}>
-      <Statusbar color="white" style="dark-content" />
-      <SafeAreaView style={styles.header}>
-        <TouchableOpacity style={styles.profile} onPress={()=> navigation.navigate("accountStack", {screen: 'account'})}>
-            {user && <Image source={profiles[profile]?.image} style={[styles.logo ,{ width: profiles[profile]?.width, height: profiles[profile]?.height}]} />}
-            <Text style={styles.text}>{header()} {user && user.fname} </Text>
-        </TouchableOpacity>
-      </SafeAreaView>
-
-      <ScrollView vertical={true}>
-        <View style={styles.callendar}>
-          <View style={styles.date}>
-              <Text style={styles.today}> Today,</Text>
-              <Text style={styles.day}> {date.getDate()} {getMonth()} {date.getFullYear()} </Text>
-          </View>
-          {DateHeader()}
-        </View>
-
-        <View style={styles.target}>
-          <Text style={styles.targetText}> {languageObj.home.box1.title} </Text>
-          {target.map((item,key)=>(
-              <TouchableOpacity key={key} onPress={()=> navigation.navigate(item.path)} style={{ marginVertical: 6, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', borderRadius: 16, padding: 20, backgroundColor: item.color}}>
-                  <View>
-                      <Text style={styles.boxtitle1}> {item.leftTitle} </Text>
-                      <Text style={styles.boxtitle2}> {item.leftValue} {item.unit} </Text>
-                  </View>
-                  {item.icon}
-                  <View>
-                      <Text style={styles.boxtitle1}> {item.rightTitle} </Text>
-                      <Text style={styles.boxtitle2}> {item.rightValue} {item.unit} </Text>
-                  </View>
-              </TouchableOpacity>
-          ))}
-        </View>
-
-        <View style={styles.meals}>
-          <Text style={styles.Mtext}> {languageObj.home.box2.title} </Text>
-          <ScrollView contentOffset={{ x: scroll() }} horizontal={true} style={styles.boxs}>
-              {meals.map((item,key)=>(
-                <TouchableOpacity key={key} onPress={()=> navigation.navigate(item.path)}>
-                  <ImageBackground source={item.image} resizeMode="cover" style={[styles.box, key+1 === meals.length && styles.lastBox]}>
-                      <View style={styles.textBox}>
-                          <Text style={styles.title}> {item.title} </Text>
-                      </View>
-                  </ImageBackground>
+    <GestureHandlerRootView style={{flex: 1}}>
+    <BottomSheetModalProvider>
+        <View style={styles.container}>
+            <Statusbar color="white" style="dark-content" />
+            <SafeAreaView style={styles.header}>
+                <TouchableOpacity style={styles.profile} onPress={()=> navigation.navigate("accountStack", {screen: 'account'})}>
+                    {user && <Image source={profiles[profile]?.image} style={[styles.logo ,{ width: profiles[profile]?.width, height: profiles[profile]?.height}]} />}
+                    <Text style={styles.text}>{header()} {user && user.fname} </Text>
                 </TouchableOpacity>
-              ))}
-          </ScrollView>
+            </SafeAreaView>
+
+            <ScrollView vertical={true}>
+                <View style={styles.callendar}>
+                <View style={styles.date}>
+                    <Text style={styles.today}> Today,</Text>
+                    <Text style={styles.day}> {date.getDate()} {getMonth()} {date.getFullYear()} </Text>
+                </View>
+                {DateHeader()}
+                </View>
+
+                <View style={styles.target}>
+                <Text style={styles.targetText}> {languageObj.home.box1.title} </Text>
+                {target.map((item,key)=>(
+                    <TouchableOpacity key={key} onPress={()=> navigation.navigate(item.path)} style={{ marginVertical: 6, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', borderRadius: 16, padding: 20, backgroundColor: item.color}}>
+                        <View>
+                            <Text style={styles.boxtitle1}> {item.leftTitle} </Text>
+                            <Text style={styles.boxtitle2}> {item.leftValue} {item.unit} </Text>
+                        </View>
+                        {item.icon}
+                        <View>
+                            <Text style={styles.boxtitle1}> {item.rightTitle} </Text>
+                            <Text style={styles.boxtitle2}> {item.rightValue} {item.unit} </Text>
+                        </View>
+                    </TouchableOpacity>
+                ))}
+                </View>
+
+                <View style={styles.meals}>
+                <Text style={styles.Mtext}> {languageObj.home.box2.title} </Text>
+                <ScrollView contentOffset={{ x: scroll() }} horizontal={true} style={styles.boxs}>
+                    {meals.map((item,key)=>(
+                        <TouchableOpacity key={key} onPress={()=> navigation.navigate(item.path)}>
+                        <ImageBackground source={item.image} resizeMode="cover" style={[styles.box, key+1 === meals.length && styles.lastBox]}>
+                            <View style={styles.textBox}>
+                                <Text style={styles.title}> {item.title} </Text>
+                            </View>
+                        </ImageBackground>
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
+                </View>
+
+                <View style={[styles.target]}>
+                    <Text style={styles.targetText}> {languageObj.home.box3.title} </Text>
+                    <ImageBackground style={styles.workout} source={require(`../../assets/workout.webp`)} resizeMode="cover">
+                        <View style={styles.textBox}>
+                            <Text style={styles.title}> Day 01 </Text>
+                        </View>
+                    </ImageBackground>
+                </View>
+            </ScrollView>
         </View>
 
-        <View style={[styles.target]}>
-            <Text style={styles.targetText}> {languageObj.home.box3.title} </Text>
-            <ImageBackground style={styles.workout} source={require(`../../assets/workout.webp`)} resizeMode="cover">
-                <View style={styles.textBox}>
-                    <Text style={styles.title}> Day 01 </Text>
-                </View>
-            </ImageBackground>
-        </View>
-      </ScrollView>
-    </View>
+        <BottomSheetModal
+            ref={refB}
+            index={0}
+            snapPoints={snapPoints}
+        >
+            <Emotions CloseModal={CloseModal} />
+        </BottomSheetModal>
+    </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   )
 }
 
@@ -383,4 +437,13 @@ const styles = StyleSheet.create({
       color: "#3FC495",
   },
 
+
+
+  state: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: "red"
+  },
+  
 })

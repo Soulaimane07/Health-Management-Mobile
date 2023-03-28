@@ -30,10 +30,10 @@ export default function HomeStack({route}) {
         component={Home} 
       />
       <Tab.Screen 
-        name="Diet" 
+        name="Diets" 
         options={{
           // headerShown: false,
-          tabBarLabel: 'Diet',
+          tabBarLabel: 'Diets',
           tabBarIcon: ({color, size}) => (
             <IoIcon name="fast-food" color={color} size={size} />
           ),
@@ -41,6 +41,10 @@ export default function HomeStack({route}) {
             fontWeight: 'bold',
           },
           headerTitleAlign: "center",
+          headerTintColor: "white",
+          headerStyle: {
+            backgroundColor: '#3FC495'
+          },
         }}
         component={Diet} 
       />
