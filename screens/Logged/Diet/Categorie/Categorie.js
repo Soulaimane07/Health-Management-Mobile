@@ -1,12 +1,16 @@
-import { View, Text, Image, StatusBar, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Image, StatusBar, StyleSheet, TouchableOpacity, ScrollView, ImageBackground } from 'react-native'
 import React, { useMemo, useRef, useState } from 'react'
 import { NavigateBtn } from '../../../../Components/Buttons'
 import Octions from "react-native-vector-icons/Octicons"
+import AntDesign from "react-native-vector-icons/AntDesign"
 
 import { BottomSheetModal, BottomSheetModalProvider, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
-export default function Categorie({route}) {
+export default function Categorie({navigation, route}) {
+
+    const mainColor = route.params.color
+    const type = route.params.type
 
     const benifits = [
         "Promote weight loss.", 
@@ -132,12 +136,62 @@ export default function Categorie({route}) {
             "id": 6,
             "title":"Avoine",
             "image":require("../../../../assets/images/logged/meals/food/avoine.png"),
+        },
+        {
+            "id": 14,
+            "title":"Cake",
+            "image":require("../../../../assets/images/logged/meals/food/cup-cake.png"),
+        },
+        {
+            "id": 15,
+            "title":"Jus d'orange",
+            "image":require("../../../../assets/images/logged/meals/food/jus-dorange.png"),
+        },
+        {
+            "id": 16,
+            "title":"Noix",
+            "image":require("../../../../assets/images/logged/meals/food/noix.png"),
+        },
+        {
+            "id": 17,
+            "title":"Oeuf",
+            "image":require("../../../../assets/images/logged/meals/food/oeuf.png"),
+        },
+        { 
+            "id": 1,
+            "title":"Orange",
+            "image":require("../../../../assets/images/logged/meals/food/orange.png"),
+        },
+        {
+            "id": 2,
+            "title":"Pomme",
+            "image":require("../../../../assets/images/logged/meals/food/apple.png"),
+        },
+        {
+            "id": 3,
+            "title":"Avocat",
+            "image":require("../../../../assets/images/logged/meals/food/avocado.png"),
+        },
+        {
+            "id": 4,
+            "title":"Pain blanc",
+            "image":require("../../../../assets/images/logged/meals/food/baguette.png"),
+        },
+        {
+            "id": 5,
+            "title":"Amande",
+            "image":require("../../../../assets/images/logged/meals/food/amande.png"),
+        },
+        {
+            "id": 6,
+            "title":"Avoine",
+            "image":require("../../../../assets/images/logged/meals/food/avoine.png"),
         }
     ]
 
     const [SheetBody, setSheetBody] = useState(null)
     const refB = useRef(null)
-    const snapPoints = useMemo(()=> ["50%", "90%"], [])
+    const snapPoints = useMemo(()=> ["50%", "100%"], [])
     const OpenModal = () => {
         refB.current?.present()
     }
@@ -145,7 +199,7 @@ export default function Categorie({route}) {
     const data = route.params?.data
 
     const submit = () => {
-
+        type == "fasting" && navigation.navigate("fastingStack", {screen: "days"})
     }
 
     const FoodTo = (title, food) => {
@@ -154,14 +208,14 @@ export default function Categorie({route}) {
                 <View style={{flexDirection: 'row', alignItems: "baseline", justifyContent: 'space-between'}}>
                     <Text style={{fontWeight: 'bold', marginBottom: 10}}> {title} </Text>
                     <TouchableOpacity onPress={()=> OpenModal() & setSheetBody({"title": title, "data": food})}>
-                        <Text style={{fontWeight: 'bold', color: "#3FC495"}}> See All </Text>
+                        <Text style={{fontWeight: 'bold', color: mainColor}}> See All </Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{marginLeft: 10, flexDirection:'row', flexWrap:'wrap'}}>
                     {food.map((item,key)=>(
                         key < 6 &&
                         <View key={key} style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10, width: "50%"}}>
-                            <Octions name="dot-fill" color={"#3FC495"} />
+                            <Octions name="dot-fill" color= {mainColor} />
                             <Image source={item.image} style={{width: 30, height: 30, marginLeft: 10}} />
                             <Text style={{marginLeft: 6}}> {item.title} </Text>
                         </View>
@@ -170,6 +224,7 @@ export default function Categorie({route}) {
             </View>
         )
     }
+
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
@@ -180,8 +235,12 @@ export default function Categorie({route}) {
                 translucent={true}
                 barStyle="light-content"
             />
-            
-            <Image style={{height: 240, width: "100%"}} source={data.image} />
+
+            <ImageBackground source={data.image} style={{height: 240, width: "100%"}}>
+                <TouchableOpacity onPress={()=> navigation.goBack()} style={{marginHorizontal: 15, paddingHorizontal: 15, marginVertical: 20, paddingVertical: 14, width: "20%", borderRadius: 16}}>
+                    <AntDesign name='arrowleft' size={26} color="white" />
+                </TouchableOpacity>
+            </ImageBackground>
             
             <ScrollView style={styles.body}>
                 <View style={{}}>
@@ -197,7 +256,7 @@ export default function Categorie({route}) {
                     <View style={{marginLeft: 10}}>
                         {benifits.map((item,key)=>(
                             <View key={key} style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
-                                <Octions name="dot-fill" color={"#3FC495"} />
+                                <Octions name="dot-fill" color={mainColor} />
                                 <Text style={{marginLeft: 6}}> {item} </Text>
                             </View>
                         ))}
@@ -212,7 +271,7 @@ export default function Categorie({route}) {
             </ScrollView>
             
             <View style={{paddingVertical: 20, paddingHorizontal: 20, backgroundColor: "white"}}>
-                {NavigateBtn("Start", submit, true)}
+                {NavigateBtn("Start", submit, true, mainColor)}
             </View>
         </View>
 
@@ -221,8 +280,8 @@ export default function Categorie({route}) {
             index={0}
             snapPoints={snapPoints}
         >
-            <BottomSheetScrollView style={styles.bottomSheet}>
                 <Text style={{fontWeight: 'bold', textAlign: 'center', marginBottom: 20, marginTop: 10}}> {SheetBody?.title} </Text>
+            <BottomSheetScrollView style={styles.bottomSheet}>
                 {SheetBody?.data.map((item,key)=>(
                     <View key={key} style={{flexDirection: 'row', alignItems: 'center', marginBottom: 20}}>
                         <Image source={item.image} style={{width: 40, height: 40}} />

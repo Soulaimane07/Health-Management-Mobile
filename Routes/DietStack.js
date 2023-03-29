@@ -3,6 +3,7 @@ import Categorie from '../screens/Logged/Diet/Categorie/Categorie';
 import Page1 from '../screens/Logged/Diet/DietTest/Page1';
 import Page2 from '../screens/Logged/Diet/DietTest/Page2';
 import Page3 from '../screens/Logged/Diet/DietTest/Page3';
+import FastingStack from './DietStacks.js/FastingStack';
 
 export default function DietStack() {
   const Stack = createNativeStackNavigator();
@@ -28,6 +29,13 @@ export default function DietStack() {
       <Stack.Screen 
         name="dietTest3" 
         component={Page3} 
+      />
+
+      {/* Diet Stacks */}
+      
+      <Stack.Screen 
+        name="fastingStack" 
+        component={FastingStack} 
       />
     </Stack.Navigator>
   )

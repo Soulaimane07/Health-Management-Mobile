@@ -1,110 +1,384 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ImageBackground, Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import MaterialIcons from "react-native-vector-icons/MaterialIcons"
 import Statusbar from '../../../Components/Statusbar'
 import DietTemplate from './components/DietTemplate'
+import { GetUser } from '../../../Components/GetData'
 
 export default function Diet({navigation}) {
-    const Diets = [
-        {
-            "title":"BALANCED",
-            "color":"#B2B2B2",
-            "data": [
-                {
-                    "title":"Runner's Diet",
-                    "text":"Fuel your run",
-                    "image":require("../../../assets/images/logged/diets/balanced1.jpg")
+    const user = GetUser().user
+    let Diets = []
 
-                },
-                {
-                    "title":"Eat, Lift Repeat",
-                    "text":"Fuel your muscles",
-                    "image":require("../../../assets/images/logged/diets/balanced2.jpg")
+    let GainDiets
+    let MaintainDiet
+    let LoseDiet
 
-                },
-                {
-                    "title":"Clean Eating",
-                    "text":"Nutritious, whole foods",
-                    "image":require("../../../assets/images/logged/diets/balanced3.jpg")
+    user.goal === "Gain Weight" && (
+        GainDiets = [
+            {
+                "title":"BALANCED",
+                "color":"#B2B2B2",
+                "data": [
+                    {
+                        "title":"Runner's Diet",
+                        "text":"Fuel your run",
+                        "image":require("../../../assets/images/logged/diets/balanced1.jpg")
 
-                },
-                {
-                    "title":"Mediterranean",
-                    "text":"High fiber, healthy fats",
-                    "image":require("../../../assets/images/logged/diets/balanced4.jpg")
+                    },
+                    {
+                        "title":"Eat, Lift Repeat",
+                        "text":"Fuel your muscles",
+                        "image":require("../../../assets/images/logged/diets/balanced2.jpg")
 
-                },
-                {
-                    "title":"Vegan for a Week",
-                    "text":"7-days Meal Plan",
-                    "image":require("../../../assets/images/logged/diets/balanced5.jpg")
+                    },
+                    {
+                        "title":"Clean Eating",
+                        "text":"Nutritious, whole foods",
+                        "image":require("../../../assets/images/logged/diets/balanced3.jpg")
 
-                },
-                {
-                    "title":"Climatarian",
-                    "text":"Sustainable eating",
-                    "image":require("../../../assets/images/logged/diets/balanced6.jpg")
+                    },
+                    {
+                        "title":"Vegan for a Week",
+                        "text":"7-days Meal Plan",
+                        "image":require("../../../assets/images/logged/diets/balanced5.jpg")
 
-                },
-            ],
-        },
-        {
-            "title":"FASTING",
-            "color":"#655DBB",
-            "data": [
-                {
-                    "title":"5:2",
-                    "text":"Fast 2 days/week",
-                    "image":require("../../../assets/images/logged/diets/fasting1.jpg")
-                },
-                {
-                    "title":"6:1",
-                    "text":"Fast 1 days/week",
-                    "image":require("../../../assets/images/logged/diets/fasting3.jpg")
-                },
-            ],
-        },
-        {
-            "title":"HIGH PROTEIN",
-            "color":"#1A4D2E",
-            "data": [
-                {
-                    "title":"High Protein",
-                    "text":"Stay strong",
-                    "image":require("../../../assets/images/logged/diets/protein.jpg")
-                },
-                {
-                    "title":"Scandinavian",
-                    "text":"High fiber, healthy fats",
-                    "image":require("../../../assets/images/logged/diets/chofan.jpg")
-                },
-            ],
-        },
-        {
-            "title":"KETO / LOW CARBS",
-            "color":"#3E54AC",
-            "data": [
-                {
-                    "title":"Ketogenic Strict",
-                    "text":"High fat, 20g carbs/day",
-                    "image":require("../../../assets/images/logged/diets/avocado.jpg")
-                },
-                {
-                    "title":"Ketogenic Medium",
-                    "text":"High fat, 50g carbs/day",
-                    "image":require("../../../assets/images/logged/diets/cheese.jpg")
-                },
-            ],
-        },
-    ]
+                    },
+                    {
+                        "title":"Climatarian",
+                        "text":"Sustainable eating",
+                        "image":require("../../../assets/images/logged/diets/balanced6.jpg")
+                    },
+                ],
+            }, 
+            {
+                "title":"HIGH PROTEIN",
+                "color":"#1A4D2E",
+                "data": [
+                    {
+                        "title":"Food for strength",
+                        "text":"Muscle-building",
+                        "image":require("../../../assets/images/logged/diets/protein2.jpg")
+                    },
+                    {
+                        "title":"Scandinavian",
+                        "text":"High fiber, healthy fats",
+                        "image":require("../../../assets/images/logged/diets/chofan.jpg")
+                    },
+                ],
+            }
+        ],
+
+        Diets = Diets.concat(GainDiets)
+    )
+
+    user.goal === "Maintain Weight" && (
+        MaintainDiet = [
+            {
+                "title":"BALANCED",
+                "color":"#B2B2B2",
+                "data": [
+                    {
+                        "title":"Runner's Diet",
+                        "text":"Fuel your run",
+                        "image":require("../../../assets/images/logged/diets/balanced1.jpg")
+
+                    },
+                    {
+                        "title":"Eat, Lift Repeat",
+                        "text":"Fuel your muscles",
+                        "image":require("../../../assets/images/logged/diets/balanced2.jpg")
+
+                    },
+                    {
+                        "title":"Clean Eating",
+                        "text":"Nutritious, whole foods",
+                        "image":require("../../../assets/images/logged/diets/balanced3.jpg")
+
+                    },
+                    {
+                        "title":"Vegan for a Week",
+                        "text":"7-days Meal Plan",
+                        "image":require("../../../assets/images/logged/diets/balanced5.jpg")
+
+                    },
+                    {
+                        "title":"Climatarian",
+                        "text":"Sustainable eating",
+                        "image":require("../../../assets/images/logged/diets/balanced6.jpg")
+                    },
+                    {
+                        "title":"Mediterranean",
+                        "text":"High fiber, healthy fats",
+                        "image":require("../../../assets/images/logged/diets/balanced4.jpg")
+    
+                    },
+                ],
+            }, 
+            {
+                "title":"HIGH PROTEIN",
+                "color":"#1A4D2E",
+                "data": [
+                    {
+                        "title":"Food for strength",
+                        "text":"Muscle-building",
+                        "image":require("../../../assets/images/logged/diets/protein2.jpg")
+                    },
+                    {
+                        "title":"Scandinavian",
+                        "text":"High fiber, healthy fats",
+                        "image":require("../../../assets/images/logged/diets/chofan.jpg")
+                    },
+                ],
+            },
+            {
+                "title":"KETO / LOW CARBS",
+                "color":"#3E54AC",
+                "data": [
+                    {
+                        "title":"Ketogenic Easy",
+                        "text":"High fat, 100g carbs/day",
+                        "image":require("../../../assets/images/logged/diets/avocado.jpg")
+                    },
+                    {
+                        "title":"Ketogenic Medium",
+                        "text":"High fat, 50g carbs/day",
+                        "image":require("../../../assets/images/logged/diets/cheese.jpg")
+                    },
+                ],
+            },
+            {
+                "title":"FASTING",
+                "color":"#655DBB",
+                "type":"fasting",
+                "data": [
+                    {
+                        "title":"5:2",
+                        "text":"Fast 2 days/week",
+                        "image":require("../../../assets/images/logged/diets/fasting1.jpg")
+                    },
+                    {
+                        "title":"6:1",
+                        "text":"Fast 1 days/week",
+                        "image":require("../../../assets/images/logged/diets/fasting3.jpg")
+                    },
+                ],
+            },
+        ],
+
+        Diets = Diets.concat(MaintainDiet)
+    )
+
+    user.goal === "Lose Weight" && (
+        LoseDiet = [
+            {
+                "title":"BALANCED",
+                "color":"#B2B2B2",
+                "data": [
+                    {
+                        "title":"Runner's Diet",
+                        "text":"Fuel your run",
+                        "image":require("../../../assets/images/logged/diets/balanced1.jpg")
+
+                    },
+                    {
+                        "title":"Eat, Lift Repeat",
+                        "text":"Fuel your muscles",
+                        "image":require("../../../assets/images/logged/diets/balanced2.jpg")
+
+                    },
+                    {
+                        "title":"Clean Eating",
+                        "text":"Nutritious, whole foods",
+                        "image":require("../../../assets/images/logged/diets/balanced3.jpg")
+
+                    },
+                    {
+                        "title":"Mediterranean",
+                        "text":"High fiber, healthy fats",
+                        "image":require("../../../assets/images/logged/diets/balanced4.jpg")
+
+                    },
+                    {
+                        "title":"Vegan for a Week",
+                        "text":"7-days Meal Plan",
+                        "image":require("../../../assets/images/logged/diets/balanced5.jpg")
+
+                    },
+                    {
+                        "title":"Climatarian",
+                        "text":"Sustainable eating",
+                        "image":require("../../../assets/images/logged/diets/balanced6.jpg")
+
+                    },
+                ],
+            },
+            {
+                "title":"FASTING",
+                "color":"#655DBB",
+                "type":"fasting",
+                "color":"#655DBB",
+                "data": [
+                    {
+                        "title":"5:2",
+                        "text":"Fast 2 days/week",
+                        "image":require("../../../assets/images/logged/diets/fasting1.jpg")
+                    },
+                    {
+                        "title":"6:1",
+                        "text":"Fast 1 days/week",
+                        "image":require("../../../assets/images/logged/diets/fasting3.jpg")
+                    },
+                ],
+            },
+            {
+                "title":"HIGH PROTEIN",
+                "color":"#1A4D2E",
+                "data": [
+                    {
+                        "title":"High Protein",
+                        "text":"Stay strong",
+                        "image":require("../../../assets/images/logged/diets/protein.jpg")
+                    },
+                    {
+                        "title":"Scandinavian",
+                        "text":"High fiber, healthy fats",
+                        "image":require("../../../assets/images/logged/diets/chofan.jpg")
+                    },
+                ],
+            },
+            {
+                "title":"KETO / LOW CARBS",
+                "color":"#3E54AC",
+                "data": [
+                    {
+                        "title":"Ketogenic Strict",
+                        "text":"High fat, 20g carbs/day",
+                        "image":require("../../../assets/images/logged/diets/avocado.jpg")
+                    },
+                    {
+                        "title":"Ketogenic Medium",
+                        "text":"High fat, 50g carbs/day",
+                        "image":require("../../../assets/images/logged/diets/cheese.jpg")
+                    },
+                    {
+                        "title":"Ketogenic Easy",
+                        "text":"High fat, 100g carbs/day",
+                        "image":require("../../../assets/images/logged/diets/avocado.jpg")
+                    },
+                ],
+            },
+        ],
+
+        Diets = Diets.concat(LoseDiet)
+    )
+    
+    // let Diets = [
+    //     {
+    //         "title":"BALANCED",
+    //         "color":"#B2B2B2",
+    //         "data": [
+    //             {
+    //                 "title":"Runner's Diet",
+    //                 "text":"Fuel your run",
+    //                 "image":require("../../../assets/images/logged/diets/balanced1.jpg")
+
+    //             },
+    //             {
+    //                 "title":"Eat, Lift Repeat",
+    //                 "text":"Fuel your muscles",
+    //                 "image":require("../../../assets/images/logged/diets/balanced2.jpg")
+
+    //             },
+    //             {
+    //                 "title":"Clean Eating",
+    //                 "text":"Nutritious, whole foods",
+    //                 "image":require("../../../assets/images/logged/diets/balanced3.jpg")
+
+    //             },
+    //             {
+    //                 "title":"Mediterranean",
+    //                 "text":"High fiber, healthy fats",
+    //                 "image":require("../../../assets/images/logged/diets/balanced4.jpg")
+
+    //             },
+    //             {
+    //                 "title":"Vegan for a Week",
+    //                 "text":"7-days Meal Plan",
+    //                 "image":require("../../../assets/images/logged/diets/balanced5.jpg")
+
+    //             },
+    //             {
+    //                 "title":"Climatarian",
+    //                 "text":"Sustainable eating",
+    //                 "image":require("../../../assets/images/logged/diets/balanced6.jpg")
+
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         "title":"FASTING",
+    //         "color":"#655DBB",
+    //         "type":"fasting",
+    //         "data": [
+    //             {
+    //                 "title":"5:2",
+    //                 "text":"Fast 2 days/week",
+    //                 "image":require("../../../assets/images/logged/diets/fasting1.jpg")
+    //             },
+    //             {
+    //                 "title":"6:1",
+    //                 "text":"Fast 1 days/week",
+    //                 "image":require("../../../assets/images/logged/diets/fasting3.jpg")
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         "title":"HIGH PROTEIN",
+    //         "color":"#1A4D2E",
+    //         "data": [
+    //             {
+    //                 "title":"High Protein",
+    //                 "text":"Stay strong",
+    //                 "image":require("../../../assets/images/logged/diets/protein.jpg")
+    //             },
+    //             {
+    //                 "title":"Scandinavian",
+    //                 "text":"High fiber, healthy fats",
+    //                 "image":require("../../../assets/images/logged/diets/chofan.jpg")
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         "title":"KETO / LOW CARBS",
+    //         "color":"#3E54AC",
+    //         "data": [
+    //             {
+    //                 "title":"Ketogenic Strict",
+    //                 "text":"High fat, 20g carbs/day",
+    //                 "image":require("../../../assets/images/logged/diets/avocado.jpg")
+    //             },
+    //             {
+    //                 "title":"Ketogenic Medium",
+    //                 "text":"High fat, 50g carbs/day",
+    //                 "image":require("../../../assets/images/logged/diets/cheese.jpg")
+    //             },
+    //             {
+    //                 "title":"Ketogenic Easy",
+    //                 "text":"High fat, 100g carbs/day",
+    //                 "image":require("../../../assets/images/logged/diets/avocado.jpg")
+    //             },
+    //         ],
+    //     },
+    // ]
 
     const [test, setTest] = useState(false)
     useEffect(()=> {
         setTest(false)
         setTimeout(() => {
             setTest(true)
-        }, 1500);
+        }, 6000);
     }, [])
+
 
 
     const [ScrollY, setScrollY] = useState(0)
@@ -126,7 +400,7 @@ export default function Diet({navigation}) {
             </View>
 
             {Diets.map((item,key)=>(
-                <DietTemplate title={item.title} color={item.color} data={item.data} navigation={navigation} Diets={Diets[key].data} />
+                <DietTemplate id={key} title={item.title} color={item.color} type={item.type} data={item.data} navigation={navigation} Diets={Diets[key].data} />
             ))}
             
             <View style={{marginHorizontal: 20, backgroundColor: "#F5F5F5", paddingTop: 20, paddingHorizontal: 40, borderRadius: 16, overflow: 'hidden'}}>
@@ -135,12 +409,12 @@ export default function Diet({navigation}) {
                 <Text style={{textAlign: 'center', fontSize: 20, marginBottom: 10}}> Need recommendations ? </Text>
                 <Text style={{textAlign: 'center', marginBottom: 20, fontSize: 12}}> Get help choosing a Meal Plan or Diet </Text>
 
-                <TouchableOpacity onPress={()=> navigation.navigate("dietStack", {screen: "dietTest"})} style={{paddingVertical: 14, borderTopWidth: 1, borderTopColor: "#7deec6"}}>
+                <TouchableOpacity onPress={()=> navigation.navigate("dietStack", {screen: "dietTest"})} style={{paddingVertical: 14, borderTopWidth: 1, borderTopColor: "#d8d7d7"}}>
                     <Text style={{textAlign: 'center', color: "#3FC495", fontWeight: 'bold', fontSize: 16}}> TAKE THE TEST </Text>
                 </TouchableOpacity>
             </View>
 
-            <View style={{marginTop: 60}}></View>
+            <View style={{marginTop: 150}}></View>
         </ScrollView>
 
         {test && ScrollY < 700 &&

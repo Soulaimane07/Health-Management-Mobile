@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'rea
 
 export default function DietTemplate(props) {
   return (
-    <View style={styles.box}>
+    <View style={styles.box} key={props.id}>
         <View style={styles.head}>
             <Text style={{fontSize: 18, fontWeight: 'bold', color:"#434242"}}> {props.title} </Text>
         </View>
@@ -10,11 +10,14 @@ export default function DietTemplate(props) {
             <ScrollView horizontal={true} style={styles.body}>
                 {props.data.map((item,key)=>(
                     <TouchableOpacity
+                        key={key}
                         style={[styles.boxx1, {backgroundColor: props.color}, key+1 === props.data.length && {marginRight: 50}]} 
                         onPress={() => {
                             props.navigation.navigate('dietStack', {
                                 screen: "categorie",
                                 params: {
+                                    color: props.color,
+                                    type: props.type,
                                     data: props.Diets[key]
                                 },
                             });
