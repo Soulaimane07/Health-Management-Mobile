@@ -219,13 +219,13 @@ export default function Diet({navigation}) {
                 "color":"#655DBB",
                 "data": [
                     {
-                        "title":"5:2",
-                        "text":"Fast 2 days/week",
+                        "title":"One day",
+                        "type":"one",
                         "image":require("../../../assets/images/logged/diets/fasting1.jpg")
                     },
                     {
-                        "title":"6:1",
-                        "text":"Fast 1 days/week",
+                        "title":"Several days",
+                        "type":"several",
                         "image":require("../../../assets/images/logged/diets/fasting3.jpg")
                     },
                 ],

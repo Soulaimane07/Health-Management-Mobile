@@ -56,8 +56,9 @@ export default function Login({route, navigation}) {
                         setMessage("Incorrect Email or Password !")
                     })
             : 
-                (setLoading(false),
-                setMessage("Email is Not valid !")
+                (   
+                    setLoading(false),
+                    setMessage("Email is Not valid !")
                 )
         } catch (e) {
             console.log("User info isn't stored");

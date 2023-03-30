@@ -8,7 +8,7 @@ export default function FastingStack() {
     <Stack.Navigator initialRouteName='categorie' screenOptions={{ headerShown: true }}>
         <Stack.Screen 
             name="days" 
-            options={{ title: '5:2' }}
+            options={({ route }) => ({ title: route.params.PageTitle, headerTintColor: "white", headerStyle: {backgroundColor: '#655DBB'} })}
             component={Days} 
         />
     </Stack.Navigator>

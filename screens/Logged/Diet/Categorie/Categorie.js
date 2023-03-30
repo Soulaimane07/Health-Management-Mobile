@@ -199,7 +199,7 @@ export default function Categorie({navigation, route}) {
     const data = route.params?.data
 
     const submit = () => {
-        type == "fasting" && navigation.navigate("fastingStack", {screen: "days"})
+        type == "fasting" && navigation.navigate("fastingStack", {screen: "days", params: {type: data.type, PageTitle: data.type === "one" ? "Fasting one day" : "Fasting several days"}})
     }
 
     const FoodTo = (title, food) => {
@@ -245,7 +245,7 @@ export default function Categorie({navigation, route}) {
             <ScrollView style={styles.body}>
                 <View style={{}}>
                     <Text style={{fontWeight: 'bold', fontSize: 28}}>{data.title} </Text>
-                    <Text style={{fontSize: 16, marginTop: 4, color: "#B2B2B2"}}>{data.text} </Text>
+                    {data.text && <Text style={{fontSize: 16, marginTop: 4, color: "#B2B2B2"}}>{data.text}</Text>}
                 </View>
                 <Text style={{color: "#B2B2B2", marginVertical: 20, fontSize: 16, lineHeight: 22, marginHorizontal: 6}}>
                     It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal.
