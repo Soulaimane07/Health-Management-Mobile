@@ -1,4 +1,5 @@
-import { ActivityIndicator, ActivityIndicatorBase, StyleSheet, Text, TouchableOpacity } from "react-native"
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from "react-native"
+import AntDesign from "react-native-vector-icons/AntDesign"
 
 export const NavigateBtn = (text, submit, condittion, color, loading) => {
     return (
@@ -69,3 +70,11 @@ const ButtonStyle = StyleSheet.create({
         fontWeight: "bold",
     },
 })
+
+export const GoBack = (navigation, color, size) => {
+    return(
+        <TouchableOpacity onPress={()=> navigation.goBack()}>
+            <AntDesign name='arrowleft' size={size ? size : 26} color={color} />
+        </TouchableOpacity>
+    )
+}

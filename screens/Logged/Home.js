@@ -66,7 +66,7 @@ export default function Home({route, navigation}) {
         date >= 4 && date < 12 && ( datee = languageObj.home.header.morning )
         date >= 12 && date < 18 && ( datee = languageObj.home.header.afternoon )
         date >= 18 && date < 22 && ( datee = languageObj.home.header.evening )
-        date >= 22 || date < 4 && ( datee = languageObj.home.header.night )
+        date >= 22  && ( datee = languageObj.home.header.night )
 
         return datee
     }

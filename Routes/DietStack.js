@@ -31,6 +31,7 @@ export default function DietStack() {
         component={Page3} 
       />
 
+
       {/* Diet Stacks */}
       
       <Stack.Screen 

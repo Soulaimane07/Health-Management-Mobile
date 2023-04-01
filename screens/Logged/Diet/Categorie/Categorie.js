@@ -8,7 +8,6 @@ import { BottomSheetModal, BottomSheetModalProvider, BottomSheetScrollView } fro
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 export default function Categorie({navigation, route}) {
-
     const mainColor = route.params.color
     const type = route.params.type
 
@@ -199,7 +198,7 @@ export default function Categorie({navigation, route}) {
     const data = route.params?.data
 
     const submit = () => {
-        type == "fasting" && navigation.navigate("fastingStack", {screen: "days", params: {type: data.type, PageTitle: data.type === "one" ? "Fasting one day" : "Fasting several days"}})
+        type == "fasting" && navigation.navigate("fastingStack", {screen: "plans"})
     }
 
     const FoodTo = (title, food) => {

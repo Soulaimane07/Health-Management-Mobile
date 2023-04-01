@@ -13,13 +13,9 @@ export default function DietTemplate(props) {
                         key={key}
                         style={[styles.boxx1, {backgroundColor: props.color}, key+1 === props.data.length && {marginRight: 50}]} 
                         onPress={() => {
-                            props.navigation.navigate('dietStack', {
-                                screen: "categorie",
-                                params: {
-                                    color: props.color,
-                                    type: props.type,
-                                    data: props.Diets[key]
-                                },
+                            props.type === "fasting" 
+                                ?   props.navigation.navigate('dietStack', {screen: "fastingStack"})
+                                :   props.navigation.navigate('dietStack', {screen: "categorie", params: { color: props.color, type: props.type, data: props.Diets[key] },
                             });
                         }}
                     >
