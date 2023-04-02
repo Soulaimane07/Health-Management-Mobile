@@ -5,6 +5,7 @@ import { MyButton } from '../../../Components/Buttons'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import SheetBody from '../../../Components/sheetBody'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function Info({route, navigation}) {
     const data = [
@@ -180,15 +181,33 @@ export default function Info({route, navigation}) {
         },
     ]
     const [selected, setSelected] = useState(0)
+    const [taken, setTaken] = useState(false)
 
     const refB = useRef(null)
-    const snapPoints =  useMemo(()=> ["70%"])
+    const snapPoints =  useMemo(()=> ["70%", "100%"])
     const OpenModal = () => {
         refB.current?.present()
     }
     const CloseModal = () => {
         refB.current?.close()
     }
+
+
+    const [mealData, setMealData] = useState([])
+
+    const getMeal = async () => {
+        try{
+            const Meal = await AsyncStorage.getItem(route.params.meal)
+            console.log("==> Meal: ",Meal);
+            setMealData(JSON.parse(Meal))
+        }
+        catch(e) {
+            console.log(e);
+        }
+    }
+    useEffect(()=> {
+        getMeal()
+    }, [mealData])
 
 
     // ************ Search Engine
@@ -224,7 +243,7 @@ export default function Info({route, navigation}) {
                             <Image source={val.image} style={[{marginRight: 20, width: 40, height: 40}]} />
                             <Text style={{fontSize: 16}}> {val.title} </Text>
                         </View>
-                        <Aicon name="pluscircleo" size={20} />
+                        {mealData?.find(element => element.title == val.title) ? <Aicon name="checkcircle" color="#3FC495" size={24} /> : <Aicon name="pluscircleo" size={20} />}
                     </TouchableOpacity>
                 ))}
             </ScrollView>
