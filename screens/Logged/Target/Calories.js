@@ -63,24 +63,27 @@ export default function CaloriesPage() {
   const meals = [
     {
       "title":"Breakfast",
-      "cal": breakfast !== null ? calorie(breakfast).cal : 0
+      "calories": breakfast !== null ? calorie(breakfast).cal : 0
     },
     {
       "title":"Lunch",
-      "cal": lunch !== null ? calorie(lunch).cal : 0
+      "calories": lunch !== null ? calorie(lunch).cal : 0
     },
     {
       "title":"Snacks",
-      "cal": snacks !== null ? calorie(snacks).cal : 0
+      "calories": snacks !== null ? calorie(snacks).cal : 0
     },
     {
       "title":"Dinner",
-      "cal": dinner !== null ? calorie(dinner).cal : 0
+      "calories": dinner !== null ? calorie(dinner).cal : 0
     },
   ]
 
   const calorieSTarget = Calories(user?.CWeight, Number(user?.height?.X) * 100 + Number(user?.height?.Y), user?.age, user?.sex, user?.goal, user?.activity)
   const caloriesTaken = calorie(meals).cal
+
+  // console.log(breakfast);
+  // console.log(meals[3].cal);
 
   return (
     <View style={styles.container}>
@@ -106,7 +109,7 @@ export default function CaloriesPage() {
         {meals.map((item,key)=>(
           <View key={key} style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6, marginHorizontal: 40}}>
             <Text style={{fontWeight: 'bold', fontSize: 16}}> {item.title} </Text>
-            <Text> {item.cal} Kcal </Text>
+            <Text> {item.calories} Kcal </Text>
           </View>
         ))}
       </View>

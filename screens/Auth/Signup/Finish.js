@@ -8,6 +8,7 @@ import { Video } from 'expo-av';
 import StatusBar from '../../../Components/Statusbar';
 import { PracticeContext } from '../../../Components/Context';
 import axios from 'axios';
+import { ServerLink } from '../../../Components/API';
 
 export default function Finish({route, navigation}) {
     const {languageObj} = useContext(PracticeContext)
@@ -91,7 +92,7 @@ export default function Finish({route, navigation}) {
 
     const Login = () => {
         try {
-            axios.post('https://health-manager.onrender.com/usersDetails', {
+            axios.post(`${ServerLink}/usersDetails`, {
                 userId: user._id,
                 goal: user.goal,
                 sex: user.sex,

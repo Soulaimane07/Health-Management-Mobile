@@ -1,17 +1,31 @@
 import { View, Text, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavigateBtn } from './Buttons'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native-gesture-handler';
 import { calorie } from './cal';
 import SelectDropdown from 'react-native-select-dropdown';
 import Error from './Error';
+import { ServerLink } from './API';
+import axios from 'axios';
 
 export default function SheetBody(props) {
     let val
     let mealData
 
-    console.log(props.data);
+    console.log(props.selectedId);
+    const [food, setFood] = useState({})
+
+    useEffect(()=> {
+        axios.get(`${ServerLink}/food/getById/${props.selectedId}`)
+            .then(res => {
+                console.log('==> Food : ',res.data);
+                setFood(res.data)
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, [])
     
     const Submit = async () => {
         try {
@@ -22,8 +36,8 @@ export default function SheetBody(props) {
             console.log(value2.calories);
     
             value2.calories !== undefined 
-                ?   calVal = value2.calories + props.data.cal
-                :   calVal = props.data.cal
+                ?   calVal = value2.calories + food?.calories
+                :   calVal = food?.calories
 
             const calories = {
                 calories : calVal,
@@ -33,9 +47,9 @@ export default function SheetBody(props) {
             val = await AsyncStorage.getItem(props.meal)
             val !== null ? (
                 mealData = JSON.parse(val),
-                mealData.push(props.data)
+                mealData.push(food)
             ) : (
-                mealData = [props.data]
+                mealData = [food]
             )
             console.log(mealData),
             await AsyncStorage.setItem(props.meal, JSON.stringify(mealData)),
@@ -53,27 +67,27 @@ export default function SheetBody(props) {
     const data = [
         {
             "title":"Calories",
-            "value": props.data.cal,
+            "value": food?.calories,
             "unit":"Kcal",
         },
         {
             "title":"Carbs",
-            "value": props.data.carbs,
+            "value": food?.carbs,
             "unit":"g",
         },
         {
             "title":"Protein",
-            "value": props.data.protein,
+            "value": food?.protein,
             "unit":"g",
         },
         {
             "title":"Fat",
-            "value": props.data.fat,
+            "value": food?.fat,
             "unit":"g",
         },
         {
             "title":"Fibre",
-            "value": props.data.fibre,
+            "value": food?.fiber,
             "unit":"g",
         },
     ]
@@ -82,9 +96,9 @@ export default function SheetBody(props) {
     <>
         <ScrollView vertical>
             <View style={{alignItems: "center", justifyContent: 'center'}}>
-                <Image source={props.data.image} style={{width: 100, height: 100}} />
+                <Image source={{uri: `${ServerLink}/${food?.image}`}} style={{width: 100, height: 100}} />
             </View>
-            <Text style={{marginTop: 20, marginBottom: 20, fontSize: 30, textAlign: 'center', fontWeight: 'bold'}}>{props.data.title}</Text>
+            <Text style={{marginTop: 20, marginBottom: 20, fontSize: 30, textAlign: 'center', fontWeight: 'bold'}}>{food?.name}</Text>
             <Error text={`The above values are for ${selectedGrams} !`} color="#3FC495" />
             <View style={{marginTop: 20}}>
                 <View style={{marginHorizontal: 60}}>

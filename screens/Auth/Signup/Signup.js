@@ -5,6 +5,7 @@ import axios from 'axios';
 import { NavigateBtn } from '../../../Components/Buttons';
 import { PracticeContext } from '../../../Components/Context';
 import Error from '../../../Components/Error';
+import { ServerLink } from '../../../Components/API';
 
 export default function Signup({navigation}) {
     const {languageObj} = useContext(PracticeContext)
@@ -32,7 +33,7 @@ export default function Signup({navigation}) {
             let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
             reg.test(email) === true 
             ?
-                axios.post('https://health-manager.onrender.com/users/', user)
+                axios.post(`${ServerLink}/users/`, user)
                 .then(function (response) {
                     console.log("==> User Created: ", response.data.user);
                     

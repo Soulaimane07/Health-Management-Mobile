@@ -6,6 +6,7 @@ import Oicon from 'react-native-vector-icons/Octicons'
 import Ficon from 'react-native-vector-icons/FontAwesome'
 import { calorie } from '../../../Components/cal'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ServerLink } from '../../../Components/API'
 
 export default function Breakfast(props) {
     const data = props.data
@@ -34,12 +35,12 @@ export default function Breakfast(props) {
         try {
             data?.map((item,key)=>(
                 remove?.map((itemm, keyy)=>(
-                    item.title == itemm &&(
-                        found = data?.find(element => element.title == itemm),
+                    item.name == itemm &&(
+                        found = data?.find(element => element.name == itemm),
                         index = data?.indexOf(found),
                         console.log(found),
                         console.log(index),
-                        cals = cals + item.cal,
+                        cals = cals + item.calories,
                         console.log(cals),
 
                         caloriesObj = {
@@ -116,32 +117,32 @@ export default function Breakfast(props) {
                     </View>
                     <View style={styles.list}>
                         {data?.map((item,key)=>{
-                            let r = remove.find(element => element == item.title)
+                            let r = remove.find(element => element == item.name)
                             let index
 
                             const removefromarray = () => {
                                 index = remove.indexOf(r)
                                 console.log(`index: ` + index);
                                 remove.splice(index, 1)
-                                console.log(`==> ${item.title} is removed from remove array`);
+                                console.log(`==> ${item.name} is removed from remove array`);
                             }
 
                             const addtoarray = () => {
-                                setRemove([...remove, item.title])
-                                console.log(`==> ${item.title} is added to remove array`);
+                                setRemove([...remove, item.name])
+                                console.log(`==> ${item.name} is added to remove array`);
                             }
 
                             return(
-                                <TouchableOpacity onPress={()=>  (r !== item.title && addtoarray()) & (r == item.title && removefromarray())} key={key} style={styles.row}>
+                                <TouchableOpacity onPress={()=>  (r !== item.name && addtoarray()) & (r == item.name && removefromarray())} key={key} style={styles.row}>
                                     <View style={{flexDirection: 'row', alignItems: 'center',}}>
-                                        {r == item.title 
+                                        {r == item.name 
                                             ?   <Oicon name='check-circle-fill' color="#3FC495" size={24} />
                                             :   <Ficon name='circle-thin' color="#adb5bd" size={27} />
                                         }
-                                        <Image style={{marginLeft: 16, marginRight: 6, width: 30, height: 30,}} source={item.image} />
-                                        <Text> {item.title} </Text>
+                                        <Image style={{marginLeft: 16, marginRight: 6, width: 30, height: 30,}} source={{uri: `${ServerLink}/${item.image}`}} />
+                                        <Text> {item.name} </Text>
                                     </View>
-                                    <Text> {item.cal} Kcal </Text>
+                                    <Text> {item.calories} Kcal </Text>
                                 </TouchableOpacity>
                             )
                         })}

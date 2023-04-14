@@ -5,12 +5,12 @@ export const calorie = (data) => {
     let fat = 0
     let fibre = 0
 
-    data?.map((item,key)=>{
-        cal = item.cal + cal
+    data?.map(item=>{
+        cal = item.calories + cal
         carbs = item.carbs + carbs
         protein = item.protein + protein
         fat = item.fat + fat
-        fibre = item.fibre + fibre
+        fibre = item.fiber + fibre
     })
 
     return {cal, carbs, protein, fat, fibre}

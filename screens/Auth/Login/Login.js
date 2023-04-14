@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, ScrollView}
 import { NavigateBtn } from '../../../Components/Buttons';
 import { PracticeContext } from '../../../Components/Context';
 import Error from '../../../Components/Error';
+import { ServerLink } from '../../../Components/API';
 
 export default function Login({route, navigation}) {
     const {lang, languageObj} = useContext(PracticeContext)
@@ -23,13 +24,13 @@ export default function Login({route, navigation}) {
             let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
             reg.test(email) === true 
             ?
-                axios.get(`https://health-manager.onrender.com/users/getByEmail/${email}`)
+                axios.get(`${ServerLink}/users/getByEmail/${email}`)
                     .then(function (response) {
                         setMessage(null)
                         console.log("==> User: ", response.data);
                         (response.data.email).toLowerCase() === (email).toLowerCase() && response.data.pass === pass 
                         ?
-                            axios.get(`https://health-manager.onrender.com/usersDetails/getByUserID/${response.data._id}`)
+                            axios.get(`${ServerLink}/usersDetails/getByUserID/${response.data._id}`)
                                 .then(function (response1) {
                                     setMessage(null)
                                     console.log(`==> User ${response.data.fname}`, response1.data);
@@ -61,6 +62,8 @@ export default function Login({route, navigation}) {
                     setMessage("Email is Not valid !")
                 )
         } catch (e) {
+            setLoading(false)
+            setMessage("Not Working !")
             console.log("User info isn't stored");
         }
     }
