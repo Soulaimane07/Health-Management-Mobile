@@ -14,7 +14,7 @@ export default function FastingStack() {
         />
         <Stack.Screen 
           name="fasting" 
-          options={({ route }) => ({ title: route.params.title, headerTitleAlign: 'center', headerTintColor: "white", headerStyle: {backgroundColor: '#655DBB'} })}
+          // options={({ route }) => ({ title: route.params.title, headerTitleAlign: 'center', headerTintColor: "white", headerStyle: {backgroundColor: '#655DBB'} })}
           component={Fasting} 
         />
     </Stack.Navigator>

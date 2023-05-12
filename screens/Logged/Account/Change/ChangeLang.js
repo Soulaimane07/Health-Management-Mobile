@@ -19,11 +19,7 @@ export default function ChangeLang(props) {
         {
             "title":"English",
             "val":"en",
-        },
-        {
-            "title":"العربية",
-            "val":"ar",
-        },
+        }
     ]
 
     const condition = props.lang == newLang

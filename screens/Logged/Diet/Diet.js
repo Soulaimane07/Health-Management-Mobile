@@ -30,10 +30,21 @@ export default function Diet({navigation}) {
             </View>
 
             <ScrollView contentContainerStyle={{minHeight: 400, flexDirection:'row', justifyContent: "space-evenly", flexWrap:'wrap', alignItems: 'flex-start'}}>
+                <TouchableOpacity
+                        style={[{backgroundColor: "#B2B2B2", borderRadius: 8, width: (windowWidth/2)-10, paddingVertical: 40, marginBottom: 10}]} 
+                        onPress={() => {
+                            navigation.navigate('dietStack', {screen: "fastingStack", params: {color: "red"}});
+                        }}
+                    >
+                        <Image source={require('../../../assets/images/logged/diets/fasting1.jpg')} style={{alignSelf: 'center', width: windowWidth/3, height: 130, borderRadius: 200}} />
+                        <View style={{marginTop: 20}}>
+                            <Text style={{color: "white", textAlign: "center", fontSize: 22}}> Fasting </Text>
+                        </View>
+                </TouchableOpacity>
                 {diets.map((item,key)=>(
                     <TouchableOpacity
                         key={key}
-                        style={[{backgroundColor: "#3FC495", borderRadius: 8, width: (windowWidth/2)-10, paddingVertical: 40, marginBottom: 10}]} 
+                        style={[{backgroundColor: "#B2B2B2", borderRadius: 8, width: (windowWidth/2)-10, paddingVertical: 40, marginBottom: 10}]} 
                         onPress={() => {
                             navigation.navigate('dietStack', {screen: "categorie", params: {data: item}});
                         }}

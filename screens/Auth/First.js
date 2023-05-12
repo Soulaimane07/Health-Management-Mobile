@@ -41,10 +41,6 @@ export default function First({route, navigation}) {
         {
             "title":"français",
             "val":"fr"
-        },
-        {
-            "title":"العربية",
-            "val":"ar"
         }
     ]
 
@@ -69,7 +65,7 @@ export default function First({route, navigation}) {
                 </View>
             ))}
 
-            <View style={{marginTop: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View style={{marginTop: 10, flexDirection: 'row', justifyContent: 'space-evenly'}}>
                 {langsObj.map((item,key)=>(
                     <TouchableOpacity onPress={()=> SelectLang(item.val)} key={key} style={[item.val == lang && {borderBottomColor:"#3FC495", borderBottomWidth: 2}, {padding: 10, paddingHorizontal: 20}]}>
                         <Text style={[item.val == lang && {fontWeight: 'bold'}, {color: "white"}]}> {item.title} </Text>
