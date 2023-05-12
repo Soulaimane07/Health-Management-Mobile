@@ -80,16 +80,6 @@ export function Account({route, navigation}) {
         "title":"Personal details",
         "path":"personal",
       },
-      {
-        "icon": <Fa5Icon style={styles.icon1} name="concierge-bell" size={20} color="#3FC495" />,
-        "title":"Dietary needs & preferences",
-        "path":"dietary",
-      },
-      {
-        "icon":<IosIcon style={styles.icon1} name="calendar" size={20} color="#3FC495" />,
-        "title":"Calendar",
-        "path":"calendar",
-      },
     ]
 
   const Logout = async () => {

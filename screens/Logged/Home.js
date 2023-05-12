@@ -15,6 +15,7 @@ import { GetUser } from '../../Components/GetData'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Emotions from '../../Components/Emotions'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const months = [
   {
@@ -216,9 +217,9 @@ export default function Home({route, navigation}) {
         const subscription = AppState.addEventListener('change', nextAppState => {
             if (
                 appState.current.match(/inactive|background/) && nextAppState === 'active'
-            ) {
-                console.log('App has come to the foreground!')
-                user.emotion == undefined && (times = times + 1)
+                ) {
+                    console.log('App has come to the foreground!')
+                    user.emotion == undefined && (times = times + 1)
             }
         
             appState.current = nextAppState;
@@ -232,6 +233,9 @@ export default function Home({route, navigation}) {
             subscription.remove();
         };
     }, []);
+    
+    
+
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
@@ -251,7 +255,6 @@ export default function Home({route, navigation}) {
                     <Text style={styles.today}> Today,</Text>
                     <Text style={styles.day}> {date.getDate()} {getMonth()} {date.getFullYear()} </Text>
                 </View>
-                {DateHeader()}
                 </View>
 
                 <View style={styles.target}>
@@ -286,14 +289,8 @@ export default function Home({route, navigation}) {
                 </ScrollView>
                 </View>
 
-                <View style={[styles.target]}>
-                    <Text style={styles.targetText}> {languageObj.home.box3.title} </Text>
-                    <ImageBackground style={styles.workout} source={require(`../../assets/workout.webp`)} resizeMode="cover">
-                        <View style={styles.textBox}>
-                            <Text style={styles.title}> Day 01 </Text>
-                        </View>
-                    </ImageBackground>
-                </View>
+
+                <View style={{marginBottom: 50}}></View>
             </ScrollView>
         </View>
 

@@ -97,10 +97,8 @@ export default function Breakfast(props) {
                 <View style={styles.box}>
                     <Text style={styles.h1}> Calories </Text>
                     <Text style={styles.h2}> {calorie(data).cal} Kcal </Text>
-                </View>
-
-                <View style={styles.box}>
-                    <View style={styles.boxContent}>
+                
+                    <View style={[styles.boxContent, {marginTop: 20}]}>
                     {calories.map((item,key)=>(
                         <View key={key} style={styles.boxx}>
                             <Image source={item.logo} />

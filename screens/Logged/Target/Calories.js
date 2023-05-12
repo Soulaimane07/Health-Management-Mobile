@@ -1,38 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useContext, useEffect, useState } from 'react'
-import { Image } from 'react-native'
+import { Image, TouchableOpacity } from 'react-native'
 import { StyleSheet, Text, View } from 'react-native'
 import { Calories } from '../../../Components/Calcules'
 import Statusbar from '../../../Components/Statusbar'
 import TargetLeftTaken from '../../../Components/TargetLeftTaken'
 import { PracticeContext } from '../../../Components/Context' 
-import { calorie } from '../../../Components/cal'
+import { Nutrition, calorie } from '../../../Components/cal'
 
 export default function CaloriesPage() {
   const {user} = useContext(PracticeContext)
-
-  const caloriesFun = Calories(user?.CWeight, Number(user?.height?.X) * 100 + Number(user?.height?.Y), user?.age, user?.sex, user?.goal, user?.activity)
-
-  const calories = [
-    {
-      "logo": require('../../../assets/calories/carbs1.png'),
-      "title":"Carbs",
-      "val": (((caloriesFun*50)/100)/4).toFixed(2),
-      "unit":"g"
-    },
-    {
-      "logo": require('../../../assets/calories/eggs.png'),
-      "title":"Protein",
-      "val": (((caloriesFun*20)/100)/4).toFixed(2),
-      "unit":"g"
-    },
-    {
-      "logo": require('../../../assets/calories/fat1.png'),
-      "title":"Fat",
-      "val": (((caloriesFun*30)/100)/9).toFixed(2),
-      "unit":"g"
-    },
-  ]
 
   const [breakfast, setBreakfast] = useState([])
   const [lunch, setLunch] = useState([])
@@ -55,6 +32,35 @@ export default function CaloriesPage() {
     snacks !== null ? setSnacks(val3) : setSnacks([])
     dinner !== null ? setDinner(val4) : setDinner([])
   }
+
+  const caloriesFun = Calories(user?.CWeight, Number(user?.height?.X) * 100 + Number(user?.height?.Y), user?.age, user?.sex, user?.goal, user?.activity)
+
+  const calories = [
+    {
+      "logo": require('../../../assets/calories/carbs1.png'),
+      "title":"Carbs",
+      "val": Nutrition(caloriesFun)?.carbs,
+      "taken": (calorie(breakfast).carbs + calorie(lunch).carbs + calorie(snacks).carbs + calorie(dinner).carbs).toFixed(0),
+      "color":"#da8c1a",
+      "unit":"g"
+    },
+    {
+      "logo": require('../../../assets/calories/eggs.png'),
+      "title":"Protein",
+      "val": Nutrition(caloriesFun)?.protein,
+      "taken": (calorie(breakfast).protein + calorie(lunch).protein + calorie(snacks).protein + calorie(dinner).protein).toFixed(0),
+      "color":"#a29167",
+      "unit":"g"
+    },
+    {
+      "logo": require('../../../assets/calories/fat1.png'),
+      "title":"Fat",
+      "val": Nutrition(caloriesFun)?.fat,
+      "taken": (calorie(breakfast).fat + calorie(lunch).fat + calorie(snacks).fat + calorie(dinner).fat).toFixed(0),
+      "color":"#25a164",
+      "unit":"g"
+    },
+  ]
 
   useEffect(() => {
       getMeals();
@@ -82,8 +88,29 @@ export default function CaloriesPage() {
   const calorieSTarget = Calories(user?.CWeight, Number(user?.height?.X) * 100 + Number(user?.height?.Y), user?.age, user?.sex, user?.goal, user?.activity)
   const caloriesTaken = calorie(meals).cal
 
-  // console.log(breakfast);
-  // console.log(meals[3].cal);
+
+
+  const [Diets, setDiets] = useState([])
+    
+    const getDiet = async () => {
+        try{
+            const Diet = await AsyncStorage.getItem("Diets")
+            console.log("==> Diet: ",Diet);
+            setDiets(JSON.parse(Diet))
+        }
+        catch(e) {
+            console.log(e);
+        }
+    }
+
+    useEffect(()=> {
+        getDiet()
+    }, [])
+
+
+    const DeleteDiet = async () => {
+      await AsyncStorage.removeItem('Diets')
+    }
 
   return (
     <View style={styles.container}>
@@ -98,11 +125,23 @@ export default function CaloriesPage() {
             <View key={key} style={styles.boxx}>
               <Image source={item.logo} />
               <Text style={{fontWeight: 'bold', marginBottom: 10}}> {item.title} </Text>
-              <Text> {item.val} {item.unit} </Text>
+              <Text style={{marginBottom: 6}}> <Text style={{color: item.color}}> {item.taken} </Text> / {item.val} {item.unit} </Text>
             </View>
           ))}
         </View>
       </View>
+
+      {Diets &&
+        <View style={styles.box}>
+          <Text style={styles.h1}> Diet </Text>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6, marginHorizontal: 40}}>
+              <Text style={{fontWeight: 'bold', fontSize: 16}}> {Diets.title} </Text>
+              <TouchableOpacity>
+                <Text style={styles.button} onPress={DeleteDiet}> Delete </Text>
+              </TouchableOpacity>
+            </View>
+        </View>
+      }
       
       <View style={styles.box}>
         <Text style={styles.h1}> Meals </Text>
@@ -113,6 +152,7 @@ export default function CaloriesPage() {
           </View>
         ))}
       </View>
+
     </View>
   )
 }
@@ -151,5 +191,8 @@ const styles = StyleSheet.create({
 
   btn: {
     paddingHorizontal: 20,
+  },
+  button: {
+   color: "red" 
   }
 })

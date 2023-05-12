@@ -30,11 +30,7 @@ export default function First({route, navigation}) {
         {
             'title': langs?.first.login,
             'link':"login",
-        },
-        {
-            'title': langs?.first.continue,
-            'link':"home",
-        },
+        }
     ]
 
     const langsObj = [

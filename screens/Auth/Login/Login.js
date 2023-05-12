@@ -85,7 +85,7 @@ export default function Login({route, navigation}) {
                 </View>
             }
             <View style={styles.info}>
-                <Text style={styles.label}> {languageObj?.login.email} </Text>
+                <Text style={styles.label}> {languageObj?.login.email.trim()} </Text>
                 <TextInput 
                     email
                     autoComplete='email'

@@ -9,16 +9,10 @@ export default function System({navigation}) {
     const {lang, languageObj} = useContext(PracticeContext)
     let header = languageObj?.signup.system
 
-    const [system, setSystem] = useState(null)
+    const [system, setSystem] = useState(0)
     const condittion = system !== null
 
     const systems = [
-        {
-            "title": languageObj?.signup.system.us,
-            "val":"us",
-            "image": require("../../../assets/images/auth/us.png"),
-            "units": languageObj?.signup.system.usUnits
-        },
         {
             "title": languageObj?.signup.system.eu,
             "val":"eu",

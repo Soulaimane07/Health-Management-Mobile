@@ -73,7 +73,7 @@ export default function Signup({navigation}) {
                 autoComplete='email'
                 style={styles.textInput} 
                 placeholderTextColor='white'
-                onChangeText={e => setEmail(e)}
+                onChangeText={e => setEmail(e.trim())}
             />
         </View>
         <View style={styles.info}>
