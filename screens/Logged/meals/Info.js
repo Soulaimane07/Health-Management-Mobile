@@ -190,7 +190,7 @@ export default function Info({route, navigation}) {
     const [taken, setTaken] = useState(false)
 
     const refB = useRef(null)
-    const snapPoints =  useMemo(()=> ["70%", "100%"])
+    const snapPoints =  useMemo(()=> ["40%", "100%"])
     const OpenModal = () => {
         refB.current?.present()
     }

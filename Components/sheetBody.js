@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TextInput, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NavigateBtn } from './Buttons'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -61,8 +61,7 @@ export default function SheetBody(props) {
         }
     }
 
-    const countries = ["100 grams", "50 grams", "20 grams"]
-    const [selectedGrams, setSelectedGrams] = useState(countries[0])
+    const [selectedGrams, setSelectedGrams] = useState(1)
 
     const data = [
         {
@@ -92,6 +91,8 @@ export default function SheetBody(props) {
         },
     ]
 
+    const condittion = selectedGrams > 0
+
   return (
     <>
         <ScrollView vertical>
@@ -99,17 +100,17 @@ export default function SheetBody(props) {
                 <Image source={{uri: `${ServerLink}/${food?.image}`}} style={{width: 100, height: 100}} />
             </View>
             <Text style={{marginTop: 20, marginBottom: 20, fontSize: 30, textAlign: 'center', fontWeight: 'bold'}}>{food?.name}</Text>
-            <Error text={`The above values are for ${selectedGrams} !`} color="#3FC495" />
+            <Error text={`The above values are for ${selectedGrams} grams !`} color="#3FC495" />
             <View style={{marginTop: 20}}>
                 <View style={{marginHorizontal: 60}}>
                 {data.map((item,key)=>{
                     let value = item.value
-                    let grams
-                    selectedGrams.includes("100") && (grams = 1)
-                    selectedGrams.includes("50") && (grams = 50)
-                    selectedGrams.includes("20") && (grams = 20)
+                    // let grams
+                    // selectedGrams.includes("100") && (grams = 1)
+                    // selectedGrams.includes("50") && (grams = 50)
+                    // selectedGrams.includes("20") && (grams = 20)
 
-                    value = (item.value / grams)?.toFixed(2)
+                    value = (item.value / selectedGrams)?.toFixed(2)
 
                     return(
                         <View style={{justifyContent: "space-between", alignItems: 'center', flexDirection: 'row', marginBottom: 10}} key={key}>
@@ -122,23 +123,45 @@ export default function SheetBody(props) {
             </View>
             <View style={{marginHorizontal: 30, marginTop: 20}}>
                 <Text style={{fontSize: 20, fontWeight: 'bold', marginBottom: 10}}> Quantity: </Text>
-                <SelectDropdown
+                {/* <SelectDropdown
                     data={countries}
                     buttonStyle={{backgroundColor: "white", width: "100%", borderColor: "#3FC495", borderWidth: 1.4, borderRadius: 8}}
                     defaultValue={countries[0]}
                     onSelect={(selectedItem, index) => {
                         setSelectedGrams(selectedItem)
                     }}
-                />
-            </View>
-            <View style={{marginHorizontal: 30, marginTop: 20, marginBottom: 100}}>
-                <Text style={{fontSize: 20, fontWeight: 'bold'}}> Info: </Text>
-                <Text > It is a long established fact that a reader will be distracted by the readable content. </Text>
+                /> */}
+                <View style={styles.textInput}>
+                    <TextInput 
+                        keyboardType="numeric"
+                        maxLength={3}
+                        style={{paddingHorizontal: 20, alignItems: 'center', textAlign: 'center'}}
+                        value={selectedGrams}
+                        defaultValue={selectedGrams}
+                        onChangeText={e => setSelectedGrams(e)}
+                    />
+                    <Text> Grams </Text>
+                </View>
             </View>
         </ScrollView>
         <View>
-            {NavigateBtn("Add", Submit , true, null)}
+            {NavigateBtn("Add", Submit , condittion, null)}
         </View>
     </>
   )
 }
+
+const styles = StyleSheet.create({
+    textInput: {
+        borderWidth: 1.6,  
+        borderColor: '#3FC495',
+        fontSize: 16,
+        borderRadius: 16,
+        padding: 10,
+        paddingHorizontal: 20,
+        textAlign: 'center',
+        flexDirection: 'row', 
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+})

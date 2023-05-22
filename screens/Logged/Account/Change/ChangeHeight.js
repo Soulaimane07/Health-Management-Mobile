@@ -8,12 +8,12 @@ import { NavigateBtn } from '../../../../Components/Buttons'
 export default function ChangeHeight(props) {
     const [newHeightX, setNewHeightX] = useState(null)
     const [newHeightY, setNewHeightY] = useState(null)
-    const condition = newHeightX < Number(props.height?.x) | newHeightY == Number(props.height?.y)
+    const condition = false
 
     const height = {
         height: {
-            x: newHeightX,
-            y: newHeightY,
+            X: newHeightX,
+            Y: newHeightY,
         }
     }
 
@@ -39,7 +39,7 @@ export default function ChangeHeight(props) {
                 maxLength={props.system === "eu" ? 1 : 2} 
                 style={[styles.NumInput, {width: 50}]}
                 onChangeText={e => setNewHeightX(e)}
-                defaultValue={JSON.stringify(props.height?.x)}
+                defaultValue={props.height?.X}
             />
             {props.system === "eu" 
                 ?   <Ficon name="circle" style={{marginHorizontal: 10}} size={5} />
@@ -50,7 +50,7 @@ export default function ChangeHeight(props) {
                 maxLength={2} 
                 style={[styles.NumInput, props.system === "eu" ? {width: 100} : {width: 50} ]}
                 onChangeText={e => setNewHeightY(e)}
-                defaultValue={props.height?.y}
+                defaultValue={props.height?.Y}
             />
         </View>
 

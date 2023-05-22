@@ -9,7 +9,7 @@ export default function GoalWeight(props) {
     const condition = newWeight == 0 || newWeight == props.Gweight
 
     const weight = {
-        Gweight: newWeight,
+        GWeight: newWeight,
     }
 
     const Submit = async () => {

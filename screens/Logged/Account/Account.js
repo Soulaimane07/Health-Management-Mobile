@@ -150,7 +150,6 @@ export function Account({route, navigation}) {
               </View>
               <FaIcon name="angle-right" size={26} color="#adb5bd" />
             </TouchableOpacity>
-            {key+1 !== customization.length && <View style={styles.hr1}></View>}
             </View>
           ))}
       </View>
@@ -225,7 +224,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingBottom: 10,
   },
   row1key: {
     flexDirection: 'row',

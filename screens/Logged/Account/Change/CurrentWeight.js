@@ -9,7 +9,7 @@ export default function CurrentWeight(props) {
     const condition = newWeight == 0 || newWeight == props.weight
 
     const weight = {
-        weight: newWeight,
+        CWeight: newWeight,
     }
 
     const Submit = async () => {
@@ -21,6 +21,8 @@ export default function CurrentWeight(props) {
           console.log("==> User Weight is not updated! "+e);
         }
     }
+
+    console.log(props.weight);
 
   return (
     <>

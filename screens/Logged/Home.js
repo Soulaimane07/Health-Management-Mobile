@@ -159,10 +159,11 @@ export default function Home({route, navigation}) {
     let water
 
     user && (
-        calories = Calories(user?.CWeight, user?.height?.X * 100 + user?.height?.Y, user?.age, user?.sex, user?.goal, user?.activity),
+        calories = Calories(Number(user?.CWeight), Number(user?.height?.X) * 100 + Number(user?.height?.Y), user?.age, user?.sex, user?.goal, user?.activity),
         water = Water(user?.CWeight),
         profile = user?.profile
     )
+
 
     const target = [
         {

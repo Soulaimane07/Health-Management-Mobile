@@ -51,7 +51,7 @@ export function Personal() {
         {
             "label":"Goal Weight",
             "value": Gweight,
-            "change": <GoalWeight Gweight={user?.Gweight} CloseModal={CloseModal} />
+            "change": <GoalWeight Gweight={user?.GWeight} CloseModal={CloseModal} />
         },
     ]
 
@@ -59,7 +59,7 @@ export function Personal() {
         {
             "label":"Current Weight",
             "value": Cweight,
-            "change": <CurrentWeight weight={user?.weight} CloseModal={CloseModal} />,
+            "change": <CurrentWeight weight={user?.CWeight} CloseModal={CloseModal} />,
         },
         {
             "label":"Height",

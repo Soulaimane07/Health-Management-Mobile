@@ -1,12 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useContext, useEffect, useState } from 'react'
-import { Image, TouchableOpacity } from 'react-native'
+import { Image, ScrollView, TouchableOpacity } from 'react-native'
 import { StyleSheet, Text, View } from 'react-native'
 import { Calories } from '../../../Components/Calcules'
 import Statusbar from '../../../Components/Statusbar'
 import TargetLeftTaken from '../../../Components/TargetLeftTaken'
 import { PracticeContext } from '../../../Components/Context' 
 import { Nutrition, calorie } from '../../../Components/cal'
+import Modal from "react-native-modal";
+
 
 export default function CaloriesPage() {
   const {user} = useContext(PracticeContext)
@@ -62,8 +64,22 @@ export default function CaloriesPage() {
     },
   ]
 
+  const [Diets, setDiets] = useState([])
+    
+  const getDiet = async () => {
+      try{
+          const Diet = await AsyncStorage.getItem("Diets")
+          console.log("==> Diet: ",Diet);
+          setDiets(JSON.parse(Diet))
+      }
+      catch(e) {
+          console.log(e);
+      }
+  }
+
   useEffect(() => {
       getMeals();
+      getDiet();
   }, []) 
 
   const meals = [
@@ -88,42 +104,23 @@ export default function CaloriesPage() {
   const calorieSTarget = Calories(user?.CWeight, Number(user?.height?.X) * 100 + Number(user?.height?.Y), user?.age, user?.sex, user?.goal, user?.activity)
   const caloriesTaken = calorie(meals).cal
 
-
-
-  const [Diets, setDiets] = useState([])
-    
-    const getDiet = async () => {
-        try{
-            const Diet = await AsyncStorage.getItem("Diets")
-            console.log("==> Diet: ",Diet);
-            setDiets(JSON.parse(Diet))
-        }
-        catch(e) {
-            console.log(e);
-        }
-    }
-
-    useEffect(()=> {
-        getDiet()
-    }, [])
-
-
     const DeleteDiet = async () => {
       await AsyncStorage.removeItem('Diets')
+      setOpenModal(false)
     }
 
+    const [openModal, setOpenModal] = useState(false)
+
   return (
-    <View style={styles.container}>
+    <ScrollView vertical style={styles.container}>
       <Statusbar color="#e71d36" style="light" />
       <View style={styles.box}>
           <TargetLeftTaken title={"Calories"} taken={caloriesTaken} target={calorieSTarget} unit={"Kcal"} color="#e71d36" />
-      </View>
       
-      <View style={styles.box}>
         <View style={styles.boxContent}>
           {calories.map((item,key)=>(
             <View key={key} style={styles.boxx}>
-              <Image source={item.logo} />
+              <Image style={{width: 40, height:40}} source={item.logo} />
               <Text style={{fontWeight: 'bold', marginBottom: 10}}> {item.title} </Text>
               <Text style={{marginBottom: 6}}> <Text style={{color: item.color}}> {item.taken} </Text> / {item.val} {item.unit} </Text>
             </View>
@@ -136,12 +133,27 @@ export default function CaloriesPage() {
           <Text style={styles.h1}> Diet </Text>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6, marginHorizontal: 40}}>
               <Text style={{fontWeight: 'bold', fontSize: 16}}> {Diets.title} </Text>
-              <TouchableOpacity>
-                <Text style={styles.button} onPress={DeleteDiet}> Delete </Text>
+              <TouchableOpacity onPress={()=> setOpenModal(true)}>
+                <Text style={styles.button} > Delete </Text>
               </TouchableOpacity>
             </View>
         </View>
       }
+
+            <Modal isVisible={openModal} style={{ flex: 1 }}>
+                <View style={{alignItems: 'center', paddingVertical: 30, paddingHorizontal: 20, borderRadius: 16, backgroundColor: "white" }}>
+                    <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> Are you sure you want to cancel your diet </Text>
+                    
+                    <View style={{flexDirection: 'row', width: "100%", marginTop: 20}}>
+                      <TouchableOpacity onPress={DeleteDiet} style={{backgroundColor: "red", marginHorizontal: 5, flex: 1, borderRadius: 16}}>
+                          <Text style={{textAlign: 'center', color: "white", padding: 10, fontWeight: 'bold', fontSize: 18}}> Yes </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity  onPress={()=> setOpenModal(false)} style={{backgroundColor: "#3FC495", marginHorizontal: 5, flex: 1, borderRadius: 16}}>
+                          <Text style={{textAlign: 'center', color: "white", padding: 10, fontWeight: 'bold', fontSize: 18}}> No </Text>
+                      </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
       
       <View style={styles.box}>
         <Text style={styles.h1}> Meals </Text>
@@ -153,13 +165,14 @@ export default function CaloriesPage() {
         ))}
       </View>
 
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     marginVertical: 20,
+    flex: 1,
   },
   box: {
     backgroundColor: "white",
@@ -172,7 +185,7 @@ const styles = StyleSheet.create({
   boxContent: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginTop: 30, 
   },
   boxx: {
     flex: 1,
