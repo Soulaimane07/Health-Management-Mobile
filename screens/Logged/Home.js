@@ -276,7 +276,7 @@ export default function Home({route, navigation}) {
                 </View>
 
                 <View style={styles.meals}>
-                <Text style={styles.Mtext}> {languageObj.home.box2.title} </Text>
+                <Text style={styles.Mtext}> {languageObj.home.box2?.title} </Text>
                 <ScrollView contentOffset={{ x: scroll() }} horizontal={true} style={styles.boxs}>
                     {meals.map((item,key)=>(
                         <TouchableOpacity key={key} onPress={()=> navigation.navigate(item.path)}>

@@ -12,9 +12,12 @@ import Gender from './Change/Gender'
 import ChangeHeight from './Change/ChangeHeight'
 import Statusbar from '../../../Components/Statusbar'
 import { GetUser } from '../../../Components/GetData'
+import { PracticeContext } from '../../../Components/Context'
 
 export function Personal() {
     const user = GetUser().user
+    const {languageObj} = useContext(PracticeContext)
+    const lang = languageObj?.account.box2.details
 
     // console.log(user.system);
     let Hunit, Wunit, separator, height, Cweight, Gweight
@@ -44,12 +47,12 @@ export function Personal() {
 
     const Goals = [
         {
-            "label":"Goal",
+            "label": lang.box1.Goal,
             "value": user?.goal,
             "change": <GoalChange goal={user?.goal} CloseModal={CloseModal} />
         },
         {
-            "label":"Goal Weight",
+            "label": lang.box1.Goalweight,
             "value": Gweight,
             "change": <GoalWeight Gweight={user?.GWeight} CloseModal={CloseModal} />
         },
@@ -57,22 +60,22 @@ export function Personal() {
 
     const Details = [
         {
-            "label":"Current Weight",
+            "label": lang.box2.currentweight,
             "value": Cweight,
             "change": <CurrentWeight weight={user?.CWeight} CloseModal={CloseModal} />,
         },
         {
-            "label":"Height",
+            "label": lang.box2.Height,
             "value": height,
             "change": <ChangeHeight height={user?.height} system={user?.system} CloseModal={CloseModal} />,
         },
         {
-            "label":"Age",
+            "label": lang.box2.Age,
             "value": user?.age && `${user?.age} years`,
             "change": <Age age={user?.age} CloseModal={CloseModal} />,
         },
         {
-            "label":"Gender",
+            "label": lang.box2.gender,
             "value": user?.sex,
             // "change": <Gender sex={user?.sex} CloseModal={CloseModal} /> ,
         },
@@ -85,7 +88,7 @@ export function Personal() {
     <Statusbar color="#3FC495" style="light" />
     <BottomSheetModalProvider>
         <View style={[styles.container, IsOpen && {backgroundColor: "#2C3333"}]}>
-            <Text style={styles.text}> YOUR GOAL </Text>
+            <Text style={styles.text}> {lang.title1} </Text>
             <View style={[styles.box, IsOpen ? {backgroundColor:"#374040"} : {backgroundColor: "white"}]}>
                 {Goals.map((item,key)=>(
                     <TouchableOpacity key={key} onPress={()=> OpenModal() & setSheetBody(item.change) }>
@@ -101,7 +104,7 @@ export function Personal() {
                 ))}
             </View>
 
-            <Text style={styles.text}> DETAILS </Text>
+            <Text style={styles.text}> {lang.title2} </Text>
             <View style={[styles.box, IsOpen ? {backgroundColor:"#374040"} : {backgroundColor: "white"}]}>
                 {Details.map((item,key)=>(
                     item.change ?

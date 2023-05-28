@@ -3,9 +3,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Account } from '../screens/Logged/Account/Account';
 import { Personal } from '../screens/Logged/Account/Personal';
 import Profile from '../screens/Logged/Account/Profile';
+import { PracticeContext } from '../Components/Context';
+import { useContext } from 'react';
 
 export default function AccountStack({route}) {
     const Stack = createNativeStackNavigator();
+    const {languageObj} = useContext(PracticeContext)
 
   return (
     <Stack.Navigator initialRouteName='account' screenOptions={{ headerShown: false }}>
@@ -29,7 +32,7 @@ export default function AccountStack({route}) {
         options={{
           headerShown: true, 
           headerStyle: {backgroundColor: '#3FC495'}, 
-          headerTintColor:"white", title:"PERSONAL DETAILS"
+          headerTintColor:"white", title: languageObj.account.box2.personaldetails
         }} 
         component={Personal} 
       />

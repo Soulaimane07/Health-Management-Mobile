@@ -3,7 +3,6 @@ import { useContext } from 'react'
 import { Alert, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5'
-import IosIcon from 'react-native-vector-icons/Ionicons'
 import { IMC } from '../../../Components/Calcules'
 import { PracticeContext } from '../../../Components/Context'
 import { GetUser } from '../../../Components/GetData'
@@ -11,7 +10,7 @@ import Statusbar from '../../../Components/Statusbar'
 
 export function Account({route, navigation}) {
   const user = GetUser().user
-  const {language} = useContext(PracticeContext)
+  const {languageObj, language} = useContext(PracticeContext)
 
     const unit = user?.system === "eu" ? "Kg" : "Lbs"
 
@@ -46,28 +45,28 @@ export function Account({route, navigation}) {
           "to": 100,
           "color":"red"
       },
-  ]
+    ]
 
     const profile = [
       {
-        "label":"Goal",
+        "label": languageObj?.account.box1.goal,
         "value": user?.goal,
       },
       {
-        "label":"Current Weight",
+        "label": languageObj?.account.box1.currentweight,
         "value": `${user?.CWeight} ${unit}`,
       },
       {
-        "label":"Goal Weight",
+        "label": languageObj?.account.box1.Goalweight,
         "value": `${user?.GWeight} ${unit}`,
       },
       {
-        "label":"IMC",
+        "label": languageObj?.account.box1.IMC,
         "value": IMC(user, IMCData).title,
         "color": IMC(user, IMCData).color,
       },
       {
-        "label":"Language",
+        "label": languageObj?.account.box1.language,
         "value": language,
       }
     ]
@@ -77,7 +76,7 @@ export function Account({route, navigation}) {
     const customization = [
       {
         "icon": <Fa5Icon style={styles.icon1} name="user-alt" size={20} color="#3FC495" />,
-        "title":"Personal details",
+        "title": languageObj?.account.box2.personaldetails,
         "path":"personal",
       },
     ]
@@ -138,7 +137,7 @@ export function Account({route, navigation}) {
         </View>
       </View>
 
-      <Text style={styles.text}> CUSTOMIZATION </Text>
+      <Text style={styles.text}> {languageObj?.account.title} </Text>
 
       <View style={styles.box}>
           {customization.map((item,key)=>(
@@ -163,7 +162,7 @@ export function Account({route, navigation}) {
           style={styles.button}
           onPress={()=> LogoutAlert()}
         >
-          <Text style={styles.Btntext}> LOG OUT </Text>
+          <Text style={styles.Btntext}> {languageObj?.account.box3.logout} </Text>
         </TouchableOpacity> 
       </View>
     </ScrollView>

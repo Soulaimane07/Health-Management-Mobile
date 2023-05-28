@@ -214,7 +214,6 @@ export default function Info({route, navigation}) {
     useEffect(()=> {
         axios.get(`${ServerLink}/food`)
             .then(res => {
-                // console.log(res.data);
                 setData(res.data)
             })
         getMeal()

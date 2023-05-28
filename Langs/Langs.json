@@ -27,16 +27,14 @@
                 "gain":"Gain weight"
             },
             "sex":{
-                "title":"Great, let's continue.",
-                "subTitle":"What sex should we use to calculate your recommendations ?",
+                "title":"What sex should we use to calculate your recommendations ?",
+                "subTitle":"Great, let's continue.",
                 "female":"Female",
                 "male":"Male"
             },
             "system":{
                 "title":"Choose your unit system?",
                 "subTitle":"Great!",
-                "us":"US system",
-                "usUnits":"feet, inches, pounds, calories",
                 "eu":"European system",
                 "euUnits":"m, kg, calories"
             },
@@ -135,11 +133,40 @@
                 "lunch":"Lunch",
                 "snacks":"Snacks",
                 "dinner":"Dinner"
+            }
+        },
+        "account": {
+            "box1":{
+                "goal":"Goal",
+                "currentweight":"Current weight",
+                "Goalweight":"Goal weight",
+                "IMC":"IMC",
+                "language":"Language"  
+            },
+            "title":"Customization",
+            "box2":{
+                "personaldetails":"Personal details",
+                "details":{
+                    "title1":"Your Goal",
+                    "box1":{
+                        "Goal":"Goal",
+                        "Goalweight":"Goal weight"
+                    },
+                    "title2":"Details",
+                    "box2":{
+                        "currentweight":"Current Weight",
+                        "Height":"Height",
+                        "Age":"Age",
+                        "gender":"Gender"
+                    }
+    
+                }
             },
             "box3":{
-                "title":"Today's Workout"
-            }
+                "logout":"LOG OUT"
+            }       
         }
+
     },
     "frensh":{
         "first":{
@@ -155,41 +182,39 @@
             "createAccount":"Créer un compte"
         },
         "signup":{
-            "welcome":"Accueillir! Laissez-nous personnaliser Health Manager pour vos objectifs.",
+            "welcome":"Bienvenu! Laissez-nous personnaliser Health Manager pour vos objectifs.",
             "continue":"Continuer",
             "title":"Créez votre compte",
             "fname":"Prénom",
-            "lname":"Nom de famille",
+            "lname":"Nom",
             "create":"Créer",
             "goal":{
-                "title":"Quel objectif avez-vous en tête ?",
-                "subTitle":"Apprenons à mieux vous connaître !",
+                "title":"Quel est votre objectif?",
+                "subTitle":"Permettez-nous à mieux vous connaître !",
                 "lose":"Perdre du poids",
-                "maintain":"Maintien du poids",
-                "gain":"Prise de poids"
+                "maintain":"Maintenir votre poids",
+                "gain":"Gagner du poids"
             },
             "sex":{
-                "title":"Quel sexe doit-on utiliser pour calculer vos recommandations ?",
+                "title":"Votre sexe ?",
                 "subTitle":"Super, continuons.",
-                "female":"Femelle",
-                "male":"Mâle"
+                "female":"Femme",
+                "male":"Homme"
             },
             "system":{
                 "title":"Choisissez votre système d'unités ?",
                 "subTitle":"Super!",
-                "us":"Système Américain",
-                "usUnits":"pieds, pouces, livres, calories",
                 "eu":"Système Européen",
                 "euUnits":"mètre, kilogramme, calories"
             },
             "age":{
-                "title":"Quel âge as tu?",
+                "title":"Quel âge avez vous ?",
                 "subTitle":"J'ai compris",
                 "unit":"Ans"
             },
             "height":{
-                "title":"Quelle est ta taille?",
-                "subTitle":"Merci, vous allez très bien !",
+                "title":"Votre taille?",
+                "subTitle":"Merci, vous avancez très bien !",
                 "euUnit":"mètre"
             },
             "weight":{
@@ -199,11 +224,11 @@
             },
             "Gweight":{
                 "title":"Quel poids voulez-vous atteindre?.",
-                "subTitle":"Super, presque terminé !"
+                "subTitle":"Super,vous avez presque terminé !"
             },
             "active":{
                 "title":"Votre niveau d'activité ?",
-                "subTitle":"Merci, vous allez très bien !",
+                "subTitle":"Merci, vous avancez très bien !",
                 "sedentary":"Sédentaire",
                 "slightly":"Légèrement actif",
                 "moderately":"Modérément actif",
@@ -218,8 +243,8 @@
                 },
                 "getStarted":{
                     "box1":{
-                        "title":",votre plan de santé personnalisé est prêt!",
-                        "text":"Suivez vos recommandations et vous atteindrez votre objectif."
+                        "title":"votre plan de santé personnalisé est prêt!",
+                        "text":"Suivez nos recommandations pour atteindre votre objectif."
                     },
                     "box2":{
                         "title":"Indice de masse corporelle (IMC)",
@@ -233,7 +258,7 @@
                     },
                     "box3":{
                         "title":"Recommandations nutritionnelles quotidiennes",
-                        "text":"Vous pouvez le modifier à tout moment dans l'application"
+                        "text":"Vous pouvez les modifier à tout moment dans l'application"
                     },
                     "box4":{
                         "title":"Comment atteindre vos objectifs",
@@ -242,7 +267,7 @@
                             "text2":"Suivez votre recommandation calorique quotidienne",
                             "text3":"Équilibrez votre consommation de glucides, de protéines, de lipides et de fibres alimentaires",
                             "text4":"Restez hydraté et surveillez votre consommation d'eau",
-                            "text5":"Enregistrez vos progrès en mettant à jour votre poids ou vos mensurations"
+                            "text5":"Enregistrez vos progrès en mettant à jour votre poids ou vos mesures"
                         }
                     },
                     "button":"COMMENCER"
@@ -251,25 +276,70 @@
         },
         "home":{
             "header":{
-                "morning":"Good Morning",
+                "morning":"Bonjour",
                 "afternoon":"Bon après-midi",
-                "evening":"Bonne soirée",
-                "night":"Bonne nuit"
+                "evening":"Bonsoir",
+                "night":"Bonsoir"
             },
             "box1":{
                 "title":"Les objectifs d'aujourd'hui",
                 "target1":{
                     "target":"Calories cibles",
-                    "remaining":"Calories restantes"
+                    "remaining":"Calories restantes",
+                    "calories":{
+                        "taken":"Consommées",
+                        "target":"Objectif",
+                        "left":"Restantes",
+                        "carbs":"Glucides",
+                        "protein":"Protéine",
+                        "fat":"Lipides",
+                    "Meals":{
+                        "Meals":"Meals",
+                        "Breakfat":"Petit-déjeuner",
+                        "Lunch":"Déjeuner",
+                        "Snacks":"Collations",
+                        "Dinner":"Dîner"
+                    },
+                   "confirmation":{
+                    "texte":"Êtes-vous sûr de vouloir annuler votre plan",
+                    "yes":"Oui",
+                    "no":"Non"
+                    }
+                 }
                 },
                 "target2":{
                     "target":"Cible de pas",
-                    "remaining":"Étapes restantes"
+                    "remaining":"Pas restants",
+                    "Steps":{
+                        "box1":{
+                            "taken":"Marchés",
+                            "target":"Objectif",
+                            "left":"Restante"
+                        },
+                        "box2":{
+                            "stepsnumber":"Nombre de pas",
+                            "Step":"Pas",
+                            "text":"Le nombre entré sera ajouté aux nombre de pas marchés"
+                        }
+
                 },
                 "target3":{
-                    "target":"Eau cible",
-                    "remaining":"Eau restante"
+                    "target":"Quantité d'eau cible",
+                    "remaining":"Quantité d'eau restante",
+                    "Steps":{
+                        "box1":{
+                            "taken":"Consomées",
+                            "target":"Objectif",
+                            "left":"Restante"
+                        },
+                        "box2":{
+                            "waterconsumptiob":"Eau consommée",
+                            "Step":"ml",
+                            "text":"La quantité entrée sera ajouté à la quantité consommée"
+                        }
+
                 }
+            }
             },
             "box2":{
                 "title":"Les repas d'aujourd'hui",
@@ -277,9 +347,88 @@
                 "lunch":"Déjeuner",
                 "snacks":"Collations",
                 "dinner":"Dîner"
+            }
+        },
+        "account": {
+            "box1":{
+                "goal":"Objectift",
+                "currentweight":"Poids actuel",
+                "Goalweight":"Objectif de poids",
+                "IMC":"BMI",
+                "language":"Langue"  
+            },
+            "title":"Personnalisation",
+            "box2":{
+                "personaldetails":"Détails personnels",
+                "details":{
+                    "title1":"Votre objectif",
+                    "box1":{
+                        "Goal":"Objectif",
+                        "Goalweight":"Objectif de poids"
+                    },
+                    "title2":"Détails",
+                    "box2":{
+                        "currentweight":"Poids actuel",
+                        "Height":"Taille",
+                        "Age":"Âge",
+                        "gender":"Sexe"
+                    }
+    
+                }
             },
             "box3":{
-                "title":"L'entraînement d'aujourd'hui"
+                "logout":"Se déconnecter"
+            }       
+        },
+        "meals":{
+            "Breakfast":{
+                "box1":{
+                    "carbs":"Glucides",
+                    "protein":"Protéine",
+                    "fat":"Lipides"
+                },
+                "box2":{
+                    "mybreakfat":"Mon petit déjeuner"
+                }
+            },
+            "Lunch":{
+                "box1":{
+                    "carbs":"Glucides",
+                    "protein":"Protéine",
+                    "fat":"Lipides"
+                },
+                "box2":{
+                    "mylunch":"Mon déjeuner"
+                }
+            },
+             "snacks":{
+                "box1":{
+                    "carbs":"Glucides",
+                    "protein":"Protéine",
+                    "fat":"Lipides"
+                },
+                "box2":{
+                    "mysnacks":"Mes collations"
+                }
+             },  
+            "lunch":{
+                "box1":{
+                    "carbs":"Glucides",
+                    "protein":"Protéine",
+                    "fat":"Lipides"
+                },
+                "box2":{
+                    "mylunch":"Mon dîner"
+                }
+            },
+            "food":{
+                "title":"Valeurs pour 100 grammes",
+                 "carbs":"Glucides",
+                 "protein":"Protéine",
+                 "fat":"Lipides",
+                 "fibre":"Fibres",
+                 "guantity":"Quantité"
+
             }
         }
     },
@@ -425,4 +574,5 @@
             }
         }
     }
+  }
 }
